@@ -250,6 +250,12 @@
         <button id="bonfireModeBtn" class="text-xs font-medium px-3 py-1.5 rounded-full bg-orange-500/20 hover:bg-orange-500/35 border border-orange-400/40 text-amber-100 transition">
           🔥 Костёр
         </button>
+
+        <!-- ВОССТАНОВЛЕННАЯ КНОПКА ЗАГРУЗКИ JSON/HTML -->
+        <label for="fileInput" class="cursor-pointer inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/30 text-amber-100 transition">
+          <span>📂 Чат</span>
+          <input id="fileInput" type="file" accept=".json,.html" multiple class="hidden" />
+        </label>
       </div>
     </div>
   </header>
@@ -293,7 +299,7 @@
           <div class="mt-2 flex items-baseline justify-center">
             <span id="messagesCounter" class="text-3xl sm:text-5xl font-bold text-amber-gradient">420</span>
           </div>
-          <p class="mt-1.5 text-xs text-amber-100/60">В нашей истории</p>
+          <p id="dataSourceText" class="mt-1.5 text-xs text-amber-100/60">Встроенный архив</p>
         </div>
 
         <div class="glass-card rounded-3xl p-6 relative overflow-hidden">
@@ -507,7 +513,7 @@
           <div>
             <div class="flex items-center justify-between">
               <h3 class="font-serif text-2xl font-bold text-amber-100">Биоритмы (00:00 – 23:00)</h3>
-              <span class="text-xs px-2.5 py-1 rounded-full bg-orange-500/15 border border-orange-400/30 text-orange-300">Пик: 21:00</span>
+              <span id="peakHourBadge" class="text-xs px-2.5 py-1 rounded-full bg-orange-500/15 border border-orange-400/30 text-orange-300">Пик: 21:00</span>
             </div>
             <p class="text-xs text-amber-100/60 mt-1">Часы нашей максимальной активности</p>
           </div>
@@ -521,6 +527,13 @@
           <div class="relative mt-4 h-64 w-full">
             <canvas id="pulseChart"></canvas>
           </div>
+        </div>
+
+        <!-- Тепловая карта слов -->
+        <div class="reveal glass-card rounded-3xl p-6 sm:p-8 lg:col-span-12">
+          <h3 class="font-serif text-2xl font-bold text-amber-100">Тепловая карта наших слов</h3>
+          <p class="text-xs text-amber-100/60 mt-1">Главные слова из переписки</p>
+          <div id="wordCloudContainer" class="mt-4 flex flex-wrap gap-2.5"></div>
         </div>
       </div>
     </section>
@@ -542,13 +555,13 @@
 
         <div class="mt-8 flex flex-wrap justify-center gap-3">
           <button data-level="1" class="intimacy-lvl-btn choice-btn active px-4 py-2 rounded-full glass-card text-xs sm:text-sm font-semibold text-amber-100">
-            1. 🪶 Тепло и мурашки (Тактильность)
+            1. 🪶 Тепло и мурашки
           </button>
           <button data-level="2" class="intimacy-lvl-btn choice-btn px-4 py-2 rounded-full glass-card text-xs sm:text-sm font-semibold text-amber-100">
-            2. 🔥 Искры и притяжение (Флирт)
+            2. 🔥 Искры и притяжение
           </button>
           <button data-level="3" class="intimacy-lvl-btn choice-btn px-4 py-2 rounded-full glass-card text-xs sm:text-sm font-semibold text-amber-100">
-            3. 🌙 Только между нами (Откровенно)
+            3. 🌙 Только между нами
           </button>
         </div>
 
@@ -695,55 +708,47 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. ИДЕАЛЬНОЕ СВЕДЕНИЕ ХЭШЕЙ ФАЙЛОВ ИЗ РЕПОЗИТОРИЯ
+      // 1. ТОЧНЫЙ СПИСОК ФАЙЛОВ С ЗАМЕНОЙ ПРОБЕЛОВ НА %20
       const POLAROID_ITEMS = [
         {
           src: "c988e639-2e04-4c3d-86d2-12057fb21bc1.jpg",
           caption: "Искры в небе и наш поцелуй на набережной 🎆",
-          rotate: "-2.5deg",
-          badge: "Главный кадр"
-        },
-        {
-          src: "ee8cf97c-cf68-45f2-bf34-d194ff3a0c6c.jpg",
-          caption: "Слепок наших рук — теперь не расцепить 🤍",
-          rotate: "2deg",
-          badge: "Июль 2026"
+          rotate: "-2.5deg", badge: "Главный кадр"
         },
         {
           src: "0622a68e-afcc-4977-bc57-619328f08ee9.jpg",
+          caption: "Слепок наших рук — теперь не расцепить 🤍",
+          rotate: "2deg", badge: "Июль 2026"
+        },
+        {
+          src: "d308ab99-1af6-4f35-95a5-6f202f3bd7b0.jpg",
           caption: "Домашний СПА-режим: Ваня в масочке и поцелуй 😘",
-          rotate: "-1.8deg",
-          badge: "Уют в кровати"
+          rotate: "-1.8deg", badge: "Уют в кровати"
         },
         {
-          src: "14d66d16%2066c1%204e85%20afd1%2079dc439810ad.jpg", // Пробелы заменены аппаратно!
+          src: "14d66d16%2066c1%204e85%20afd1%2079dc439810ad.jpg", // ИСПРАВЛЕН ПРОБЕЛ
           caption: "Когда сопротивляться её бьюти-процедурам бесполезно 🤪",
-          rotate: "2.4deg",
-          badge: "10 октября"
+          rotate: "2.4deg", badge: "10 октября"
         },
         {
-          src: "920668c6-cb69-43df-a250-2efbbdff9d74.jpg",
+          src: "ee8cf97c-cf68-45f2-bf34-d194ff3a0c6c.jpg",
           caption: "Любимые карие глаза и наш вайб 👓❤️",
-          rotate: "-2deg",
-          badge: "Два сапога пара"
+          rotate: "-2deg", badge: "Два сапога пара"
         },
         {
           src: "f7e0c8c7-31bc-44a6-99fd-6f12702e808a.jpg",
           caption: "Тёплые объятия в зеркале лифта 🫂",
-          rotate: "1.6deg",
-          badge: "Осень 2026"
+          rotate: "1.6deg", badge: "Осень 2026"
         },
         {
-          src: "d308ab99-1af6-4f35-95a5-6f202f3bd7b0.jpg",
+          src: "920668c6-cb69-43df-a250-2efbbdff9d74.jpg",
           caption: "Спойлер: наш будущий котёнок, когда съедемся 🐱",
-          rotate: "-2.2deg",
-          badge: "Мечта"
+          rotate: "-2.2deg", badge: "Мечта"
         },
         {
           src: "4241d149-ac1c-4254-a68b-28cae8d706f7.jpg",
           caption: "А может ещё и такого ушастого Корги в команду? 🐕",
-          rotate: "2.1deg",
-          badge: "Будущий друг"
+          rotate: "2.1deg", badge: "Будущий друг"
         }
       ];
 
@@ -791,7 +796,7 @@
         if (e.target.id === 'photoModal') document.getElementById('photoModal').classList.add('hidden');
       });
 
-      // 2. АВТОЗАПУСК МУЗЫКИ ПРИ ПЕРВОМ КАСАНИИ ЭКРАНА НА ТЕЛЕФОНЕ
+      // 2. АВТОЗАПУСК МУЗЫКИ
       const bgMusic = document.getElementById('bgMusic');
       const playBtn = document.getElementById('playMusicBtn');
       const vinylIcon = document.getElementById('vinylIcon');
@@ -809,9 +814,7 @@
           musicTitle.textContent = 'Пауза • Включить ▶';
         }
       }
-
       playBtn.addEventListener('click', startAudio);
-
       document.body.addEventListener('click', function unlock() {
         if (bgMusic.paused) {
           bgMusic.play().then(() => {
@@ -890,36 +893,237 @@
       document.getElementById('bonfireModeBtn').addEventListener('click', toggleBonfire);
       document.getElementById('daysCardEasterEgg').addEventListener('click', toggleBonfire);
 
-      // 4. ГРАФИКИ
+      // 4. ПАРСЕР ЧАТА + АНАЛИТИКА + ГРАФИКИ
+      const FALLBACK_DATA = {
+        total_messages: { "Ваня": 225, "Наташа": 195 },
+        voice_seconds: 682,
+        messages_by_hour: {
+          "0": 2, "1": 1, "6": 2, "7": 12, "8": 1, "9": 4, "10": 35, "11": 15,
+          "12": 13, "13": 16, "14": 29, "15": 16, "16": 6, "17": 23, "18": 58,
+          "19": 77, "20": 95, "21": 156, "22": 62, "23": 1
+        },
+        messages_by_day: {
+          "2024-11-22": 18, "2024-12-03": 9, "2024-12-18": 22, "2025-01-01": 12,
+          "2025-02-02": 122, "2025-02-06": 66, "2025-02-09": 88, "2025-02-12": 103,
+          "2025-02-14": 98, "2025-03-03": 52, "2025-04-25": 36
+        },
+        top_words: [
+          ["люблю ❤️", 32], ["спасибо 💛", 28], ["ахахах 😄", 39], ["хорошо", 21],
+          ["вместе", 18], ["молодец", 14], ["привет", 14], ["котёнок 🐱", 12]
+        ]
+      };
+
+      let balanceChartInstance = null;
+      let biorhythmChartInstance = null;
+      let pulseChartInstance = null;
+
       Chart.defaults.color = 'rgba(253, 230, 138, 0.72)';
       Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
 
-      new Chart(document.getElementById('balanceChart').getContext('2d'), {
-        type: 'doughnut',
-        data: {
-          labels: ['Ваня', 'Наташа'],
-          datasets: [{ data: [225, 195], backgroundColor: ['#fbbf24', '#f97316'], borderColor: '#160d09', borderWidth: 4 }]
-        },
-        options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { position: 'bottom', labels: { color: '#fde68a' } } } }
-      });
+      function showToast(text, icon = '✨') {
+        const toast = document.getElementById('toastMessage');
+        document.getElementById('toastText').textContent = text;
+        document.getElementById('toastIcon').textContent = icon;
+        toast.classList.remove('opacity-0', 'translate-y-4');
+        toast.classList.add('opacity-100', 'translate-y-0');
+        setTimeout(() => {
+          toast.classList.remove('opacity-100', 'translate-y-0');
+          toast.classList.add('opacity-0', 'translate-y-4');
+        }, 3800);
+      }
 
-      new Chart(document.getElementById('biorhythmChart').getContext('2d'), {
-        type: 'bar',
-        data: {
-          labels: Array.from({ length: 24 }, (_, i) => `${String(i).padStart(2, '0')}:00`),
-          datasets: [{ data: [2, 1, 0, 0, 0, 0, 2, 12, 1, 4, 35, 15, 13, 16, 29, 16, 6, 23, 58, 77, 95, 156, 62, 1], backgroundColor: '#fbbf24', borderRadius: 6 }]
-        },
-        options: { responsive: true, maintainAspectRatio: false, scales: { x: { grid: { display: false } }, y: { grid: { color: 'rgba(251,191,36,0.08)' } } }, plugins: { legend: { display: false } } }
-      });
+      function normalizeUserName(rawName) {
+        if (!rawName) return null;
+        const trimmed = String(rawName).trim();
+        if (trimmed === 'Pokssi' || trimmed.toLowerCase().includes('ван') || trimmed.toLowerCase().includes('чистяков')) return 'Ваня';
+        if (trimmed.includes('Натка') || trimmed.toLowerCase().includes('наташ')) return 'Наташа';
+        return trimmed;
+      }
 
-      new Chart(document.getElementById('pulseChart').getContext('2d'), {
-        type: 'line',
-        data: {
-          labels: ["Ноябрь", "Декабрь", "Январь", "2 фев", "6 фев", "9 фев", "12 фев", "14 фев", "Март", "Апрель"],
-          datasets: [{ data: [18, 22, 12, 122, 66, 88, 103, 98, 52, 36], borderColor: '#fbbf24', backgroundColor: 'rgba(245,158,11,0.2)', fill: true, tension: 0.4 }]
-        },
-        options: { responsive: true, maintainAspectRatio: false, scales: { x: { grid: { display: false } }, y: { grid: { color: 'rgba(251,191,36,0.08)' } } }, plugins: { legend: { display: false } } }
-      });
+      function parseTelegramJSON(rawJson) {
+        if (rawJson && Array.isArray(rawJson.messages)) {
+          const totalByUser = { "Ваня": 0, "Наташа": 0 };
+          const byHour = {};
+          for (let h = 0; h < 24; h++) byHour[String(h)] = 0;
+          const byDay = {};
+          let voiceSeconds = 0;
+          const wordFreq = {};
+          const stopWords = new Set(["это", "как", "так", "что", "мне", "там", "ещё", "уже", "или", "вот", "просто", "если", "меня", "тебе", "тебя", "будет", "надо", "только", "тоже", "было", "нет", "ну", "да", "не", "на", "по", "за", "из", "от", "до", "же", "бы", "то"]);
+
+          rawJson.messages.forEach((msg) => {
+            if (!msg || msg.type !== 'message' || !msg.from || !msg.date) return;
+            const user = normalizeUserName(msg.from);
+            if (user !== 'Ваня' && user !== 'Наташа') return;
+
+            totalByUser[user] = (totalByUser[user] || 0) + 1;
+
+            if (msg.media_type === 'voice_message' || msg.media_type === 'video_message') {
+              voiceSeconds += Number(msg.duration_seconds || 0);
+            }
+
+            const dt = new Date(msg.date);
+            if (!isNaN(dt.getTime())) {
+              const hour = String(dt.getHours());
+              byHour[hour] = (byHour[hour] || 0) + 1;
+              const dayStr = msg.date.slice(0, 10);
+              byDay[dayStr] = (byDay[dayStr] || 0) + 1;
+            }
+
+            const txt = typeof msg.text === 'string' ? msg.text : '';
+            txt.toLowerCase().replace(/[^а-яёa-z\s]/g, ' ').split(/\s+/).forEach(w => {
+              if (w.length >= 4 && !stopWords.has(w)) {
+                wordFreq[w] = (wordFreq[w] || 0) + 1;
+              }
+            });
+          });
+
+          const sortedDays = {};
+          Object.keys(byDay).sort().forEach(d => { sortedDays[d] = byDay[d]; });
+          const topWords = Object.entries(wordFreq).sort((a, b) => b[1] - a[1]).slice(0, 14);
+
+          return {
+            total_messages: totalByUser,
+            voice_seconds: voiceSeconds,
+            messages_by_hour: byHour,
+            messages_by_day: sortedDays,
+            top_words: topWords.length ? topWords : FALLBACK_DATA.top_words
+          };
+        }
+        return { ...FALLBACK_DATA, ...rawJson };
+      }
+
+      async function parseMultipleHTMLFiles(files) {
+        const totalByUser = { "Ваня": 0, "Наташа": 0 };
+        const byHour = {};
+        for (let h = 0; h < 24; h++) byHour[String(h)] = 0;
+        const byDay = {};
+        let voiceCount = 0;
+        let lastSender = 'Ваня';
+
+        const parser = new DOMParser();
+        for (const file of files) {
+          const text = await file.text();
+          const doc = parser.parseFromString(text, 'text/html');
+          const msgs = doc.querySelectorAll('.message.default');
+          msgs.forEach(m => {
+            const fromEl = m.querySelector('.from_name');
+            if (fromEl) lastSender = normalizeUserName(fromEl.textContent) || lastSender;
+            if (lastSender === 'Ваня' || lastSender === 'Наташа') {
+              totalByUser[lastSender] = (totalByUser[lastSender] || 0) + 1;
+            }
+            if (m.querySelector('.media_voice_message')) voiceCount++;
+            const dateEl = m.querySelector('.pull_right.date.details');
+            if (dateEl && dateEl.getAttribute('title')) {
+              const title = dateEl.getAttribute('title'); 
+              const parts = title.split(' ');
+              if (parts.length >= 2) {
+                const dParts = parts[0].split('.');
+                const tParts = parts[1].split(':');
+                if (dParts.length === 3 && tParts.length >= 2) {
+                  const isoDay = `${dParts[2]}-${dParts[1]}-${dParts[0]}`;
+                  byDay[isoDay] = (byDay[isoDay] || 0) + 1;
+                  byHour[String(parseInt(tParts[0], 10))] = (byHour[String(parseInt(tParts[0], 10))] || 0) + 1;
+                }
+              }
+            }
+          });
+        }
+        const sortedDays = {};
+        Object.keys(byDay).sort().forEach(d => { sortedDays[d] = byDay[d]; });
+        return {
+          total_messages: totalByUser,
+          voice_seconds: voiceCount * 18,
+          messages_by_hour: byHour,
+          messages_by_day: sortedDays,
+          top_words: FALLBACK_DATA.top_words
+        };
+      }
+
+      function animateCounter(elementId, targetValue) {
+        const el = document.getElementById(elementId);
+        if (!el) return;
+        const startTime = performance.now();
+        function update(now) {
+          const progress = Math.min((now - startTime) / 1600, 1);
+          const eased = 1 - Math.pow(1 - progress, 4);
+          el.textContent = Math.round(targetValue * eased).toLocaleString('ru-RU');
+          if (progress < 1) requestAnimationFrame(update);
+        }
+        requestAnimationFrame(update);
+      }
+
+      function renderDashboard(data, sourceLabel) {
+        if(sourceLabel) document.getElementById('dataSourceText').textContent = sourceLabel;
+        const vanyaCount = Number(data.total_messages['Ваня'] || 0);
+        const natashaCount = Number(data.total_messages['Наташа'] || 0);
+        const total = vanyaCount + natashaCount;
+
+        animateCounter('messagesCounter', total);
+        animateCounter('voiceMinutesCounter', Math.max(1, Math.round((data.voice_seconds || 680) / 60)));
+        document.getElementById('vanyaCountText').textContent = `${vanyaCount} сообщ.`;
+        document.getElementById('natashaCountText').textContent = `${natashaCount} сообщ.`;
+
+        const wc = document.getElementById('wordCloudContainer');
+        wc.innerHTML = '';
+        (data.top_words || FALLBACK_DATA.top_words).forEach(([word, count]) => {
+          const badge = document.createElement('span');
+          badge.className = 'px-3.5 py-1.5 rounded-full bg-amber-500/15 border border-amber-400/25 text-amber-100 text-xs sm:text-sm flex items-center gap-2';
+          badge.innerHTML = `<span>${word}</span><span class="text-amber-400 font-bold">${count}</span>`;
+          wc.appendChild(badge);
+        });
+
+        const ctx1 = document.getElementById('balanceChart').getContext('2d');
+        if (balanceChartInstance) balanceChartInstance.destroy();
+        balanceChartInstance = new Chart(ctx1, {
+          type: 'doughnut',
+          data: {
+            labels: ['Ваня', 'Наташа'],
+            datasets: [{ data: [vanyaCount, natashaCount], backgroundColor: ['#fbbf24', '#f97316'], borderColor: '#160d09', borderWidth: 4 }]
+          },
+          options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { position: 'bottom', labels: { color: '#fde68a' } } } }
+        });
+
+        const ctx2 = document.getElementById('biorhythmChart').getContext('2d');
+        const hourLabels = Array.from({ length: 24 }, (_, i) => `${String(i).padStart(2, '0')}:00`);
+        const hourValues = Array.from({ length: 24 }, (_, i) => Number(data.messages_by_hour[String(i)] || 0));
+        if (biorhythmChartInstance) biorhythmChartInstance.destroy();
+        biorhythmChartInstance = new Chart(ctx2, {
+          type: 'bar',
+          data: { labels: hourLabels, datasets: [{ data: hourValues, backgroundColor: '#fbbf24', borderRadius: 6 }] },
+          options: { responsive: true, maintainAspectRatio: false, scales: { x: { grid: { display: false } }, y: { grid: { color: 'rgba(251,191,36,0.08)' } } }, plugins: { legend: { display: false } } }
+        });
+
+        const ctx3 = document.getElementById('pulseChart').getContext('2d');
+        const dayEntries = Object.entries(data.messages_by_day || {});
+        if (pulseChartInstance) pulseChartInstance.destroy();
+        pulseChartInstance = new Chart(ctx3, {
+          type: 'line',
+          data: {
+            labels: dayEntries.map(([d]) => d),
+            datasets: [{ data: dayEntries.map(([, c]) => Number(c)), borderColor: '#fbbf24', backgroundColor: 'rgba(245,158,11,0.2)', fill: true, tension: 0.4 }]
+          },
+          options: { responsive: true, maintainAspectRatio: false, scales: { x: { grid: { display: false } }, y: { grid: { color: 'rgba(251,191,36,0.08)' } } }, plugins: { legend: { display: false } } }
+        });
+      }
+      renderDashboard(FALLBACK_DATA);
+
+      // Обработчик загрузки
+      const fileInputEl = document.getElementById('fileInput');
+      if (fileInputEl) {
+        fileInputEl.addEventListener('change', async (e) => {
+          const files = Array.from(e.target.files || []);
+          if (!files.length) return;
+          if (files[0].name.endsWith('.json')) {
+            const text = await files[0].text();
+            renderDashboard(parseTelegramJSON(JSON.parse(text)), files[0].name);
+            showToast(`Загружен JSON: ${files[0].name}`, '💛');
+          } else {
+            const aggregated = await parseMultipleHTMLFiles(files);
+            renderDashboard(aggregated, `Собрано файлов: ${files.length}`);
+            showToast(`Обработано ${files.length} HTML-файлов чата!`, '🔥');
+          }
+        });
+      }
 
       // 5. ИНТИМНЫЕ КАРТЫ
       const DECK = {
@@ -1020,10 +1224,6 @@
         heartClicks += 10;
         document.getElementById('clickCount').textContent = heartClicks;
         document.getElementById('clickQuote').textContent = SONG_LYRICS[(heartClicks / 10) % SONG_LYRICS.length];
-      });
-
-      document.querySelectorAll('.flip-card').forEach(c => {
-        c.addEventListener('click', () => c.classList.toggle('is-flipped'));
       });
 
       const obs = new IntersectionObserver((entries) => {
