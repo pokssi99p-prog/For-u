@@ -53,7 +53,6 @@
       min-height: 100vh;
     }
 
-    /* Холст для золотых искр костра */
     #embersCanvas {
       position: fixed;
       inset: 0;
@@ -82,7 +81,6 @@
         inset 0 1px 1px rgba(255, 235, 200, 0.16);
     }
 
-    /* Polaroid Карточки */
     .polaroid-card {
       background: linear-gradient(145deg, #271710 0%, #190e09 100%);
       border: 1px solid rgba(251, 191, 36, 0.25);
@@ -128,7 +126,6 @@
       transform: translateY(0);
     }
 
-    /* 3D Flip Cards */
     .flip-card {
       perspective: 1200px;
       height: 265px;
@@ -195,7 +192,6 @@
       box-shadow: 0 0 25px rgba(245, 158, 11, 0.22);
     }
 
-    /* Анимация виниловой пластинки */
     @keyframes spinSlow {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
@@ -211,16 +207,14 @@
 </head>
 <body class="selection:bg-amber-500/30 selection:text-amber-200">
 
-  <!-- Холст с золотыми искрами костра -->
   <canvas id="embersCanvas"></canvas>
 
-  <!-- Скрытый аудиоплеер (пробует загрузить music.mp3 из папки репозитория) -->
+  <!-- Аудиоплеер: точный файл из репозитория -->
   <audio id="bgMusic" loop preload="auto">
-    <source src="music.mp3" type="audio/mpeg" />
-    <source src="track.mp3" type="audio/mpeg" />
+    <source src="Pizza_-_Romans_70460982.mp3" type="audio/mpeg" />
   </audio>
 
-  <!-- Плавающий виниловый плеер внизу слева -->
+  <!-- Виниловый плеер -->
   <div class="fixed bottom-5 left-5 z-50 glass-card rounded-full p-2 pr-4 flex items-center gap-3 border border-amber-400/40 shadow-2xl">
     <button id="playMusicBtn" class="w-11 h-11 rounded-full bg-gradient-to-tr from-amber-500 to-orange-600 flex items-center justify-center text-stone-950 font-bold shadow-md hover:scale-105 transition">
       <span id="vinylIcon" class="vinyl-spin text-xl">💿</span>
@@ -228,10 +222,6 @@
     <div class="text-left">
       <div class="flex items-center gap-2">
         <span id="musicStatusTitle" class="text-xs font-bold text-amber-100">Наш саундтрек • Включить ▶</span>
-        <label for="audioFileInput" class="cursor-pointer text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-200 hover:bg-amber-500/30" title="Выбрать mp3 файл с устройства">
-          🎵 Файл
-          <input id="audioFileInput" type="file" accept="audio/*" class="hidden" />
-        </label>
       </div>
       <p id="lyricTicker" class="text-[11px] text-amber-300/80 italic max-w-[210px] sm:max-w-[260px] truncate">
         «И тем теплее, чем ближе к костру...»
@@ -239,7 +229,6 @@
     </div>
   </div>
 
-  <!-- Верхняя навигация -->
   <header class="sticky top-0 z-40 backdrop-blur-md bg-[#0d0604]/85 border-b border-amber-500/10">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between gap-3">
       <div class="flex items-center gap-2.5">
@@ -260,27 +249,13 @@
       </div>
 
       <div class="flex items-center gap-2">
-        <!-- Пасхалка: Режим костра -->
         <button id="bonfireModeBtn" class="text-xs font-medium px-3 py-1.5 rounded-full bg-orange-500/20 hover:bg-orange-500/35 border border-orange-400/40 text-amber-100 transition">
           🔥 Костёр
         </button>
-
-        <!-- Загрузка JSON / HTML -->
-        <label for="fileInput" class="cursor-pointer inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/30 text-amber-100 transition">
-          <span>📂 Чат</span>
-          <input id="fileInput" type="file" accept=".json,.html" multiple class="hidden" />
-        </label>
       </div>
     </div>
   </header>
 
-  <!-- Всплывающее уведомление -->
-  <div id="toastMessage" class="fixed bottom-5 right-5 z-50 pointer-events-none opacity-0 translate-y-4 transition-all duration-300 glass-card px-4 py-3 rounded-2xl border border-amber-400/40 text-sm text-amber-100 flex items-center gap-2.5 shadow-2xl">
-    <span id="toastIcon">✨</span>
-    <span id="toastText">Готово</span>
-  </div>
-
-  <!-- Модальное окно просмотра фото во весь экран -->
   <div id="photoModal" class="fixed inset-0 z-50 hidden bg-black/90 backdrop-blur-xl flex items-center justify-center p-4">
     <div class="max-w-3xl w-full glass-card rounded-3xl p-4 sm:p-6 text-center relative border border-amber-400/40">
       <button id="closeModalBtn" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-stone-900/80 border border-amber-400/30 text-amber-200 hover:text-white">✕</button>
@@ -289,12 +264,9 @@
     </div>
   </div>
 
-  <!-- Основной контент -->
   <main class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-28 space-y-24 sm:space-y-32">
 
-    <!-- ==========================================
-         1. HERO SECTION + СТРОЧКА ИЗ ВАШЕЙ ПЕСНИ
-         ========================================== -->
+    <!-- 1. HERO -->
     <section class="reveal text-center pt-4 sm:pt-8">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card text-amber-300/90 text-xs sm:text-sm font-medium mb-6 tracking-wider uppercase">
         <span>✨ «Сдаётся мне, теперь это надолго...»</span>
@@ -308,21 +280,20 @@
         Два сапога пара: от спасённых оценок и поцелуев под салютом до войны подарков «назло» и мечты о нашем котёнке.
       </p>
 
-      <!-- 4 главных счетчика -->
       <div class="mt-10 sm:mt-14 grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto">
-        <div id="daysCardEasterEgg" class="glass-card rounded-3xl p-6 relative overflow-hidden cursor-pointer group" title="Нажми для секретного эффекта!">
+        <div id="daysCardEasterEgg" class="glass-card rounded-3xl p-6 relative overflow-hidden cursor-pointer group" title="Нажми для эффекта костра!">
           <p class="text-xs uppercase tracking-widest text-amber-200/60 font-medium">Дней вместе</p>
           <div class="mt-2 flex items-baseline justify-center gap-1">
             <span class="text-3xl sm:text-5xl font-bold text-amber-300 group-hover:scale-110 transition">180</span>
             <span class="text-2xl sm:text-4xl font-bold text-amber-400">+</span>
           </div>
-          <p class="mt-1.5 text-xs text-amber-100/60">Нажми сюда 🔥</p>
+          <p class="mt-1.5 text-xs text-amber-100/60">Зажечь костёр 🔥</p>
         </div>
 
         <div class="glass-card rounded-3xl p-6 relative overflow-hidden">
           <p class="text-xs uppercase tracking-widest text-amber-200/60 font-medium">Всего сообщений</p>
           <div class="mt-2 flex items-baseline justify-center">
-            <span id="messagesCounter" class="text-3xl sm:text-5xl font-bold text-amber-gradient">0</span>
+            <span id="messagesCounter" class="text-3xl sm:text-5xl font-bold text-amber-gradient">420</span>
           </div>
           <p class="mt-1.5 text-xs text-amber-100/60">В нашей истории</p>
         </div>
@@ -330,7 +301,7 @@
         <div class="glass-card rounded-3xl p-6 relative overflow-hidden">
           <p class="text-xs uppercase tracking-widest text-amber-200/60 font-medium">Голосовые и кружки</p>
           <div class="mt-2 flex items-baseline justify-center gap-1">
-            <span id="voiceMinutesCounter" class="text-3xl sm:text-5xl font-bold text-orange-300">0</span>
+            <span id="voiceMinutesCounter" class="text-3xl sm:text-5xl font-bold text-orange-300">12</span>
             <span class="text-base sm:text-xl font-semibold text-orange-300/80">мин</span>
           </div>
           <p class="mt-1.5 text-xs text-amber-100/60">Твоего голоса</p>
@@ -346,37 +317,22 @@
       </div>
     </section>
 
-    <!-- ==========================================
-         2. POLAROID-ГАЛЕРЕЯ «НАШИ КАДРЫ ПАМЯТИ»
-         ========================================== -->
+    <!-- 2. POLAROID ГАЛЕРЕЯ -->
     <section id="photos" class="reveal space-y-8">
-      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 max-w-5xl mx-auto">
-        <div>
-          <span class="text-xs uppercase tracking-widest text-amber-400/80 font-semibold">Моменты, которые греют</span>
-          <h2 class="font-serif text-3xl sm:text-5xl font-bold text-amber-50 mt-1">
-            Полароиды нашей памяти
-          </h2>
-          <p class="text-sm sm:text-base text-amber-100/65 mt-1">
-            Нажми на любой снимок, чтобы приблизить, или подгрузи все 8 фото кнопкой справа
-          </p>
-        </div>
-
-        <!-- Быстрая подгрузка сразу всех фоток с диска без возни с путями -->
-        <label for="galleryInput" class="cursor-pointer self-start sm:self-auto inline-flex items-center gap-2 text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-600 text-stone-950 shadow-lg hover:brightness-110 transition">
-          <span>📸 Выбрать наши фото (до 8 шт)</span>
-          <input id="galleryInput" type="file" accept="image/*" multiple class="hidden" />
-        </label>
+      <div class="text-center max-w-2xl mx-auto">
+        <span class="text-xs uppercase tracking-widest text-amber-400/80 font-semibold">Моменты, которые греют</span>
+        <h2 class="font-serif text-3xl sm:text-5xl font-bold text-amber-50 mt-1">
+          Полароиды нашей памяти
+        </h2>
+        <p class="text-sm sm:text-base text-amber-100/65 mt-1">
+          Нажми на любой снимок, чтобы открыть его во весь экран
+        </p>
       </div>
 
-      <!-- Сетка Полароидов (8 карточек под все твои скинутые фото) -->
-      <div id="polaroidGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-4">
-        <!-- Рендерится автоматически из JS -->
-      </div>
+      <div id="polaroidGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-4"></div>
     </section>
 
-    <!-- ==========================================
-         3. ОБНОВЛЁННЫЙ ЗАЛ СЛАВЫ (С ВОЙНОЙ КОШЕЛЬКОВ И КОТЁНКОМ)
-         ========================================== -->
+    <!-- 3. ЗАЛ СЛАВЫ -->
     <section id="hall" class="space-y-8">
       <div class="reveal text-center max-w-2xl mx-auto">
         <span class="text-xs uppercase tracking-widest text-amber-400/80 font-semibold">Локальные мемы и ачивки</span>
@@ -384,12 +340,11 @@
           Интерактивный Зал Славы
         </h2>
         <p class="text-sm sm:text-base text-amber-100/65 mt-2">
-          Наведи курсор или тапни на карточку, чтобы перевернуть её
+          Наведи курсор или нажми на карточку, чтобы перевернуть её
         </p>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <!-- Карта 1: Война кошельков (НОВАЯ ЛОКАЛЬНАЯ ШУТКА) -->
         <div class="reveal flip-card" tabindex="0">
           <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -406,7 +361,6 @@
           </div>
         </div>
 
-        <!-- Карта 2: Слава Наташе -->
         <div class="reveal flip-card" tabindex="0">
           <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -423,7 +377,6 @@
           </div>
         </div>
 
-        <!-- Карта 3: Слепок рук и масочки -->
         <div class="reveal flip-card" tabindex="0">
           <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -440,7 +393,6 @@
           </div>
         </div>
 
-        <!-- Карта 4: Поцелуй под салютом -->
         <div class="reveal flip-card" tabindex="0">
           <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -457,7 +409,6 @@
           </div>
         </div>
 
-        <!-- Карта 5: Будущий котёнок -->
         <div class="reveal flip-card" tabindex="0">
           <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -468,13 +419,12 @@
             <div class="flip-card-back">
               <span class="text-2xl mb-2">🐾</span>
               <p class="text-sm font-medium text-amber-50 leading-relaxed">
-                Главная мечта на момент, когда мы съедемся: завести нашего маленького пушистого котёнка (и песика корги!).
+                Главная мечта, когда мы съедемся: завести нашего маленького белого котёнка (и ушастого пёсика корги!).
               </p>
             </div>
           </div>
         </div>
 
-        <!-- Карта 6: Вкусная забота -->
         <div class="reveal flip-card" tabindex="0">
           <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -485,13 +435,12 @@
             <div class="flip-card-back">
               <span class="text-2xl mb-2">🍙</span>
               <p class="text-sm font-medium text-amber-50 leading-relaxed">
-                Спасительные перекусы, домашние вкусняшки, горячий кофе и умение вовремя накормить друг друга.
+                Спасительные перекусы, домашние вкусняшки, горячий кофе и умение вовремя накормить любимого человека.
               </p>
             </div>
           </div>
         </div>
 
-        <!-- Карта 7: Ночной прайм-тайм -->
         <div class="reveal flip-card" tabindex="0">
           <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -502,13 +451,12 @@
             <div class="flip-card-back">
               <span class="text-2xl mb-2">✨</span>
               <p class="text-sm font-medium text-amber-50 leading-relaxed">
-                Пик нашей переписки в 21:00+: когда можно обсудить все секреты и уснуть со спокойной душой.
+                Пик нашей переписки в 21:00+: когда можно обсудить абсолютно всё и уснуть со спокойной душой.
               </p>
             </div>
           </div>
         </div>
 
-        <!-- Карта 8: Тихая гавань -->
         <div class="reveal flip-card" tabindex="0">
           <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -527,9 +475,7 @@
       </div>
     </section>
 
-    <!-- ==========================================
-         4. ДАТА-АНАЛИТИКА И СЛОВАРЬ НЕЖНОСТИ
-         ========================================== -->
+    <!-- 4. АНАЛИТИКА -->
     <section id="analytics" class="space-y-8">
       <div class="reveal text-center max-w-2xl mx-auto">
         <span class="text-xs uppercase tracking-widest text-amber-400/80 font-semibold">Оцифрованная история</span>
@@ -550,11 +496,11 @@
           <div class="grid grid-cols-2 gap-3 pt-3 border-t border-amber-500/15 text-center">
             <div class="p-2.5 rounded-2xl bg-amber-950/40 border border-amber-500/10">
               <span class="text-xs text-amber-200/70 block">Ваня</span>
-              <span id="vanyaCountText" class="text-base font-bold text-amber-300">—</span>
+              <span id="vanyaCountText" class="text-base font-bold text-amber-300">225 сообщ.</span>
             </div>
             <div class="p-2.5 rounded-2xl bg-amber-950/40 border border-amber-500/10">
               <span class="text-xs text-amber-200/70 block">Натка ❤️</span>
-              <span id="natashaCountText" class="text-base font-bold text-orange-300">—</span>
+              <span id="natashaCountText" class="text-base font-bold text-orange-300">195 сообщ.</span>
             </div>
           </div>
         </div>
@@ -563,7 +509,7 @@
           <div>
             <div class="flex items-center justify-between">
               <h3 class="font-serif text-2xl font-bold text-amber-100">Биоритмы (00:00 – 23:00)</h3>
-              <span id="peakHourBadge" class="text-xs px-2.5 py-1 rounded-full bg-orange-500/15 border border-orange-400/30 text-orange-300">Пик: 21:00</span>
+              <span class="text-xs px-2.5 py-1 rounded-full bg-orange-500/15 border border-orange-400/30 text-orange-300">Пик: 21:00</span>
             </div>
             <p class="text-xs text-amber-100/60 mt-1">Часы нашей максимальной активности</p>
           </div>
@@ -578,17 +524,10 @@
             <canvas id="pulseChart"></canvas>
           </div>
         </div>
-
-        <div class="reveal glass-card rounded-3xl p-6 sm:p-8 lg:col-span-12">
-          <h3 class="font-serif text-2xl font-bold text-amber-100">Главные слова нашего чата</h3>
-          <div id="wordCloudContainer" class="mt-4 flex flex-wrap gap-2.5"></div>
-        </div>
       </div>
     </section>
 
-    <!-- ==========================================
-         5. СЕКРЕТНЫЙ МОДУЛЬ БЛИЗОСТИ: «ПОСЛЕ ПОЛУНОЧИ 🕯️»
-         ========================================== -->
+    <!-- 5. ПОСЛЕ ПОЛУНОЧИ -->
     <section id="midnight" class="reveal">
       <div class="intimate-aura rounded-3xl p-7 sm:p-12 max-w-4xl mx-auto relative overflow-hidden">
         <div class="text-center max-w-2xl mx-auto">
@@ -599,7 +538,7 @@
             После полуночи: Карты сближения
           </h2>
           <p class="text-sm sm:text-base text-amber-100/70 mt-2">
-            Три уровня вопросов — от нежной тактильности до тайных желаний. Выбирайте уровень и отвечайте друг другу вслух.
+            Три уровня вопросов — от нежной тактильности до тайных желаний. Отвечайте друг другу вслух.
           </p>
         </div>
 
@@ -633,35 +572,30 @@
       </div>
     </section>
 
-    <!-- ==========================================
-         6. КОТЁНОК, ДОМ И ПЛАНЫ КОГДА СЪЕДЕМСЯ
-         ========================================== -->
+    <!-- 6. КОТЁНОК И ДОМ -->
     <section id="future" class="reveal space-y-8">
       <div class="text-center max-w-2xl mx-auto">
         <span class="text-xs uppercase tracking-widest text-amber-400/80 font-semibold">Когда мы будем жить вместе</span>
         <h2 class="font-serif text-3xl sm:text-5xl font-bold text-amber-50 mt-1">
           Наш будущий дом и котёнок
         </h2>
-        <p class="text-sm sm:text-base text-amber-100/65 mt-2">
-          Выберите, каким будет наше общее гнёздышко и какого пушистого малыша мы заведём первым
-        </p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div class="glass-card rounded-3xl p-6 sm:p-8 space-y-4">
           <h3 class="font-serif text-2xl font-bold text-amber-100">🏡 Наша квартира мечты</h3>
-          <div class="space-y-3" id="flatChoices">
-            <button data-val="Тёплый уютный уголок с большой кроватью, масочками по вечерам и янтарным светом" class="flat-btn choice-btn active w-full text-left p-4 rounded-2xl glass-card flex items-center justify-between">
+          <div class="space-y-3">
+            <button data-val="Тёплый лофт с панорамным видом и мягкой янтарной подсветкой" class="flat-btn choice-btn active w-full text-left p-4 rounded-2xl glass-card flex items-center justify-between">
               <div>
                 <div class="font-semibold text-sm text-amber-100">🌆 Тёплый вечерний лофт</div>
-                <div class="text-xs text-amber-200/60 mt-0.5">Мягкая подсветка, большая кровать для спа-вечеров в масках, место под ПК и полная тишина.</div>
+                <div class="text-xs text-amber-200/60 mt-0.5">Мягкая подсветка, большая кровать для спа-вечеров в масках и место под ПК.</div>
               </div>
               <span class="text-amber-400 ml-3">✓</span>
             </button>
-            <button data-val="Светлая квартира с уютной кухней, запахом кофе и домашними вкусняшками" class="flat-btn choice-btn w-full text-left p-4 rounded-2xl glass-card flex items-center justify-between">
+            <button data-val="Светлая квартира с уютной кухней и запахом кофе" class="flat-btn choice-btn w-full text-left p-4 rounded-2xl glass-card flex items-center justify-between">
               <div>
                 <div class="font-semibold text-sm text-amber-100">☕ Уютная квартира с большой кухней</div>
-                <div class="text-xs text-amber-200/60 mt-0.5">Где всегда пахнет вкусной едой, стоят цветы, сделанные своими руками подарки и наши фото.</div>
+                <div class="text-xs text-amber-200/60 mt-0.5">Где всегда пахнет вкусной едой, стоят цветы и наши общие фото.</div>
               </div>
               <span class="text-amber-400 ml-3">✓</span>
             </button>
@@ -670,15 +604,15 @@
 
         <div class="glass-card rounded-3xl p-6 sm:p-8 space-y-4">
           <h3 class="font-serif text-2xl font-bold text-amber-100">🐾 Наш будущий малыш</h3>
-          <div class="space-y-3" id="petChoices">
+          <div class="space-y-3">
             <button data-val="Маленький пушистый белый котёнок с голубыми глазами 🐱" class="pet-btn choice-btn active w-full text-left p-4 rounded-2xl glass-card flex items-center justify-between">
               <div>
-                <div class="font-semibold text-sm text-amber-100">🐱 Тот самый маленький белый котёнок</div>
-                <div class="text-xs text-amber-200/60 mt-0.5">Пушистый комочек с фотографии, который будет спать у нас на груди и мурчать по ночам.</div>
+                <div class="font-semibold text-sm text-amber-100">🐱 Белый пушистый котёнок</div>
+                <div class="text-xs text-amber-200/60 mt-0.5">Тот самый пушистый комочек с фотографии, который будет спать на груди.</div>
               </div>
               <span class="text-amber-400 ml-3">✓</span>
             </button>
-            <button data-val="Ушастый щенок Корги + пушистый котёнок (комбо уюта!) 🐕🐱" class="pet-btn choice-btn w-full text-left p-4 rounded-2xl glass-card flex items-center justify-between">
+            <button data-val="Ушастый щенок Корги + пушистый котёнок (комбо!) 🐕🐱" class="pet-btn choice-btn w-full text-left p-4 rounded-2xl glass-card flex items-center justify-between">
               <div>
                 <div class="font-semibold text-sm text-amber-100">🐕 Малыш Корги + Котёнок</div>
                 <div class="text-xs text-amber-200/60 mt-0.5">Чтобы дома ждала целая банда пушистых антистрессов!</div>
@@ -691,13 +625,13 @@
 
       <div class="glass-card rounded-3xl p-6 text-center border border-amber-400/35 max-w-4xl mx-auto">
         <p class="text-xs uppercase tracking-widest text-amber-300/80">Капсула будущего зафиксирована:</p>
-        <p id="futureSummaryText" class="font-serif text-2xl sm:text-3xl text-amber-50 mt-2"></p>
+        <p id="futureSummaryText" class="font-serif text-2xl sm:text-3xl text-amber-50 mt-2">
+          «Тёплый лофт с панорамным видом + Маленький пушистый белый котёнок 🐱»
+        </p>
       </div>
     </section>
 
-    <!-- ==========================================
-         7. ИГРЫ НА ДВОИХ + ЧЕК-ЛИСТ СВИДАНИЙ
-         ========================================== -->
+    <!-- 7. ИГРЫ -->
     <section id="games" class="reveal grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
       <div class="glass-card rounded-3xl p-6 sm:p-8 lg:col-span-7 flex flex-col justify-between">
         <div>
@@ -740,9 +674,7 @@
       </div>
     </section>
 
-    <!-- ==========================================
-         8. ФИНАЛЬНОЕ ПОСЛАНИЕ
-         ========================================== -->
+    <!-- 8. ФИНАЛ -->
     <section class="reveal pt-4 pb-8">
       <div class="glass-card warm-aura rounded-3xl p-8 sm:p-14 md:p-16 max-w-4xl mx-auto text-center relative overflow-hidden border border-amber-400/35">
         <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-300 text-xl mb-6">
@@ -763,74 +695,70 @@
 
   </main>
 
-  <!-- ==========================================
-       JAVASCRIPT ДВИЖОК
-       ========================================== -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. ДАННЫЕ ПОЛАРОИДНОЙ ФОТОГАЛЕРЕИ (8 твоих фотографий с поддержкой обоих вариантов имен файлов)
+      // 1. ТОЧНЫЙ СПИСОК ФАЙЛОВ ИЗ ТВОЕГО РЕПОЗИТОРИЯ
       const POLAROID_ITEMS = [
         {
-          srcs: ["photo1.jpg", "image_90b5a2.jpg"],
+          src: "f7e0c8c7-31bc-44a6-99fd-6f12702e808a.jpg",
           caption: "Искры в небе и наш поцелуй на набережной 🎆",
           rotate: "-2.5deg",
           badge: "Главный кадр"
         },
         {
-          srcs: ["photo2.jpg", "IMG_20260725_152332.jpg"],
+          src: "0622a68e-afcc-4977-bc57-619328f08ee9.jpg",
           caption: "Слепок наших рук — теперь не расцепить 🤍",
           rotate: "2deg",
           badge: "Июль 2026"
         },
         {
-          srcs: ["photo3.jpg", "IMG_20261010_141612.jpg"],
+          src: "d308ab99-1af6-4f35-95a5-6f202f3bd7b0.jpg",
           caption: "Домашний СПА-режим: Ваня в масочке и поцелуй 😘",
           rotate: "-1.8deg",
           badge: "Уют в кровати"
         },
         {
-          srcs: ["photo4.jpg", "IMG_20261010_141601.jpg"],
+          src: "4241d149-ac1c-4254-a68b-28cae8d706f7.jpg",
           caption: "Когда сопротивляться её бьюти-процедурам бесполезно 🤪",
           rotate: "2.4deg",
           badge: "10 октября"
         },
         {
-          srcs: ["photo5.jpg", "image_90b677.jpg"],
+          src: "ee8cf97c-cf68-45f2-bf34-d194ff3a0c6c.jpg",
           caption: "Любимые карие глаза и наш вайб 👓❤️",
           rotate: "-2deg",
           badge: "Два сапога пара"
         },
         {
-          srcs: ["photo6.jpg", "image_90b63c.jpg"],
+          src: "14d66d16 66c1 4e85 afd1 79dc439810ad.jpg",
           caption: "Тёплые объятия в зеркале лифта 🫂",
           rotate: "1.6deg",
           badge: "Осень 2026"
         },
         {
-          srcs: ["photo7.jpg", "image_910814.jpg"],
+          src: "920668c6-cb69-43df-a250-2efbbdff9d74.jpg",
           caption: "Спойлер: наш будущий котёнок, когда съедемся 🐱",
           rotate: "-2.2deg",
           badge: "Мечта"
         },
         {
-          srcs: ["photo8.jpg", "1.vxtSa7aAE_Icwen5IF37GXbLEfbg3Bfy4Lty9uAwGAjtyBfoHMHp-eQ.jpeg"],
+          src: "c988e639-2e04-4c3d-86d2-12057fb21bc1.jpg",
           caption: "А может ещё и такого ушастого Корги в команду? 🐕",
           rotate: "2.1deg",
           badge: "Будущий друг"
         }
       ];
 
-      function renderPolaroidGallery(customUrls = null) {
+      function renderPolaroids() {
         const grid = document.getElementById('polaroidGrid');
         grid.innerHTML = '';
 
-        POLAROID_ITEMS.forEach((item, idx) => {
+        POLAROID_ITEMS.forEach((item) => {
           const card = document.createElement('div');
           card.className = 'polaroid-card flex flex-col justify-between';
           card.style.transform = `rotate(${item.rotate})`;
 
-          const primarySrc = customUrls && customUrls[idx] ? customUrls[idx] : item.srcs[0];
-          const fallbackSrc = item.srcs[1] || item.srcs[0];
+          const encodedUrl = encodeURI(item.src);
 
           card.innerHTML = `
             <div class="relative aspect-[4/5] w-full rounded-xl overflow-hidden bg-stone-900 border border-amber-500/15">
@@ -838,11 +766,10 @@
                 ${item.badge}
               </span>
               <img
-                src="${primarySrc}"
-                data-alt-src="${fallbackSrc}"
+                src="${encodedUrl}"
                 alt="${item.caption}"
                 class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                onerror="if(this.src.indexOf(this.dataset.altSrc)===-1){this.src=this.dataset.altSrc;}else{this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'400\\' height=\\'500\\'><rect width=\\'100%\\' height=\\'100%\\' fill=\\'%231c100b\\'/><text x=\\'50%\\' y=\\'50%\\' fill=\\'%23fbbf24\\' font-size=\\'16\\' font-family=\\'sans-serif\\' text-anchor=\\'middle\\'>Нажми «Выбрать наши фото» вверху 📸</text></svg>';}"
+                loading="lazy"
               />
             </div>
             <p class="font-hand text-xl sm:text-2xl text-amber-100/95 text-center mt-3 leading-snug">
@@ -851,8 +778,7 @@
           `;
 
           card.addEventListener('click', () => {
-            const imgEl = card.querySelector('img');
-            document.getElementById('modalImg').src = imgEl.src;
+            document.getElementById('modalImg').src = encodedUrl;
             document.getElementById('modalCaption').textContent = item.caption;
             document.getElementById('photoModal').classList.remove('hidden');
           });
@@ -860,17 +786,7 @@
           grid.appendChild(card);
         });
       }
-
-      renderPolaroidGallery();
-
-      // Подгрузка фото напрямую с компьютера или телефона
-      document.getElementById('galleryInput').addEventListener('change', (e) => {
-        const files = Array.from(e.target.files || []);
-        if (!files.length) return;
-        const urls = files.map(f => URL.createObjectURL(f));
-        renderPolaroidGallery(urls);
-        showToast(`Загружено фотографий в рамки: ${files.length} шт!`, '📸');
-      });
+      renderPolaroids();
 
       document.getElementById('closeModalBtn').addEventListener('click', () => {
         document.getElementById('photoModal').classList.add('hidden');
@@ -879,37 +795,18 @@
         if (e.target.id === 'photoModal') document.getElementById('photoModal').classList.add('hidden');
       });
 
-      // 2. АУДИОПЛЕЕР И СТРОЧКИ ИЗ ВАШЕЙ ПЕСНИ
-      const SONG_LYRICS = [
-        "«Без тебя жизни нет, я не могу найти...»",
-        "«Сдаётся мне, теперь это надолго...»",
-        "«Она такая, что не хватит слов — теперь я знаю, как мне повезло»",
-        "«И тем теплее, чем ближе к костру 🔥»",
-        "«Я не всегда милый такой, как в песне... Главное честно: с тобой интересней»",
-        "«В тебе тепло, как в пластинках Боба — а вот как нам повезло, мы это знаем оба»",
-        "«Дотянем до января, а там свалим на моря — ты и я, два сапога пара»",
-        "«В свете фонаря блестит асфальт. И я люблю тебя, ты просто знай ❤️»"
-      ];
-      let lyricIdx = 0;
-      setInterval(() => {
-        lyricIdx = (lyricIdx + 1) % SONG_LYRICS.length;
-        const ticker = document.getElementById('lyricTicker');
-        if (ticker) ticker.textContent = SONG_LYRICS[lyricIdx];
-      }, 4500);
-
+      // 2. АВТОЗАПУСК МУЗЫКИ ПРИ ПЕРВОМ КАСАНИИ ЭКРАНА НА ТЕЛЕФОНЕ
       const bgMusic = document.getElementById('bgMusic');
       const playBtn = document.getElementById('playMusicBtn');
       const vinylIcon = document.getElementById('vinylIcon');
       const musicTitle = document.getElementById('musicStatusTitle');
 
-      function toggleMusic() {
+      function startAudio() {
         if (bgMusic.paused) {
           bgMusic.play().then(() => {
             vinylIcon.classList.add('playing');
             musicTitle.textContent = 'Играет наш трек ⏸';
-          }).catch(() => {
-            showToast('Выбери mp3-файл кнопкой «🎵 Файл» рядом с пластинкой!', '🎵');
-          });
+          }).catch(() => {});
         } else {
           bgMusic.pause();
           vinylIcon.classList.remove('playing');
@@ -917,50 +814,66 @@
         }
       }
 
-      playBtn.addEventListener('click', toggleMusic);
+      playBtn.addEventListener('click', startAudio);
 
-      document.getElementById('audioFileInput').addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-        bgMusic.src = URL.createObjectURL(file);
-        bgMusic.play();
-        vinylIcon.classList.add('playing');
-        musicTitle.textContent = 'Играет наш трек ⏸';
-        showToast('Наш саундтрек включён!', '🎶');
-      });
+      // Однократный автозапуск при любом первом клике/тапе
+      document.body.addEventListener('click', function unlock() {
+        if (bgMusic.paused) {
+          bgMusic.play().then(() => {
+            vinylIcon.classList.add('playing');
+            musicTitle.textContent = 'Играет наш трек ⏸';
+          }).catch(() => {});
+        }
+      }, { once: true });
 
-      // 3. ЗОЛОТЫЕ ИСКРЫ КОСТРА НА CANVAS (ПАСХАЛКА)
+      // Бегущие строки песни
+      const SONG_LYRICS = [
+        "«Без тебя жизни нет, я не могу найти...»",
+        "«Сдаётся мне, теперь это надолго...»",
+        "«Она такая, что не хватит слов — теперь я знаю, как мне повезло»",
+        "«И тем теплее, чем ближе к костру 🔥»",
+        "«В тебе тепло, как в пластинках Боба...»",
+        "«Дотянем до января, а там свалим на моря...»",
+        "«В свете фонаря блестит асфальт. Я люблю тебя, ты просто знай ❤️»"
+      ];
+      let lyricIdx = 0;
+      setInterval(() => {
+        lyricIdx = (lyricIdx + 1) % SONG_LYRICS.length;
+        document.getElementById('lyricTicker').textContent = SONG_LYRICS[lyricIdx];
+      }, 4500);
+
+      // 3. ЗОЛОТЫЕ ИСКРЫ CANVAS
       const canvas = document.getElementById('embersCanvas');
       const ctx = canvas.getContext('2d');
       let embers = [];
-      let intenseBonfire = false;
+      let intense = false;
 
-      function resizeCanvas() {
+      function resize() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
       }
-      window.addEventListener('resize', resizeCanvas);
-      resizeCanvas();
+      window.addEventListener('resize', resize);
+      resize();
 
-      function createEmbers(count) {
+      function initEmbers(count) {
         embers = [];
         for (let i = 0; i < count; i++) {
           embers.push({
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
-            r: Math.random() * 2.4 + 0.8,
-            vy: -(Math.random() * 0.9 + 0.3),
-            vx: (Math.random() - 0.5) * 0.5,
-            alpha: Math.random() * 0.65 + 0.2
+            r: Math.random() * 2.2 + 0.8,
+            vy: -(Math.random() * 0.8 + 0.3),
+            vx: (Math.random() - 0.5) * 0.4,
+            a: Math.random() * 0.6 + 0.2
           });
         }
       }
-      createEmbers(35);
+      initEmbers(35);
 
-      function animateEmbers() {
+      function loop() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         embers.forEach(p => {
-          p.y += p.vy * (intenseBonfire ? 2.4 : 1);
+          p.y += p.vy * (intense ? 2.5 : 1);
           p.x += p.vx;
           if (p.y < -10) {
             p.y = canvas.height + 10;
@@ -968,238 +881,143 @@
           }
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(251, 191, 36, ${p.alpha})`;
+          ctx.fillStyle = `rgba(251, 191, 36, ${p.a})`;
           ctx.fill();
         });
-        requestAnimationFrame(animateEmbers);
+        requestAnimationFrame(loop);
       }
-      animateEmbers();
+      loop();
 
-      function triggerBonfireEasterEgg() {
-        intenseBonfire = !intenseBonfire;
-        createEmbers(intenseBonfire ? 110 : 35);
-        showToast(intenseBonfire ? '🔥 Зажгли наш костёр! «И тем теплее, чем ближе к костру...»' : 'Тёплый режим', '🔥');
-        if (bgMusic.paused) toggleMusic();
+      function toggleBonfire() {
+        intense = !intense;
+        initEmbers(intense ? 100 : 35);
+        if (bgMusic.paused) startAudio();
       }
+      document.getElementById('bonfireModeBtn').addEventListener('click', toggleBonfire);
+      document.getElementById('daysCardEasterEgg').addEventListener('click', toggleBonfire);
 
-      document.getElementById('bonfireModeBtn').addEventListener('click', triggerBonfireEasterEgg);
-      document.getElementById('daysCardEasterEgg').addEventListener('click', triggerBonfireEasterEgg);
-
-      // 4. АНАЛИТИКА ЧАТА
-      const FALLBACK_DATA = {
-        total_messages: { "Ваня": 225, "Наташа": 195 },
-        voice_seconds: 682,
-        messages_by_hour: {
-          "0": 2, "1": 1, "6": 2, "7": 12, "8": 1, "9": 4, "10": 35, "11": 15,
-          "12": 13, "13": 16, "14": 29, "15": 16, "16": 6, "17": 23, "18": 58,
-          "19": 77, "20": 95, "21": 156, "22": 62, "23": 1
-        },
-        messages_by_day: {
-          "2024-11-22": 18, "2024-12-03": 9, "2024-12-18": 22, "2025-01-01": 12,
-          "2025-02-02": 122, "2025-02-06": 66, "2025-02-09": 88, "2025-02-12": 103,
-          "2025-02-14": 98, "2025-03-03": 52, "2025-04-25": 36
-        },
-        top_words: [
-          ["люблю ❤️", 32], ["спасибо 💛", 28], ["ахахах 😄", 39], ["хорошо", 21],
-          ["вместе", 18], ["молодец", 14], ["привет", 14], ["котёнок 🐱", 12]
-        ]
-      };
-
-      let balanceChartInstance = null;
-      let biorhythmChartInstance = null;
-      let pulseChartInstance = null;
-
+      // 4. ГРАФИКИ
       Chart.defaults.color = 'rgba(253, 230, 138, 0.72)';
       Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
 
-      function showToast(text, icon = '✨') {
-        const toast = document.getElementById('toastMessage');
-        document.getElementById('toastText').textContent = text;
-        document.getElementById('toastIcon').textContent = icon;
-        toast.classList.remove('opacity-0', 'translate-y-4');
-        toast.classList.add('opacity-100', 'translate-y-0');
-        setTimeout(() => {
-          toast.classList.remove('opacity-100', 'translate-y-0');
-          toast.classList.add('opacity-0', 'translate-y-4');
-        }, 3800);
-      }
+      new Chart(document.getElementById('balanceChart').getContext('2d'), {
+        type: 'doughnut',
+        data: {
+          labels: ['Ваня', 'Наташа'],
+          datasets: [{ data: [225, 195], backgroundColor: ['#fbbf24', '#f97316'], borderColor: '#160d09', borderWidth: 4 }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { position: 'bottom', labels: { color: '#fde68a' } } } }
+      });
 
-      function renderDashboard(data) {
-        const vanyaCount = Number(data.total_messages['Ваня'] || 0);
-        const natashaCount = Number(data.total_messages['Наташа'] || 0);
-        const total = vanyaCount + natashaCount;
+      new Chart(document.getElementById('biorhythmChart').getContext('2d'), {
+        type: 'bar',
+        data: {
+          labels: Array.from({ length: 24 }, (_, i) => `${String(i).padStart(2, '0')}:00`),
+          datasets: [{ data: [2, 1, 0, 0, 0, 0, 2, 12, 1, 4, 35, 15, 13, 16, 29, 16, 6, 23, 58, 77, 95, 156, 62, 1], backgroundColor: '#fbbf24', borderRadius: 6 }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, scales: { x: { grid: { display: false } }, y: { grid: { color: 'rgba(251,191,36,0.08)' } } }, plugins: { legend: { display: false } } }
+      });
 
-        document.getElementById('messagesCounter').textContent = total.toLocaleString('ru-RU');
-        document.getElementById('voiceMinutesCounter').textContent = Math.max(1, Math.round((data.voice_seconds || 680) / 60));
-        document.getElementById('vanyaCountText').textContent = `${vanyaCount} сообщ.`;
-        document.getElementById('natashaCountText').textContent = `${natashaCount} сообщ.`;
+      new Chart(document.getElementById('pulseChart').getContext('2d'), {
+        type: 'line',
+        data: {
+          labels: ["Ноябрь", "Декабрь", "Январь", "2 фев", "6 фев", "9 фев", "12 фев", "14 фев", "Март", "Апрель"],
+          datasets: [{ data: [18, 22, 12, 122, 66, 88, 103, 98, 52, 36], borderColor: '#fbbf24', backgroundColor: 'rgba(245,158,11,0.2)', fill: true, tension: 0.4 }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, scales: { x: { grid: { display: false } }, y: { grid: { color: 'rgba(251,191,36,0.08)' } } }, plugins: { legend: { display: false } } }
+      });
 
-        const wc = document.getElementById('wordCloudContainer');
-        wc.innerHTML = '';
-        (data.top_words || FALLBACK_DATA.top_words).forEach(([word, count]) => {
-          const badge = document.createElement('span');
-          badge.className = 'px-3.5 py-1.5 rounded-full bg-amber-500/15 border border-amber-400/25 text-amber-100 text-xs sm:text-sm flex items-center gap-2';
-          badge.innerHTML = `<span>${word}</span><span class="text-amber-400 font-bold">${count}</span>`;
-          wc.appendChild(badge);
-        });
-
-        const ctx1 = document.getElementById('balanceChart').getContext('2d');
-        if (balanceChartInstance) balanceChartInstance.destroy();
-        balanceChartInstance = new Chart(ctx1, {
-          type: 'doughnut',
-          data: {
-            labels: ['Ваня', 'Наташа'],
-            datasets: [{ data: [vanyaCount, natashaCount], backgroundColor: ['#fbbf24', '#f97316'], borderColor: '#160d09', borderWidth: 4 }]
-          },
-          options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { position: 'bottom', labels: { color: '#fde68a' } } } }
-        });
-
-        const ctx2 = document.getElementById('biorhythmChart').getContext('2d');
-        const hourLabels = Array.from({ length: 24 }, (_, i) => `${String(i).padStart(2, '0')}:00`);
-        const hourValues = Array.from({ length: 24 }, (_, i) => Number(data.messages_by_hour[String(i)] || 0));
-        if (biorhythmChartInstance) biorhythmChartInstance.destroy();
-        biorhythmChartInstance = new Chart(ctx2, {
-          type: 'bar',
-          data: { labels: hourLabels, datasets: [{ data: hourValues, backgroundColor: '#fbbf24', borderRadius: 6 }] },
-          options: { responsive: true, maintainAspectRatio: false, scales: { x: { grid: { display: false } }, y: { grid: { color: 'rgba(251,191,36,0.08)' } } }, plugins: { legend: { display: false } } }
-        });
-
-        const ctx3 = document.getElementById('pulseChart').getContext('2d');
-        const dayEntries = Object.entries(data.messages_by_day || {});
-        if (pulseChartInstance) pulseChartInstance.destroy();
-        pulseChartInstance = new Chart(ctx3, {
-          type: 'line',
-          data: {
-            labels: dayEntries.map(([d]) => d),
-            datasets: [{ data: dayEntries.map(([, c]) => Number(c)), borderColor: '#fbbf24', backgroundColor: 'rgba(245,158,11,0.2)', fill: true, tension: 0.4 }]
-          },
-          options: { responsive: true, maintainAspectRatio: false, scales: { x: { grid: { display: false } }, y: { grid: { color: 'rgba(251,191,36,0.08)' } } }, plugins: { legend: { display: false } } }
-        });
-      }
-
-      renderDashboard(FALLBACK_DATA);
-
-      // 5. БЛОК «ПОСЛЕ ПОЛУНОЧИ 🕯️»
-      const INTIMACY_DECK = {
+      // 5. ИНТИМНЫЕ КАРТЫ
+      const DECK = {
         1: [
-          "«Какое прикосновение (к шее, спине, волосам или рукам) мгновенно вызывает у тебя мурашки и заставляет забыть обо всём?»",
-          "«В какой момент рядом со мной ты чувствуешь себя максимально желанной, красивой и защищённой?»",
-          "«Какие объятия ты любишь больше: долгие в полной тишине под пледом или внезапные крепкие со спины?»",
+          "«Какое прикосновение мгновенно вызывает у тебя мурашки и заставляет забыть обо всём?»",
+          "«В какой момент рядом со мной ты чувствуешь себя максимально желанной и защищённой?»",
+          "«Какие объятия любишь больше: долгие в тишине под пледом или внезапные крепкие со спины?»",
           "«Какой запах или деталь во мне притягивает тебя сильнее всего, когда мы близко?»",
-          "«Что для тебя идеальная прелюдия к вечеру вдвоём: массаж, тёплый душ вместе или долгие поцелуи в полумраке?»"
+          "«Что для тебя идеальная прелюдия: массаж, тёплый душ вместе или долгие поцелуи в полумраке?»"
         ],
         2: [
-          "«В какой одежде (или без неё) я кажусь тебе самым горячим и привлекательным?»",
-          "«Какой наш поцелуй или интимный момент за эти полгода запомнился тебе ярче всего?»",
-          "«Что заводит тебя быстрее: шёпот на ухо, медленные прикосновения на грани или уверенный взгляд глаза в глаза?»",
-          "«Какая атмосфера в комнате включает твоё желание на максимум: приглушённый тёплый свет, музыка или полная темнота?»",
-          "«Если бы прямо сейчас мы остались наедине в нашей будущей квартире — с чего бы начался наш вечер?»"
+          "«В какой одежде (или без неё) я кажусь тебе самым привлекательным?»",
+          "«Какой наш интимный момент или поцелуй за полгода запомнился ярче всего?»",
+          "«Что заводит быстрее: шёпот на ухо, медленные прикосновения на грани или взгляд глаза в глаза?»",
+          "«Какая атмосфера включает желание на максимум: приглушённый свет, музыка или темнота?»",
+          "«Если бы прямо сейчас мы остались одни в нашей будущей квартире — с чего бы начался вечер?»"
         ],
         3: [
-          "«Есть ли тайное желание или ласка, которую тебе очень хочется попробовать со мной, но ты стеснялась сказать первой?»",
-          "«Где и как тебе больше всего нравится, когда я тебя целую и прикасаюсь, когда мы остаёмся совсем одни?»",
-          "«Что в близости со мной дарит тебе самые сильные эмоции: нежная медленная чувственность или страсть и напор?»",
-          "«Какой немой сигнал без слов выдает, что ты очень хочешь меня прямо сейчас?»",
-          "«Загадай одно желание на сегодня — мы исполним его сразу, как только закроем ноутбук.»"
+          "«Есть ли тайная ласка, которую тебе хочется попробовать со мной, но ты стеснялась сказать?»",
+          "«Где и как тебе больше всего нравится, когда я тебя целую, когда мы одни?»",
+          "«Что в близости дарит самые сильные эмоции: нежная чувственность или напор и страсть?»",
+          "«Какой немой сигнал выдаёт, что ты очень хочешь меня прямо сейчас?»",
+          "«Загадай одно желание на сегодня — мы исполним его сразу после того, как закроем сайт.»"
         ]
       };
-      let currentLevel = 1;
-      let currentQIdx = 0;
-
-      function updateIntimacyCard() {
-        const list = INTIMACY_DECK[currentLevel];
-        document.getElementById('intimacyBadge').textContent = `Уровень ${currentLevel} • Вопрос ${currentQIdx + 1} из ${list.length}`;
-        document.getElementById('intimacyQuestionText').textContent = list[currentQIdx];
+      let lvl = 1, qIdx = 0;
+      function updateDeck() {
+        document.getElementById('intimacyBadge').textContent = `Уровень ${lvl} • Вопрос ${qIdx + 1} из ${DECK[lvl].length}`;
+        document.getElementById('intimacyQuestionText').textContent = DECK[lvl][qIdx];
       }
-
-      document.querySelectorAll('.intimacy-lvl-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('.intimacy-lvl-btn').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          currentLevel = Number(btn.dataset.level);
-          currentQIdx = 0;
-          updateIntimacyCard();
+      document.querySelectorAll('.intimacy-lvl-btn').forEach(b => {
+        b.addEventListener('click', () => {
+          document.querySelectorAll('.intimacy-lvl-btn').forEach(x => x.classList.remove('active'));
+          b.classList.add('active');
+          lvl = Number(b.dataset.level);
+          qIdx = 0;
+          updateDeck();
         });
       });
-
       document.getElementById('nextIntimacyBtn').addEventListener('click', () => {
-        const list = INTIMACY_DECK[currentLevel];
-        currentQIdx = (currentQIdx + 1) % list.length;
-        updateIntimacyCard();
+        qIdx = (qIdx + 1) % DECK[lvl].length;
+        updateDeck();
       });
       document.getElementById('prevIntimacyBtn').addEventListener('click', () => {
-        const list = INTIMACY_DECK[currentLevel];
-        currentQIdx = (currentQIdx - 1 + list.length) % list.length;
-        updateIntimacyCard();
+        qIdx = (qIdx - 1 + DECK[lvl].length) % DECK[lvl].length;
+        updateDeck();
       });
 
-      // 6. БУДУЩИЙ ДОМ И КОТЁНОК
-      let selectedFlat = 'Тёплый уютный уголок с большой кроватью, масочками по вечерам и янтарным светом';
-      let selectedPet = 'Маленький пушистый белый котёнок с голубыми глазами 🐱';
-
-      function updateFutureSummary() {
-        document.getElementById('futureSummaryText').textContent = `«${selectedFlat} + ${selectedPet}»`;
-      }
-      document.querySelectorAll('.flat-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('.flat-btn').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          selectedFlat = btn.dataset.val;
-          updateFutureSummary();
-        });
-      });
-      document.querySelectorAll('.pet-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('.pet-btn').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          selectedPet = btn.dataset.val;
-          updateFutureSummary();
-        });
-      });
-      updateFutureSummary();
-
-      // 7. МИНИ-ИГРА И КЛИКЕР
-      const SYNC_QUESTIONS = [
-        "Кто быстрее пытается приложить карточку на кассе и ругается: «Не трать на меня деньги!»?",
-        "Кто покупает подарки и вкусняшки «назло», даже когда второй просил ничего не покупать?",
+      // 6. ИГРА И КЛИКЕР
+      const QUESTIONS = [
+        "Кто быстрее пытается приложить карточку на кассе и кричит: «Не трать на меня деньги!»?",
+        "Кто покупает подарки и вкусняшки «назло», даже когда просили ничего не брать?",
         "Кто будет больше тискать нашего будущего белого котёнка, когда мы съедемся?",
-        "Кто первым надевает тканевую масочку и устраивает домашний СПА-салон в кровати?",
+        "Кто первым надевает тканевую масочку и устраивает СПА-салон в кровати?",
         "Кто быстрее засыпает под сериал в обнимку?",
         "Кто сильнее любит обниматься без повода 24/7?"
       ];
-      let syncIdx = 0;
+      let sIdx = 0;
       document.querySelectorAll('.sync-ans-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           document.getElementById('syncVerdict').textContent = `Зафиксировано: ${btn.dataset.who}! Следующий вопрос...`;
           setTimeout(() => {
-            syncIdx = (syncIdx + 1) % SYNC_QUESTIONS.length;
-            document.getElementById('syncStepBadge').textContent = `Вопрос ${syncIdx + 1} из ${SYNC_QUESTIONS.length}`;
-            document.getElementById('syncQuestion').textContent = SYNC_QUESTIONS[syncIdx];
+            sIdx = (sIdx + 1) % QUESTIONS.length;
+            document.getElementById('syncStepBadge').textContent = `Вопрос ${sIdx + 1} из ${QUESTIONS.length}`;
+            document.getElementById('syncQuestion').textContent = QUESTIONS[sIdx];
             document.getElementById('syncVerdict').textContent = '';
-          }, 900);
+          }, 800);
         });
       });
 
-      let clicks = 100;
+      let heartClicks = 100;
       document.getElementById('heartBtn').addEventListener('click', () => {
-        clicks += 10;
-        document.getElementById('clickCount').textContent = clicks;
-        document.getElementById('clickQuote').textContent = SONG_LYRICS[(clicks / 10) % SONG_LYRICS.length];
+        heartClicks += 10;
+        document.getElementById('clickCount').textContent = heartClicks;
+        document.getElementById('clickQuote').textContent = SONG_LYRICS[(heartClicks / 10) % SONG_LYRICS.length];
       });
 
-      document.querySelectorAll('.flip-card').forEach(card => {
-        card.addEventListener('click', () => card.classList.toggle('is-flipped'));
+      // Flip карточки
+      document.querySelectorAll('.flip-card').forEach(c => {
+        c.addEventListener('click', () => c.classList.toggle('is-flipped'));
       });
 
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
+      // Скролл анимации
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            obs.unobserve(e.target);
           }
         });
       }, { threshold: 0.1 });
-      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
     });
   </script>
 </body>
