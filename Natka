@@ -32,9 +32,9 @@
 
   <style>
     :root {
-      --bg-deep: #0e0705;
-      --bg-warm: #180d09;
-      --glass-bg: rgba(34, 20, 14, 0.64);
+      --bg-deep: #0f0806;
+      --bg-warm: #170d09;
+      --glass-bg: rgba(32, 19, 13, 0.62);
       --glass-border: rgba(251, 191, 36, 0.16);
       --glass-border-hover: rgba(251, 191, 36, 0.42);
     }
@@ -42,10 +42,10 @@
     body {
       background-color: var(--bg-deep);
       background-image:
-        radial-gradient(circle at 12% 15%, rgba(245, 158, 11, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 12% 18%, rgba(245, 158, 11, 0.12) 0%, transparent 45%),
         radial-gradient(circle at 88% 28%, rgba(234, 88, 12, 0.10) 0%, transparent 50%),
         radial-gradient(circle at 50% 85%, rgba(251, 191, 36, 0.08) 0%, transparent 60%),
-        linear-gradient(180deg, #0d0604 0%, #170d09 50%, #0e0705 100%);
+        linear-gradient(180deg, #0d0604 0%, #160d09 50%, #0f0705 100%);
       color: #fdf8f5;
       font-family: 'Plus Jakarta Sans', sans-serif;
       overflow-x: hidden;
@@ -58,34 +58,33 @@
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--glass-border);
       box-shadow:
-        0 20px 50px rgba(5, 2, 1, 0.72),
+        0 20px 50px rgba(5, 2, 1, 0.7),
         inset 0 1px 1px rgba(255, 235, 200, 0.08);
-      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-                  border-color 0.35s ease,
-                  box-shadow 0.35s ease;
+      transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .glass-card:hover {
       border-color: var(--glass-border-hover);
       box-shadow:
-        0 24px 60px rgba(0, 0, 0, 0.82),
+        0 24px 60px rgba(0, 0, 0, 0.8),
         0 0 35px rgba(245, 158, 11, 0.1),
         inset 0 1px 1px rgba(255, 235, 200, 0.15);
     }
 
-    .warm-aura {
+    .intimate-aura {
+      background: linear-gradient(145deg, rgba(45, 16, 18, 0.72), rgba(22, 10, 9, 0.88));
+      border: 1px solid rgba(251, 146, 60, 0.28);
       box-shadow:
-        0 0 90px -10px rgba(245, 158, 11, 0.22),
-        0 25px 60px rgba(5, 2, 1, 0.85),
-        inset 0 0 30px rgba(251, 191, 36, 0.07);
+        0 0 90px -15px rgba(234, 88, 12, 0.25),
+        0 25px 60px rgba(5, 2, 1, 0.9),
+        inset 0 0 40px rgba(245, 158, 11, 0.06);
     }
 
-    .intimate-aura {
-      background: linear-gradient(145deg, rgba(48, 20, 14, 0.78), rgba(22, 9, 7, 0.92));
-      border: 1px solid rgba(251, 146, 60, 0.32);
+    .warm-aura {
       box-shadow:
-        0 0 85px -10px rgba(234, 88, 12, 0.22),
-        0 25px 60px rgba(0, 0, 0, 0.85);
+        0 0 90px -10px rgba(245, 158, 11, 0.2),
+        0 25px 60px rgba(5, 2, 1, 0.85),
+        inset 0 0 30px rgba(251, 191, 36, 0.06);
     }
 
     .reveal {
@@ -143,7 +142,7 @@
     }
 
     .flip-card-front {
-      background: linear-gradient(145deg, rgba(43, 26, 18, 0.76), rgba(20, 11, 8, 0.88));
+      background: linear-gradient(145deg, rgba(43, 26, 18, 0.75), rgba(20, 11, 8, 0.88));
       backdrop-filter: blur(16px);
       border: 1px solid rgba(251, 191, 36, 0.18);
     }
@@ -161,33 +160,25 @@
       -webkit-text-fill-color: transparent;
     }
 
+    .choice-btn.active {
+      border-color: rgba(251, 191, 36, 0.8);
+      background: rgba(245, 158, 11, 0.22);
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.2);
+    }
+
     .ambient-orb {
       position: fixed;
       border-radius: 9999px;
       filter: blur(100px);
       pointer-events: none;
       z-index: 0;
-      opacity: 0.28;
+      opacity: 0.3;
       animation: floatOrb 15s ease-in-out infinite alternate;
     }
 
     @keyframes floatOrb {
       0% { transform: translate(0, 0) scale(1); }
       100% { transform: translate(30px, -35px) scale(1.1); }
-    }
-
-    .choice-btn.active {
-      background: linear-gradient(135deg, rgba(245, 158, 11, 0.32), rgba(234, 88, 12, 0.28));
-      border-color: rgba(251, 191, 36, 0.75);
-      box-shadow: 0 0 25px rgba(245, 158, 11, 0.22);
-    }
-
-    ::-webkit-scrollbar { width: 8px; height: 8px; }
-    ::-webkit-scrollbar-track { background: #0e0705; }
-    ::-webkit-scrollbar-thumb {
-      background: #362016;
-      border-radius: 9999px;
-      border: 1px solid rgba(251, 191, 36, 0.2);
     }
   </style>
 </head>
@@ -198,34 +189,36 @@
   <div class="ambient-orb w-[30rem] h-[30rem] bg-orange-600/15 top-1/3 -right-32" style="animation-delay: -6s;"></div>
   <div class="ambient-orb w-96 h-96 bg-yellow-500/15 bottom-10 left-1/3" style="animation-delay: -10s;"></div>
 
-  <!-- Навигация -->
+  <!-- Верхняя навигация -->
   <header class="sticky top-0 z-40 backdrop-blur-md bg-[#0d0604]/85 border-b border-amber-500/10">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between gap-3">
       <div class="flex items-center gap-2.5">
-        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-300 text-sm">💛</span>
+        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-300 text-sm">
+          💛
+        </span>
         <span class="font-serif italic text-lg sm:text-xl tracking-wide text-amber-100/90">
-          Ваня & Наташа • Полгода вместе
+          Ваня & Наташа • 6 месяцев
         </span>
       </div>
 
-      <!-- Быстрые якорные ссылки -->
-      <nav class="hidden md:flex items-center gap-5 text-xs text-amber-200/70">
+      <div class="hidden md:flex items-center gap-5 text-xs text-amber-200/70">
         <a href="#analytics" class="hover:text-amber-300 transition">Аналитика</a>
-        <a href="#hallOfFame" class="hover:text-amber-300 transition">Зал Славы</a>
-        <a href="#gamesSection" class="hover:text-amber-300 transition">Игры</a>
-        <a href="#intimateSection" class="hover:text-amber-300 transition">Наедине 🔥</a>
-        <a href="#futureSection" class="hover:text-amber-300 transition">Будущее</a>
-      </nav>
+        <a href="#hall" class="hover:text-amber-300 transition">Зал Славы</a>
+        <a href="#midnight" class="hover:text-amber-300 transition">После полуночи 🕯️</a>
+        <a href="#future" class="hover:text-amber-300 transition">Будущее</a>
+        <a href="#games" class="hover:text-amber-300 transition">Игры</a>
+      </div>
 
       <div class="flex items-center gap-2.5">
         <span id="dataSourceBadge" class="hidden sm:inline-flex items-center gap-1.5 text-xs px-3 py-1 rounded-full bg-amber-950/60 border border-amber-500/20 text-amber-200/80">
           <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
-          <span id="dataSourceText">Архив чата</span>
+          <span id="dataSourceText">Архив загружен</span>
         </span>
 
-        <label for="archiveFileInput" class="cursor-pointer inline-flex items-center gap-2 text-xs sm:text-sm font-medium px-3.5 py-1.5 rounded-full bg-gradient-to-r from-amber-500/20 to-orange-600/25 hover:from-amber-500/35 hover:to-orange-600/35 border border-amber-400/30 text-amber-100 transition-all shadow-sm" title="Можно выбрать result.json ИЛИ сразу все файлы messages1.html ... messages60.html">
-          <span>📂 Загрузить чат (JSON / все HTML)</span>
-          <input id="archiveFileInput" type="file" accept=".json,.html,.htm" multiple class="hidden" />
+        <!-- Принимает ИЛИ result.json, ИЛИ сразу пачку из 60 файлов messages*.html -->
+        <label for="fileInput" class="cursor-pointer inline-flex items-center gap-2 text-xs sm:text-sm font-medium px-3.5 py-1.5 rounded-full bg-gradient-to-r from-amber-500/20 to-orange-600/25 hover:from-amber-500/30 hover:to-orange-600/35 border border-amber-400/30 text-amber-100 transition-all shadow-sm">
+          <span>📂 Загрузить JSON / HTML</span>
+          <input id="fileInput" type="file" accept=".json,.html" multiple class="hidden" />
         </label>
       </div>
     </div>
@@ -234,18 +227,18 @@
   <!-- Всплывающее уведомление -->
   <div id="toastMessage" class="fixed bottom-5 right-5 z-50 pointer-events-none opacity-0 translate-y-4 transition-all duration-300 glass-card px-4 py-3 rounded-2xl border border-amber-400/40 text-sm text-amber-100 flex items-center gap-2.5 shadow-2xl">
     <span id="toastIcon">✨</span>
-    <span id="toastText">Данные обновлены</span>
+    <span id="toastText">Готово</span>
   </div>
 
   <!-- Основной контент -->
   <main class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-24 space-y-24 sm:space-y-32">
 
     <!-- ==========================================
-         БЛОК 1: HERO SECTION (ГЛАВНЫЙ ЭКРАН)
+         1. HERO SECTION + РАСШИРЕННЫЕ МЕТРИКИ ЧАТА
          ========================================== -->
     <section class="reveal text-center pt-4 sm:pt-8">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card text-amber-300/90 text-xs sm:text-sm font-medium mb-6 tracking-wider uppercase">
-        <span>✨ Интерактивный портал нашей истории</span>
+        <span>🔥 Цифровая вселенная нашей пары</span>
       </div>
 
       <h1 class="font-serif font-bold text-4xl sm:text-6xl md:text-7xl tracking-tight text-amber-gradient leading-tight max-w-4xl mx-auto">
@@ -253,18 +246,18 @@
       </h1>
 
       <p class="mt-4 sm:mt-6 text-base sm:text-xl text-amber-100/75 max-w-2xl mx-auto font-normal leading-relaxed">
-        Полная оцифровка того, как нам спокойно, тепло и по-настоящему уютно вместе
+        От первых сообщений и спасённых оценок до ночных разговоров, общих мемов и планов на будущее.
       </p>
 
-      <!-- 4 главных счетчика -->
+      <!-- 4 главных счетчика (с голосовыми и реакциями из JSON) -->
       <div class="mt-10 sm:mt-14 grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto">
         <div class="glass-card rounded-3xl p-6 relative overflow-hidden">
           <p class="text-xs uppercase tracking-widest text-amber-200/60 font-medium">Дней вместе</p>
           <div class="mt-2 flex items-baseline justify-center gap-1">
-            <span id="daysCounter" class="text-3xl sm:text-5xl font-bold text-amber-300">180</span>
+            <span class="text-3xl sm:text-5xl font-bold text-amber-300">180</span>
             <span class="text-2xl sm:text-4xl font-bold text-amber-400">+</span>
           </div>
-          <p class="mt-1.5 text-xs text-amber-100/60">Полгода тепла и доверия</p>
+          <p class="mt-1.5 text-xs text-amber-100/60">Полгода тепла и заботы</p>
         </div>
 
         <div class="glass-card rounded-3xl p-6 relative overflow-hidden">
@@ -272,40 +265,39 @@
           <div class="mt-2 flex items-baseline justify-center">
             <span id="messagesCounter" class="text-3xl sm:text-5xl font-bold text-amber-gradient">0</span>
           </div>
-          <p class="mt-1.5 text-xs text-amber-100/60">В нашем общем архиве</p>
+          <p class="mt-1.5 text-xs text-amber-100/60">Написано друг другу</p>
         </div>
 
         <div class="glass-card rounded-3xl p-6 relative overflow-hidden">
-          <p class="text-xs uppercase tracking-widest text-amber-200/60 font-medium">Голосовые и кружочки</p>
+          <p class="text-xs uppercase tracking-widest text-amber-200/60 font-medium">Голосовые и кружки</p>
           <div class="mt-2 flex items-baseline justify-center gap-1">
             <span id="voiceMinutesCounter" class="text-3xl sm:text-5xl font-bold text-orange-300">0</span>
-            <span class="text-sm sm:text-lg font-semibold text-orange-200/80">мин.</span>
+            <span class="text-base sm:text-xl font-semibold text-orange-300/80">мин</span>
           </div>
-          <p id="voiceCountSub" class="mt-1.5 text-xs text-amber-100/60">Любимого голоса в наушниках</p>
+          <p id="voiceCountSub" class="mt-1.5 text-xs text-amber-100/60">Любимого голоса в ушах</p>
         </div>
 
         <div class="glass-card rounded-3xl p-6 relative overflow-hidden">
-          <p class="text-xs uppercase tracking-widest text-amber-200/60 font-medium">Индекс сердечек</p>
-          <div class="mt-2 flex items-baseline justify-center gap-1">
+          <p class="text-xs uppercase tracking-widest text-amber-200/60 font-medium">Реакций ❤️ и 🔥</p>
+          <div class="mt-2 flex items-baseline justify-center">
             <span id="reactionsCounter" class="text-3xl sm:text-5xl font-bold text-amber-300">0</span>
-            <span class="text-2xl sm:text-3xl">❤️🔥</span>
           </div>
-          <p class="mt-1.5 text-xs text-amber-100/60">Реакций и тёплых слов</p>
+          <p class="mt-1.5 text-xs text-amber-100/60">Искр и тепла в чате</p>
         </div>
       </div>
     </section>
 
     <!-- ==========================================
-         БЛОК 2: ДАТА-АНАЛИТИКА + NLP СЛОВАРЬ
+         2. ДАТА-АНАЛИТИКА И СЛОВАРЬ НЕЖНОСТИ
          ========================================== -->
-    <section id="analytics" class="space-y-8 scroll-mt-20">
+    <section id="analytics" class="space-y-8">
       <div class="reveal text-center max-w-2xl mx-auto">
-        <span class="text-xs uppercase tracking-widest text-amber-400/80 font-semibold">Большие данные о нас</span>
+        <span class="text-xs uppercase tracking-widest text-amber-400/80 font-semibold">Данные и доказательства</span>
         <h2 class="font-serif text-3xl sm:text-5xl font-bold text-amber-50 mt-1">
           Ритм нашего общения
         </h2>
         <p class="text-sm sm:text-base text-amber-100/65 mt-2">
-          Когда мы пишем друг другу чаще всего, кто лидирует по сообщениям и какие слова звучат в чате постоянно
+          Кто пишет больше, когда наступает наш ночной прайм-тайм и какие слова звучат чаще всего
         </p>
       </div>
 
@@ -313,24 +305,19 @@
         <!-- График 1: Баланс сил -->
         <div class="reveal glass-card rounded-3xl p-6 sm:p-8 lg:col-span-5 flex flex-col justify-between">
           <div>
-            <div class="flex items-center justify-between gap-2">
-              <h3 class="font-serif text-2xl sm:text-3xl font-bold text-amber-100">Баланс сил</h3>
-              <span class="text-xs px-2.5 py-1 rounded-full bg-amber-500/15 border border-amber-400/25 text-amber-300">Ваня vs Наташа</span>
-            </div>
-            <p class="text-xs sm:text-sm text-amber-100/60 mt-1">Вклад каждого в нашу переписку</p>
+            <h3 class="font-serif text-2xl font-bold text-amber-100">Баланс сил в чате</h3>
+            <p class="text-xs sm:text-sm text-amber-100/60 mt-1">Вклад каждого в нашу историю</p>
           </div>
-
           <div class="relative my-6 h-60 flex items-center justify-center">
             <canvas id="balanceChart"></canvas>
           </div>
-
           <div class="grid grid-cols-2 gap-3 pt-3 border-t border-amber-500/15 text-center">
             <div class="p-2.5 rounded-2xl bg-amber-950/40 border border-amber-500/10">
               <span class="text-xs text-amber-200/70 block">Ваня</span>
               <span id="vanyaCountText" class="text-base font-bold text-amber-300">—</span>
             </div>
             <div class="p-2.5 rounded-2xl bg-amber-950/40 border border-amber-500/10">
-              <span class="text-xs text-amber-200/70 block">Наташа</span>
+              <span class="text-xs text-amber-200/70 block">Натка ❤️</span>
               <span id="natashaCountText" class="text-base font-bold text-orange-300">—</span>
             </div>
           </div>
@@ -339,14 +326,13 @@
         <!-- График 2: Биоритмы -->
         <div class="reveal glass-card rounded-3xl p-6 sm:p-8 lg:col-span-7 flex flex-col justify-between">
           <div>
-            <div class="flex items-center justify-between gap-2">
-              <h3 class="font-serif text-2xl sm:text-3xl font-bold text-amber-100">Биоритмы по часам</h3>
-              <span id="peakHourBadge" class="text-xs px-2.5 py-1 rounded-full bg-orange-500/15 border border-orange-400/25 text-orange-300">Пик уюта: 21:00</span>
+            <div class="flex items-center justify-between">
+              <h3 class="font-serif text-2xl font-bold text-amber-100">Биоритмы (00:00 – 23:00)</h3>
+              <span id="peakHourBadge" class="text-xs px-2.5 py-1 rounded-full bg-orange-500/15 border border-orange-400/30 text-orange-300">Пик: 21:00</span>
             </div>
-            <p class="text-xs sm:text-sm text-amber-100/60 mt-1">Распределение наших сообщений от 00:00 до 23:00</p>
+            <p class="text-xs sm:text-sm text-amber-100/60 mt-1">Часы, когда мы не можем оторваться от переписки</p>
           </div>
-
-          <div class="relative mt-6 h-64 sm:h-72 w-full">
+          <div class="relative mt-6 h-64 w-full">
             <canvas id="biorhythmChart"></canvas>
           </div>
         </div>
@@ -355,208 +341,173 @@
         <div class="reveal glass-card rounded-3xl p-6 sm:p-8 lg:col-span-12">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
-              <h3 class="font-serif text-2xl sm:text-3xl font-bold text-amber-100">Пульс отношений</h3>
-              <p class="text-xs sm:text-sm text-amber-100/60 mt-1">Кардиограмма нашей активности по дням и месяцам</p>
+              <h3 class="font-serif text-2xl font-bold text-amber-100">Пульс отношений</h3>
+              <p class="text-xs sm:text-sm text-amber-100/60 mt-1">Кардиограмма нашей активности по дням</p>
             </div>
-            <span id="peakDayBadge" class="self-start sm:self-auto text-xs px-3 py-1 rounded-full bg-amber-500/15 border border-amber-400/25 text-amber-200">
-              Рекорд активности
-            </span>
+            <span id="peakDayBadge" class="text-xs px-3 py-1 rounded-full bg-amber-500/15 border border-amber-400/25 text-amber-200">Рекорд активности</span>
           </div>
-
           <div class="relative mt-6 h-72 w-full">
             <canvas id="pulseChart"></canvas>
           </div>
         </div>
 
-        <!-- NLP-блок: Словарь нежности и локальных смыслов -->
+        <!-- Словарь нашего чата -->
         <div class="reveal glass-card rounded-3xl p-6 sm:p-8 lg:col-span-12">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5">
-            <div>
-              <h3 class="font-serif text-2xl sm:text-3xl font-bold text-amber-100">Словарь нашего тепла</h3>
-              <p class="text-xs sm:text-sm text-amber-100/60 mt-1">Главные слова, эмоции и фразы, из которых состоит наш диалог</p>
-            </div>
-            <span class="text-xs px-3 py-1 rounded-full bg-amber-500/15 border border-amber-400/25 text-amber-300">NLP-разбор текста</span>
-          </div>
-
-          <div id="wordCloudContainer" class="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5 py-4">
-            <!-- Заполняется автоматически через JS -->
+          <h3 class="font-serif text-2xl font-bold text-amber-100">Тепловая карта наших слов и фраз</h3>
+          <p class="text-xs sm:text-sm text-amber-100/60 mt-1">Главные маркеры нашего общения, вытащенные из переписки</p>
+          <div id="wordCloudContainer" class="mt-5 flex flex-wrap gap-2.5">
+            <!-- Заполняется автоматически из JSON -->
           </div>
         </div>
       </div>
     </section>
 
     <!-- ==========================================
-         БЛОК 3: ОБНОВЛЁННЫЙ ЗАЛ СЛАВЫ (9 КАРТОЧЕК)
+         3. ОБНОВЛЁННЫЙ ИНТЕРАКТИВНЫЙ ЗАЛ СЛАВЫ (8 КАРТОЧЕК)
          ========================================== -->
-    <section id="hallOfFame" class="space-y-8 scroll-mt-20">
+    <section id="hall" class="space-y-8">
       <div class="reveal text-center max-w-2xl mx-auto">
-        <span class="text-xs uppercase tracking-widest text-amber-400/80 font-semibold">Легендарные главы</span>
+        <span class="text-xs uppercase tracking-widest text-amber-400/80 font-semibold">Ачивки наших 6 месяцев</span>
         <h2 class="font-serif text-3xl sm:text-5xl font-bold text-amber-50 mt-1">
           Интерактивный Зал Славы
         </h2>
         <p class="text-sm sm:text-base text-amber-100/65 mt-2">
-          Наведи курсор или нажми на карточку, чтобы перевернуть её и открыть историю
+          Наведи курсор или нажми на карточку, чтобы открыть историю каждого достижения
         </p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Карточка 1 (Блок А - 1) -->
-        <div class="reveal flip-card" tabindex="0" role="button">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <!-- Карта 1 -->
+        <div class="reveal flip-card" tabindex="0">
           <div class="flip-card-inner">
             <div class="flip-card-front">
-              <div class="w-16 h-16 rounded-2xl bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-3xl mb-4">🏆</div>
+              <div class="w-14 h-14 rounded-2xl bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-3xl mb-3">🏆</div>
               <h3 class="font-serif text-2xl font-bold text-amber-100">«Слава Наташе 🙏»</h3>
-              <span class="mt-2 text-xs text-amber-200/60">То, с чего всё начиналось</span>
-              <span class="mt-3 text-xs text-amber-300/70">Перевернуть ↻</span>
+              <span class="mt-2 text-xs text-amber-300/60">Открыть историю ↻</span>
             </div>
             <div class="flip-card-back">
-              <span class="text-3xl mb-2">⭐</span>
-              <p class="text-sm sm:text-base font-medium text-amber-50 leading-relaxed">
-                Спасённый семестр, инженерная графика за 15 минут, тетрадки с конспектами и та самая фраза в Новый год: «Желаю тебе всех тех сил, которые ты потратила на мои оценки!»
+              <span class="text-2xl mb-2">⭐</span>
+              <p class="text-sm font-medium text-amber-50 leading-relaxed">
+                С чего всё начиналось: лучшая староста, которая вытянула первый семестр, сделала черчение за 15 минут и спасла оценки!
               </p>
             </div>
           </div>
         </div>
 
-        <!-- Карточка 2 (Новая замена в Блок А - 2) -->
-        <div class="reveal flip-card" tabindex="0" role="button">
+        <!-- Карта 2 (НОВАЯ взамен Hot Wheels) -->
+        <div class="reveal flip-card" tabindex="0">
           <div class="flip-card-inner">
             <div class="flip-card-front">
-              <div class="w-16 h-16 rounded-2xl bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-3xl mb-4">💘</div>
-              <h3 class="font-serif text-2xl font-bold text-amber-100">Магия 14 февраля</h3>
-              <span class="mt-2 text-xs text-amber-200/60">Символичный рекорд чата</span>
-              <span class="mt-3 text-xs text-amber-300/70">Перевернуть ↻</span>
+              <div class="w-14 h-14 rounded-2xl bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-3xl mb-3">🧲</div>
+              <h3 class="font-serif text-2xl font-bold text-amber-100">Магнит за одной партой</h3>
+              <span class="mt-2 text-xs text-amber-300/60">Открыть историю ↻</span>
             </div>
             <div class="flip-card-back">
-              <span class="text-3xl mb-2">🔥</span>
-              <p class="text-sm sm:text-base font-medium text-amber-50 leading-relaxed">
-                Именно 14 февраля мы поставили рекорд активности (112 сообщений за вечер!), вместе штурмуя олимпиаду и обмениваясь десятками сердечек и огоньков.
+              <span class="text-2xl mb-2">💫</span>
+              <p class="text-sm font-medium text-amber-50 leading-relaxed">
+                Секретные планы, как отсесть от всех на математике и физике, чтобы просто сидеть рядом и смеяться всю пару.
               </p>
             </div>
           </div>
         </div>
 
-        <!-- Карточка 3 (Новая замена в Блок А - 3) -->
-        <div class="reveal flip-card" tabindex="0" role="button">
+        <!-- Карта 3 (НОВАЯ взамен Букета 2027) -->
+        <div class="reveal flip-card" tabindex="0">
           <div class="flip-card-inner">
             <div class="flip-card-front">
-              <div class="w-16 h-16 rounded-2xl bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-3xl mb-4">🪑</div>
-              <h3 class="font-serif text-2xl font-bold text-amber-100">Парта для двоих</h3>
-              <span class="mt-2 text-xs text-amber-200/60">Секретная тактика</span>
-              <span class="mt-3 text-xs text-amber-300/70">Перевернуть ↻</span>
+              <div class="w-14 h-14 rounded-2xl bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-3xl mb-3">🎁</div>
+              <h3 class="font-serif text-2xl font-bold text-amber-100">Артефакты нежности</h3>
+              <span class="mt-2 text-xs text-amber-300/60">Открыть историю ↻</span>
             </div>
             <div class="flip-card-back">
-              <span class="text-3xl mb-2">🤫</span>
-              <p class="text-sm sm:text-base font-medium text-amber-50 leading-relaxed">
-                Целые заговоры ради того, чтобы занять место рядом на математике и физике — потому что вдвоём даже самая скучная пара превращается в чистый кайф.
+              <span class="text-2xl mb-2">💐</span>
+              <p class="text-sm font-medium text-amber-50 leading-relaxed">
+                Любовь в деталях: от букетов и подарков, собранных своими руками, до заботы о каждом мелочном капризе друг друга.
               </p>
             </div>
           </div>
         </div>
 
-        <!-- Карточка 4 (Блок Б) -->
-        <div class="reveal flip-card" tabindex="0" role="button">
+        <!-- Карта 4 -->
+        <div class="reveal flip-card" tabindex="0">
           <div class="flip-card-inner">
             <div class="flip-card-front">
-              <div class="w-16 h-16 rounded-2xl bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-3xl mb-4">🎬</div>
+              <div class="w-14 h-14 rounded-2xl bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-3xl mb-3">🎬</div>
               <h3 class="font-serif text-2xl font-bold text-amber-100">Киноночи в обнимку</h3>
-              <span class="mt-2 text-xs text-amber-200/60">Атмосфера полумрака</span>
-              <span class="mt-3 text-xs text-amber-300/70">Перевернуть ↻</span>
+              <span class="mt-2 text-xs text-amber-300/60">Открыть историю ↻</span>
             </div>
             <div class="flip-card-back">
-              <span class="text-3xl mb-2">🍿</span>
-              <p class="text-sm sm:text-base font-medium text-amber-50 leading-relaxed">
-                Совместные просмотры хорроров, захватывающих сериалов и аниме под пледом, когда весь остальной мир ставится на паузу.
+              <span class="text-2xl mb-2">🍿</span>
+              <p class="text-sm font-medium text-amber-50 leading-relaxed">
+                Совместные просмотры ужастиков, аниме и сериалов под пледом, когда весь остальной мир ставится на паузу.
               </p>
             </div>
           </div>
         </div>
 
-        <!-- Карточка 5 (Блок Б) -->
-        <div class="reveal flip-card" tabindex="0" role="button">
+        <!-- Карта 5 -->
+        <div class="reveal flip-card" tabindex="0">
           <div class="flip-card-inner">
             <div class="flip-card-front">
-              <div class="w-16 h-16 rounded-2xl bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-3xl mb-4">☕</div>
+              <div class="w-14 h-14 rounded-2xl bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-3xl mb-3">☕</div>
               <h3 class="font-serif text-2xl font-bold text-amber-100">Вкусная забота</h3>
-              <span class="mt-2 text-xs text-amber-200/60">Гастро-ритуалы</span>
-              <span class="mt-3 text-xs text-amber-300/70">Перевернуть ↻</span>
+              <span class="mt-2 text-xs text-amber-300/60">Открыть историю ↻</span>
             </div>
             <div class="flip-card-back">
-              <span class="text-3xl mb-2">🥐</span>
-              <p class="text-sm sm:text-base font-medium text-amber-50 leading-relaxed">
-                От спасительных перекусов в голодные моменты до совместных вкусняшек, горячего чая и заботы друг о друге в каждой мелочи.
+              <span class="text-2xl mb-2">🍙</span>
+              <p class="text-sm font-medium text-amber-50 leading-relaxed">
+                Спасительные перекусы в минуты голода, домашние вкусняшки, горячий кофе и умение вовремя накормить любимого человека.
               </p>
             </div>
           </div>
         </div>
 
-        <!-- Карточка 6 (Блок Б) -->
-        <div class="reveal flip-card" tabindex="0" role="button">
+        <!-- Карта 6 -->
+        <div class="reveal flip-card" tabindex="0">
           <div class="flip-card-inner">
             <div class="flip-card-front">
-              <div class="w-16 h-16 rounded-2xl bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-3xl mb-4">🌙</div>
+              <div class="w-14 h-14 rounded-2xl bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-3xl mb-3">🌙</div>
               <h3 class="font-serif text-2xl font-bold text-amber-100">Ночной прайм-тайм</h3>
-              <span class="mt-2 text-xs text-amber-200/60">Пик тепла после 21:00</span>
-              <span class="mt-3 text-xs text-amber-300/70">Перевернуть ↻</span>
+              <span class="mt-2 text-xs text-amber-300/60">Открыть историю ↻</span>
             </div>
             <div class="flip-card-back">
-              <span class="text-3xl mb-2">✨</span>
-              <p class="text-sm sm:text-base font-medium text-amber-50 leading-relaxed">
-                Наше любимое вечернее время, когда заканчивается дневная суета и начинаются самые долгие, тёплые и искренние разговоры.
+              <span class="text-2xl mb-2">✨</span>
+              <p class="text-sm font-medium text-amber-50 leading-relaxed">
+                Пик нашей активности после 21:00: длинные голосовые, обсуждение всего на свете и тепло перед сном.
               </p>
             </div>
           </div>
         </div>
 
-        <!-- Карточка 7 (Блок Б) -->
-        <div class="reveal flip-card" tabindex="0" role="button">
+        <!-- Карта 7 -->
+        <div class="reveal flip-card" tabindex="0">
           <div class="flip-card-inner">
             <div class="flip-card-front">
-              <div class="w-16 h-16 rounded-2xl bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-3xl mb-4">📸</div>
+              <div class="w-14 h-14 rounded-2xl bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-3xl mb-3">📸</div>
               <h3 class="font-serif text-2xl font-bold text-amber-100">Охотники за моментами</h3>
-              <span class="mt-2 text-xs text-amber-200/60">Живые воспоминания</span>
-              <span class="mt-3 text-xs text-amber-300/70">Перевернуть ↻</span>
+              <span class="mt-2 text-xs text-amber-300/60">Открыть историю ↻</span>
             </div>
             <div class="flip-card-back">
-              <span class="text-3xl mb-2">🌆</span>
-              <p class="text-sm sm:text-base font-medium text-amber-50 leading-relaxed">
-                Вечерние прогулки по городу, совместные фотографии, живые эмоции, голосовые и кружочки, которые всегда поднимают настроение.
+              <span class="text-2xl mb-2">🌆</span>
+              <p class="text-sm font-medium text-amber-50 leading-relaxed">
+                Вечерние прогулки, спонтанные свидания, смешные кружочки в Телеграме и кадры, которые хочется пересматривать.
               </p>
             </div>
           </div>
         </div>
 
-        <!-- Карточка 8 (Блок Б) -->
-        <div class="reveal flip-card" tabindex="0" role="button">
+        <!-- Карта 8 -->
+        <div class="reveal flip-card" tabindex="0">
           <div class="flip-card-inner">
             <div class="flip-card-front">
-              <div class="w-16 h-16 rounded-2xl bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-3xl mb-4">🎁</div>
-              <h3 class="font-serif text-2xl font-bold text-amber-100">Мастерская сюрпризов</h3>
-              <span class="mt-2 text-xs text-amber-200/60">Любовь в деталях</span>
-              <span class="mt-3 text-xs text-amber-300/70">Перевернуть ↻</span>
-            </div>
-            <div class="flip-card-back">
-              <span class="text-3xl mb-2">💝</span>
-              <p class="text-sm sm:text-base font-medium text-amber-50 leading-relaxed">
-                От цветов и подарков, собранных своими руками, до настройки нового айфона, квест-бота в Telegram и этого цифрового архива.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Карточка 9 (Блок Б) -->
-        <div class="reveal flip-card" tabindex="0" role="button">
-          <div class="flip-card-inner">
-            <div class="flip-card-front">
-              <div class="w-16 h-16 rounded-2xl bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-3xl mb-4">🛡️</div>
+              <div class="w-14 h-14 rounded-2xl bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-3xl mb-3">🛡️</div>
               <h3 class="font-serif text-2xl font-bold text-amber-100">Тихая гавань</h3>
-              <span class="mt-2 text-xs text-amber-200/60">Наше место силы</span>
-              <span class="mt-3 text-xs text-amber-300/70">Перевернуть ↻</span>
+              <span class="mt-2 text-xs text-amber-300/60">Открыть историю ↻</span>
             </div>
             <div class="flip-card-back">
-              <span class="text-3xl mb-2">🤍</span>
-              <p class="text-sm sm:text-base font-medium text-amber-50 leading-relaxed">
-                Самое главное достижение этих 6 месяцев: рядом друг с другом не нужно держать оборону — здесь спокойно, тепло и безопасно.
+              <span class="text-2xl mb-2">💛</span>
+              <p class="text-sm font-medium text-amber-50 leading-relaxed">
+                Самая главная ачивка: ощущение полной безопасности, когда не нужно держать оборону и можно просто быть собой.
               </p>
             </div>
           </div>
@@ -565,268 +516,248 @@
     </section>
 
     <!-- ==========================================
-         БЛОК 4: ИГРОВОЙ МОДУЛЬ (СИНХРОНИЗАЦИЯ + АРКАДА)
+         4. СЕКРЕТНЫЙ МОДУЛЬ БЛИЗОСТИ: «ПОСЛЕ ПОЛУНОЧИ 🕯️»
          ========================================== -->
-    <section id="gamesSection" class="reveal space-y-8 scroll-mt-20">
-      <div class="text-center max-w-2xl mx-auto">
-        <span class="text-xs uppercase tracking-widest text-amber-400/80 font-semibold">Геймификация для двоих</span>
-        <h2 class="font-serif text-3xl sm:text-5xl font-bold text-amber-50 mt-1">
-          Интерактивная зона
-        </h2>
-        <p class="text-sm sm:text-base text-amber-100/65 mt-2">
-          Две игры прямо внутри сайта: проверьте вашу синхронизацию или сыграйте в аркаду уюта
-        </p>
-
-        <!-- Переключатель игр -->
-        <div class="mt-6 inline-flex p-1.5 rounded-2xl bg-amber-950/60 border border-amber-500/20">
-          <button id="tabSyncBtn" class="px-5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-amber-500 text-stone-950 transition">
-            🧩 1. Тест «Кто из нас?..»
-          </button>
-          <button id="tabArcadeBtn" class="px-5 py-2 rounded-xl text-xs sm:text-sm font-semibold text-amber-200 hover:text-amber-100 transition">
-            🎮 2. Аркада «Ловец уюта»
-          </button>
-        </div>
-      </div>
-
-      <!-- Игра 1: Тест «Кто из нас?» -->
-      <div id="syncGamePanel" class="glass-card rounded-3xl p-6 sm:p-10 max-w-3xl mx-auto text-center">
-        <div class="inline-flex items-center gap-2 text-xs px-3 py-1 rounded-full bg-amber-500/15 text-amber-300 mb-4">
-          <span>Вопрос <span id="syncQIndex">1</span> из 7</span>
-        </div>
-
-        <h3 id="syncQuestionText" class="font-serif text-2xl sm:text-4xl font-bold text-amber-50 min-h-[4rem] flex items-center justify-center">
-          Кто из нас быстрее засыпает под фильм или сериал?
-        </h3>
-
-        <div id="syncButtonsWrap" class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-xl mx-auto">
-          <button data-who="Ваня" class="sync-ans-btn py-4 px-6 rounded-2xl bg-amber-500/15 hover:bg-amber-500/30 border border-amber-400/30 text-amber-100 font-semibold transition transform active:scale-95">
-            🙋‍♂️ Точно Ваня
-          </button>
-          <button data-who="Оба" class="sync-ans-btn py-4 px-6 rounded-2xl bg-orange-500/15 hover:bg-orange-500/30 border border-orange-400/30 text-orange-100 font-semibold transition transform active:scale-95">
-            👩‍❤️‍👨 Оба хороши
-          </button>
-          <button data-who="Наташа" class="sync-ans-btn py-4 px-6 rounded-2xl bg-amber-500/15 hover:bg-amber-500/30 border border-amber-400/30 text-amber-100 font-semibold transition transform active:scale-95">
-            🙋‍♀️ Точно Наташа
-          </button>
-        </div>
-
-        <div id="syncResultBox" class="hidden mt-6 space-y-4">
-          <div class="text-4xl">💖✨</div>
-          <h4 class="font-serif text-3xl font-bold text-amber-300">Синхронизация 100%!</h4>
-          <p id="syncSummaryText" class="text-sm sm:text-base text-amber-100/80 max-w-lg mx-auto"></p>
-          <button id="restartSyncBtn" class="mt-4 px-6 py-2.5 rounded-full bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-200 text-sm font-medium transition">
-            Пройти ещё раз ↻
-          </button>
-        </div>
-      </div>
-
-      <!-- Игра 2: Аркада на Canvas -->
-      <div id="arcadeGamePanel" class="hidden glass-card rounded-3xl p-6 sm:p-8 max-w-3xl mx-auto text-center">
-        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
-          <div class="text-left">
-            <h3 class="font-serif text-2xl font-bold text-amber-100">Ловец нашего уюта</h3>
-            <p class="text-xs text-amber-200/70">Лови 💛 ☕ 🥐 🎬 и уворачивайся от скучных пар 📐 и будильников ⏰!</p>
-          </div>
-          <div class="flex items-center gap-4">
-            <span class="text-sm font-bold text-amber-300">Счёт: <span id="arcadeScore">0</span></span>
-            <button id="startArcadeBtn" class="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 text-stone-950 font-bold text-xs sm:text-sm shadow-lg hover:opacity-90 transition">
-              ▶ Старт (30 сек)
-            </button>
-          </div>
-        </div>
-
-        <div class="relative w-full overflow-hidden rounded-2xl bg-[#0b0503] border border-amber-500/25">
-          <canvas id="arcadeCanvas" width="680" height="340" class="w-full h-[280px] sm:h-[340px] touch-none cursor-pointer"></canvas>
-          <div id="arcadeOverlay" class="absolute inset-0 flex flex-col items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-            <p id="arcadeOverlayText" class="font-serif text-2xl sm:text-3xl text-amber-100 mb-3">
-              Двигай корзинку пальцем или мышкой!
-            </p>
-            <p class="text-xs text-amber-300/80">Набери 150 очков, чтобы открыть секретный комплимент</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==========================================
-         БЛОК 5: ДЕЛИКАТНЫЙ МОДУЛЬ «НАЕДИНЕ: КАРТЫ СБЛИЖЕНИЯ»
-         ========================================== -->
-    <section id="intimateSection" class="reveal space-y-8 scroll-mt-20">
-      <div class="text-center max-w-2xl mx-auto">
-        <span class="text-xs uppercase tracking-widest text-orange-400/90 font-semibold">Тёплая аура • Только для нас двоих</span>
-        <h2 class="font-serif text-3xl sm:text-5xl font-bold text-amber-50 mt-1">
-          Наедине: Карты сближения
-        </h2>
-        <p class="text-sm sm:text-base text-amber-100/70 mt-2">
-          Вечерняя игра в полумраке, чтобы узнать друг друга ещё глубже — от нежных прикосновений до тайных желаний на ушко
-        </p>
-      </div>
-
-      <div class="intimate-aura rounded-3xl p-6 sm:p-12 max-w-3xl mx-auto text-center relative overflow-hidden">
-        <!-- Переключатель 3 уровней -->
-        <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-8">
-          <button data-level="soft" class="intimate-lvl-btn choice-btn active px-4 py-2 rounded-full border border-amber-500/30 text-xs sm:text-sm font-medium text-amber-100 transition">
-            🕯️ 1. Нежность и тактильность
-          </button>
-          <button data-level="spark" class="intimate-lvl-btn choice-btn px-4 py-2 rounded-full border border-amber-500/30 text-xs sm:text-sm font-medium text-amber-100 transition">
-            🔥 2. Атмосфера и притяжение
-          </button>
-          <button data-level="whisper" class="intimate-lvl-btn choice-btn px-4 py-2 rounded-full border border-amber-500/30 text-xs sm:text-sm font-medium text-amber-100 transition">
-            💋 3. Шёпотом на ушко (18+)
-          </button>
-        </div>
-
-        <!-- Карта с вопросом -->
-        <div id="intimateCardBox" class="min-h-[190px] flex flex-col items-center justify-center px-4 sm:px-10 py-8 rounded-2xl bg-black/35 border border-orange-400/25 shadow-inner transition-all duration-300">
-          <span id="intimateLevelTag" class="text-xs uppercase tracking-widest text-orange-300/80 mb-3">
-            🕯️ Уровень 1 • Тактильность и чувства
+    <section id="midnight" class="reveal">
+      <div class="intimate-aura rounded-3xl p-7 sm:p-12 max-w-4xl mx-auto relative overflow-hidden">
+        <div class="text-center max-w-2xl mx-auto">
+          <span class="inline-flex items-center gap-1.5 text-xs uppercase tracking-widest px-3.5 py-1 rounded-full bg-orange-500/20 border border-orange-400/30 text-orange-200 font-semibold">
+            🕯️ Особая грань • Только для нас двоих
           </span>
-          <p id="intimateQuestionText" class="font-serif italic text-2xl sm:text-3xl md:text-4xl text-amber-50 leading-relaxed">
-            «Какое прикосновение или поцелуй от меня мгновенно заставляет тебя расслабиться и покрыться мурашками?»
+          <h2 class="font-serif text-3xl sm:text-5xl font-bold text-amber-50 mt-3">
+            После полуночи: Игра в откровенность
+          </h2>
+          <p class="text-sm sm:text-base text-amber-100/70 mt-2">
+            Вопросы, чтобы узнать желания, тактильные триггеры и секреты друг друга ещё глубже. Выбирайте уровень тепла и отвечайте по очереди вслух.
           </p>
         </div>
 
-        <div class="mt-7 flex flex-wrap items-center justify-center gap-4">
-          <button id="nextIntimateCardBtn" class="px-7 py-3.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-600 text-stone-950 font-bold text-sm sm:text-base shadow-xl hover:opacity-95 transform active:scale-95 transition">
-            ✨ Вытянуть следующую карту
+        <!-- Переключатель 3 уровней интимности -->
+        <div class="mt-8 flex flex-wrap justify-center gap-3">
+          <button data-level="1" class="intimacy-lvl-btn choice-btn active px-4 py-2 rounded-full glass-card text-xs sm:text-sm font-semibold text-amber-100">
+            1. 🪶 Тепло и мурашки (Тактильность)
+          </button>
+          <button data-level="2" class="intimacy-lvl-btn choice-btn px-4 py-2 rounded-full glass-card text-xs sm:text-sm font-semibold text-amber-100">
+            2. 🔥 Искры и притяжение (Флирт)
+          </button>
+          <button data-level="3" class="intimacy-lvl-btn choice-btn px-4 py-2 rounded-full glass-card text-xs sm:text-sm font-semibold text-amber-100">
+            3. 🌙 Только между нами (Желания 18+)
           </button>
         </div>
 
-        <p class="mt-4 text-xs text-amber-200/50">
-          Правило игры: отвечаем честно по очереди, глядя друг другу в глаза (или обнявшись в темноте)
-        </p>
+        <!-- Карточка с текущим вопросом -->
+        <div class="mt-7 glass-card rounded-2xl p-7 sm:p-10 text-center border border-orange-400/30 min-h-[190px] flex flex-col items-center justify-center">
+          <span id="intimacyBadge" class="text-xs uppercase tracking-widest text-orange-300/80 mb-2">Уровень 1 • Вопрос 1 из 5</span>
+          <p id="intimacyQuestionText" class="font-serif italic text-2xl sm:text-3xl text-amber-50 leading-relaxed max-w-2xl">
+            «Какое прикосновение (к шее, спине, волосам или рукам) мгновенно вызывает у тебя мурашки и заставляет забыть обо всём?»
+          </p>
+        </div>
+
+        <div class="mt-6 flex items-center justify-center gap-4">
+          <button id="prevIntimacyBtn" class="px-5 py-2.5 rounded-full glass-card text-xs sm:text-sm text-amber-200 hover:text-white">
+            ← Предыдущий
+          </button>
+          <button id="nextIntimacyBtn" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-600 text-xs sm:text-sm font-semibold text-stone-950 shadow-lg hover:brightness-110 transition">
+            Следующий вопрос ✨
+          </button>
+        </div>
       </div>
     </section>
 
     <!-- ==========================================
-         БЛОК 6: КОНСТРУКТОР БУДУЩЕГО (КВАРТИРА & ПИТОМЕЦ)
+         5. МОДУЛЬ 1: КОНСТРУКТОР БУДУЩЕГО (КВАРТИРА И ПИТОМЕЦ)
          ========================================== -->
-    <section id="futureSection" class="reveal space-y-8 scroll-mt-20">
+    <section id="future" class="reveal space-y-8">
       <div class="text-center max-w-2xl mx-auto">
-        <span class="text-xs uppercase tracking-widest text-amber-400/80 font-semibold">Совместный проект жизни</span>
+        <span class="text-xs uppercase tracking-widest text-amber-400/80 font-semibold">Капсула времени</span>
         <h2 class="font-serif text-3xl sm:text-5xl font-bold text-amber-50 mt-1">
           Конструктор нашего будущего
         </h2>
         <p class="text-sm sm:text-base text-amber-100/65 mt-2">
-          Выберите вместе детали вашего будущего дома — выбор автоматически сохранится в капсулу времени
+          Выберите вместе параметры вашей будущей квартиры и питомца — сайт сохранит ваш общий выбор
         </p>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <!-- Шаг 1: Квартира -->
-        <div class="glass-card rounded-3xl p-6 space-y-4">
-          <div class="flex items-center gap-2.5">
-            <span class="text-2xl">🏡</span>
-            <h3 class="font-serif text-2xl font-bold text-amber-100">1. Наша квартира</h3>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Выбор квартиры -->
+        <div class="glass-card rounded-3xl p-6 sm:p-8 space-y-5">
+          <div class="flex items-center gap-3">
+            <span class="text-3xl">🏡</span>
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-amber-100">Наша будущая квартира</h3>
+              <p class="text-xs text-amber-200/60">Какая атмосфера нам ближе всего?</p>
+            </div>
           </div>
-          <div class="space-y-2.5" data-group="flat">
-            <button data-val="Тёплый лофт с панорамными окнами и мягким светом" class="future-choice choice-btn active w-full text-left p-3.5 rounded-2xl border border-amber-500/20 text-xs sm:text-sm text-amber-100 transition">
-              🌆 <b>Тёплый лофт</b> с панорамным видом и мягкой вечерней подсветкой
+
+          <div class="space-y-3" id="flatChoices">
+            <button data-val="Тёплый лофт с панорамным видом и мягкой подсветкой" class="flat-btn choice-btn active w-full text-left p-4 rounded-2xl glass-card flex items-center justify-between">
+              <div>
+                <div class="font-semibold text-sm text-amber-100">🌆 Тёплый вечерний лофт</div>
+                <div class="text-xs text-amber-200/60 mt-0.5">Панорамные окна, тёплая янтарная подсветка, мощный рабочий стол с двумя мониторами и огромный диван для киноночей.</div>
+              </div>
+              <span class="text-amber-400 ml-3">✓</span>
             </button>
-            <button data-val="Уютная сканди-квартира с огромной кроватью и кухней" class="future-choice choice-btn w-full text-left p-3.5 rounded-2xl border border-amber-500/20 text-xs sm:text-sm text-amber-100 transition">
-              ☕ <b>Светлый уют</b> с большой кухней для вкусняшек и огромной кроватью
+
+            <button data-val="Уютный сканди с большой кухней и ароматом кофе" class="flat-btn choice-btn w-full text-left p-4 rounded-2xl glass-card flex items-center justify-between">
+              <div>
+                <div class="font-semibold text-sm text-amber-100">☕ Светлый уют с большой кухней</div>
+                <div class="text-xs text-amber-200/60 mt-0.5">Где по утрам пахнет кофе и вафлями, стоит аэрогриль, много дерева, мягких пледов и полная тишина.</div>
+              </div>
+              <span class="text-amber-400 ml-3">✓</span>
             </button>
-            <button data-val="Современная смарт-квартира с кинопроектором и рабочей зоной" class="future-choice choice-btn w-full text-left p-3.5 rounded-2xl border border-amber-500/20 text-xs sm:text-sm text-amber-100 transition">
-              🎬 <b>Смарт-гнездо</b> с домашним кинопроектором на всю стену и мощным сетапом
+
+            <button data-val="Смарт-минимализм с голосовым Джарвисом и проектором" class="flat-btn choice-btn w-full text-left p-4 rounded-2xl glass-card flex items-center justify-between">
+              <div>
+                <div class="font-semibold text-sm text-amber-100">🎬 Смарт-студия с домашним кинотеатром</div>
+                <div class="text-xs text-amber-200/60 mt-0.5">Проектор на всю стену, умный свет по голосу и идеальная берлога, где никто не тревожит.</div>
+              </div>
+              <span class="text-amber-400 ml-3">✓</span>
             </button>
           </div>
         </div>
 
-        <!-- Шаг 2: Питомец -->
-        <div class="glass-card rounded-3xl p-6 space-y-4">
-          <div class="flex items-center gap-2.5">
-            <span class="text-2xl">🐾</span>
-            <h3 class="font-serif text-2xl font-bold text-amber-100">2. Наш питомец</h3>
+        <!-- Выбор питомца -->
+        <div class="glass-card rounded-3xl p-6 sm:p-8 space-y-5">
+          <div class="flex items-center gap-3">
+            <span class="text-3xl">🐾</span>
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-amber-100">Наш будущий питомец</h3>
+              <p class="text-xs text-amber-200/60">Кого заведём первым?</p>
+            </div>
           </div>
-          <div class="space-y-2.5" data-group="pet">
-            <button data-val="Харизматичный чёрный кот с янтарными глазами" class="future-choice choice-btn active w-full text-left p-3.5 rounded-2xl border border-amber-500/20 text-xs sm:text-sm text-amber-100 transition">
-              🐈‍⬛ <b>Чёрный кот-философ</b>, который спит на клавиатуре и мурчит по вечерам
-            </button>
-            <button data-val="Пушистый рыжий котик — главный генератор уюта" class="future-choice choice-btn w-full text-left p-3.5 rounded-2xl border border-amber-500/20 text-xs sm:text-sm text-amber-100 transition">
-              🐈 <b>Пушистый рыжий кот</b> — наглый, смешной и бесконечно ласковый
-            </button>
-            <button data-val="Добрая собака для совместных вечерних прогулок" class="future-choice choice-btn w-full text-left p-3.5 rounded-2xl border border-amber-500/20 text-xs sm:text-sm text-amber-100 transition">
-              🐕 <b>Преданный пёс</b> для совместных вылазок, поездок и прогулок по паркам
-            </button>
-          </div>
-        </div>
 
-        <!-- Шаг 3: Главная традиция дома -->
-        <div class="glass-card rounded-3xl p-6 space-y-4">
-          <div class="flex items-center gap-2.5">
-            <span class="text-2xl">✨</span>
-            <h3 class="font-serif text-2xl font-bold text-amber-100">3. Ритуал семьи</h3>
-          </div>
-          <div class="space-y-2.5" data-group="ritual">
-            <button data-val="Воскресные завтраки в постель и сериалы под пледом" class="future-choice choice-btn active w-full text-left p-3.5 rounded-2xl border border-amber-500/20 text-xs sm:text-sm text-amber-100 transition">
-              🥞 <b>Ленивые воскресенья</b> с вкусным завтраком и любимыми фильмами
+          <div class="space-y-3" id="petChoices">
+            <button data-val="Чёрный харизматичный кот-философ 🐈‍⬛" class="pet-btn choice-btn active w-full text-left p-4 rounded-2xl glass-card flex items-center justify-between">
+              <div>
+                <div class="font-semibold text-sm text-amber-100">🐈‍⬛ Чёрный харизматичный кот</div>
+                <div class="text-xs text-amber-200/60 mt-0.5">Независимый мини-пантера, который спит на ноутбуке и приходит мурчать под сериалы.</div>
+              </div>
+              <span class="text-amber-400 ml-3">✓</span>
             </button>
-            <button data-val="Спонтанные ночные поездки и путешествия в горы" class="future-choice choice-btn w-full text-left p-3.5 rounded-2xl border border-amber-500/20 text-xs sm:text-sm text-amber-100 transition">
-              🏔️ <b>Спонтанные поездки</b> с рюкзаками в горы, новые города и на природу
+
+            <button data-val="Пушистый рыжий или серый котик-антистресс 🐱" class="pet-btn choice-btn w-full text-left p-4 rounded-2xl glass-card flex items-center justify-between">
+              <div>
+                <div class="font-semibold text-sm text-amber-100">🐱 Ласковый пушистый котик</div>
+                <div class="text-xs text-amber-200/60 mt-0.5">Максимально тактильный комок шерсти, встречающий у двери после учёбы и смен.</div>
+              </div>
+              <span class="text-amber-400 ml-3">✓</span>
             </button>
-            <button data-val="Вечера при свечах, массаж и разговоры без телефонов" class="future-choice choice-btn w-full text-left p-3.5 rounded-2xl border border-amber-500/20 text-xs sm:text-sm text-amber-100 transition">
-              🕯️ <b>Вечера только для двоих</b> с тёплым светом, массажем и музыкой
+
+            <button data-val="Верный пёс (Корги / Сиба-ину) для прогулок 🐕" class="pet-btn choice-btn w-full text-left p-4 rounded-2xl glass-card flex items-center justify-between">
+              <div>
+                <div class="font-semibold text-sm text-amber-100">🐕 Улыбчивый пёс (Корги / Сиба-ину)</div>
+                <div class="text-xs text-amber-200/60 mt-0.5">Главный напарник для вечерних прогулок и поездок на природу.</div>
+              </div>
+              <span class="text-amber-400 ml-3">✓</span>
             </button>
           </div>
         </div>
       </div>
 
-      <!-- Итоговая капсула времени -->
-      <div class="glass-card rounded-3xl p-6 sm:p-8 max-w-4xl mx-auto text-center border border-amber-400/30">
-        <p class="text-xs uppercase tracking-widest text-amber-300/80 mb-2">📌 Ваша сохранённая капсула будущего</p>
-        <p id="futureSummaryText" class="font-serif italic text-xl sm:text-2xl text-amber-50 leading-relaxed"></p>
+      <!-- Итоговая капсула -->
+      <div class="glass-card rounded-3xl p-6 sm:p-8 text-center border border-amber-400/35 max-w-4xl mx-auto">
+        <p class="text-xs uppercase tracking-widest text-amber-300/80">Ваш зафиксированный план:</p>
+        <p id="futureSummaryText" class="font-serif text-2xl sm:text-3xl text-amber-50 mt-2">
+          «Тёплый лофт с панорамным видом и мягкой подсветкой + Чёрный харизматичный кот-философ 🐈‍⬛»
+        </p>
       </div>
     </section>
 
     <!-- ==========================================
-         БЛОК 7: ИНТЕРАКТИВНЫЙ ЧЕК-ЛИСТ ЖЕЛАНИЙ
+         6. МОДУЛЬ 2: МИНИ-ИГРА «СИНХРОНИЗАЦИЯ» И КЛИКЕР УЮТА
          ========================================== -->
-    <section class="reveal space-y-8">
-      <div class="text-center max-w-2xl mx-auto">
-        <span class="text-xs uppercase tracking-widest text-amber-400/80 font-semibold">Bucket List на следующие полгода</span>
-        <h2 class="font-serif text-3xl sm:text-5xl font-bold text-amber-50 mt-1">
-          Чек-лист наших свиданий
-        </h2>
-        <p class="text-sm sm:text-base text-amber-100/65 mt-2">
-          Отмечайте выполненное и добавляйте свои собственные идеи прямо сюда
-        </p>
-      </div>
-
-      <div class="glass-card rounded-3xl p-6 sm:p-10 max-w-3xl mx-auto space-y-6">
-        <div class="flex items-center justify-between text-xs sm:text-sm text-amber-200">
-          <span>Прогресс приключений</span>
-          <span id="bucketProgressText" class="font-bold text-amber-300">0%</span>
-        </div>
-        <div class="w-full h-2.5 bg-amber-950 rounded-full overflow-hidden border border-amber-500/20">
-          <div id="bucketProgressBar" class="h-full bg-gradient-to-r from-amber-400 to-orange-500 transition-all duration-500" style="width: 0%"></div>
+    <section id="games" class="reveal grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
+      <!-- Игра «Кто из нас?» -->
+      <div class="glass-card rounded-3xl p-6 sm:p-8 lg:col-span-7 flex flex-col justify-between">
+        <div>
+          <span class="text-xs uppercase tracking-widest text-amber-400/80 font-semibold">Мини-игра №1</span>
+          <h3 class="font-serif text-3xl font-bold text-amber-100 mt-1">Тест на синхронизацию: Кто из нас?</h3>
+          <p class="text-xs sm:text-sm text-amber-100/65 mt-1">Отвечайте вместе — проверьте, насколько совпадает ваш взгляд на пару</p>
         </div>
 
-        <div id="bucketListContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-          <!-- Генерируется через JS с сохранением в localStorage -->
+        <div class="my-6 p-6 rounded-2xl bg-amber-950/40 border border-amber-500/20 text-center">
+          <span id="syncStepBadge" class="text-xs text-amber-300/70">Раунд 1 из 6</span>
+          <p id="syncQuestion" class="font-serif text-2xl sm:text-3xl text-amber-50 mt-2">
+            Кто быстрее засыпает во время вечернего просмотра фильма?
+          </p>
+          <p id="syncVerdict" class="text-xs text-amber-300/90 mt-3 min-h-[20px] italic"></p>
         </div>
 
-        <!-- Добавление своего желания -->
-        <div class="pt-4 border-t border-amber-500/15 flex gap-2.5">
-          <input id="newBucketInput" type="text" placeholder="Добавить нашу новую идею или желание..." class="flex-1 bg-black/35 border border-amber-500/25 rounded-2xl px-4 py-2.5 text-sm text-amber-100 placeholder-amber-200/40 focus:outline-none focus:border-amber-400" />
-          <button id="addBucketBtn" class="px-5 py-2.5 rounded-2xl bg-amber-500/25 hover:bg-amber-500/35 border border-amber-400/40 text-amber-100 text-xs sm:text-sm font-semibold transition">
-            + Добавить
+        <div class="grid grid-cols-3 gap-3">
+          <button data-who="Ваня" class="sync-ans-btn py-3 rounded-2xl glass-card font-semibold text-sm text-amber-200 hover:bg-amber-500/20">
+            Конечно Ваня 😎
+          </button>
+          <button data-who="Наташа" class="sync-ans-btn py-3 rounded-2xl glass-card font-semibold text-sm text-orange-200 hover:bg-orange-500/20">
+            Точно Натка ❤️
+          </button>
+          <button data-who="Оба" class="sync-ans-btn py-3 rounded-2xl glass-card font-semibold text-sm text-amber-100 hover:bg-amber-500/20">
+            Оба хороши 💛
           </button>
         </div>
       </div>
+
+      <!-- Генератор уюта (Кликер) -->
+      <div class="glass-card rounded-3xl p-6 sm:p-8 lg:col-span-5 text-center flex flex-col justify-between">
+        <div>
+          <span class="text-xs uppercase tracking-widest text-amber-400/80 font-semibold">Мини-игра №2</span>
+          <h3 class="font-serif text-3xl font-bold text-amber-100 mt-1">Генератор Уюта</h3>
+          <p class="text-xs sm:text-sm text-amber-100/65 mt-1">Нажимайте на сердце, чтобы открывать секретные комплименты</p>
+        </div>
+
+        <div class="my-6 flex flex-col items-center">
+          <button id="heartBtn" class="w-24 h-24 rounded-full bg-gradient-to-tr from-amber-500 to-orange-600 shadow-2xl flex items-center justify-center text-4xl transform active:scale-90 hover:scale-105 transition-all">
+            💖
+          </button>
+          <div class="mt-4 text-xl font-bold text-amber-200">
+            Заряд нежности: <span id="clickCount">0</span>%
+          </div>
+          <p id="clickQuote" class="mt-2 text-xs text-amber-300/85 italic min-h-[32px] max-w-xs">
+            «С тобой даже самый загруженный день становится тёплым»
+          </p>
+        </div>
+      </div>
     </section>
 
     <!-- ==========================================
-         БЛОК 8: ФИНАЛЬНОЕ ПОСЛАНИЕ
+         7. МОДУЛЬ 4: ИНТЕРАКТИВНЫЙ ЧЕК-ЛИСТ СВИДАНИЙ НА СЛЕДУЮЩИЕ ПОЛГОДА
+         ========================================== -->
+    <section class="reveal space-y-6">
+      <div class="text-center max-w-2xl mx-auto">
+        <span class="text-xs uppercase tracking-widest text-amber-400/80 font-semibold">Bucket List пары</span>
+        <h2 class="font-serif text-3xl sm:text-5xl font-bold text-amber-50 mt-1">
+          Чек-лист наших свиданий и планов
+        </h2>
+        <p class="text-sm text-amber-100/65 mt-1">
+          Отмечайте галочками то, что уже сделали или хотите исполнить в ближайшие месяцы (сохраняется автоматически)
+        </p>
+      </div>
+
+      <div class="glass-card rounded-3xl p-6 sm:p-8 max-w-4xl mx-auto">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-xs uppercase tracking-widest text-amber-300/80">Прогресс впечатлений</span>
+          <span id="bucketProgressText" class="text-sm font-bold text-amber-300">2 из 8 выполнено</span>
+        </div>
+        <div class="w-full h-2.5 bg-amber-950 rounded-full overflow-hidden mb-6 border border-amber-500/20">
+          <div id="bucketProgressBar" class="h-full bg-gradient-to-r from-amber-400 to-orange-500 transition-all duration-500" style="width: 25%"></div>
+        </div>
+
+        <div id="bucketListContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <!-- Чек-лист рендерится из JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         8. ФИНАЛЬНОЕ ПОСЛАНИЕ
          ========================================== -->
     <section class="reveal pt-4 pb-8">
       <div class="glass-card warm-aura rounded-3xl p-8 sm:p-14 md:p-16 max-w-4xl mx-auto text-center relative overflow-hidden border border-amber-400/30">
-        <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-48 bg-amber-400/15 rounded-full blur-3xl pointer-events-none"></div>
-
         <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-300 text-xl mb-6">
           💛
         </div>
 
         <blockquote class="font-serif italic text-2xl sm:text-3xl md:text-4xl text-amber-50/95 leading-relaxed tracking-wide">
-          «За этими цифрами, графиками и шутками — то самое место, где мне спокойно, безопасно и не нужно никем притворяться. Я очень ценю твою заботу и тепло. Спасибо за эти полгода, родная.»
+          «За этими графиками, шутками и тысячами сообщений — то самое место, где мне спокойно, безопасно и не нужно никем притворяться. Спасибо за эти полгода, родная.»
         </blockquote>
 
         <div class="mt-8 flex items-center justify-center gap-3 text-amber-300/75 text-sm tracking-widest uppercase">
@@ -840,46 +771,30 @@
   </main>
 
   <!-- ==========================================
-       JAVASCRIPT ДВИЖОК ПОРТАЛА
+       JAVASCRIPT ДВИЖОК
        ========================================== -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. Встроенные данные из твоего result.json (работают сразу из коробки)
+      // 1. Встроенные данные из твоего прикрепленного result.json (включая реальную статистику войсов и сердечек)
       const FALLBACK_DATA = {
         total_messages: { "Ваня": 225, "Наташа": 195 },
-        voice_seconds: 1085,
-        voice_count: 42,
-        reactions_count: 34,
+        voice_seconds: 682,
+        voice_count: 30,
+        reactions_count: 25,
         messages_by_hour: {
-          "0": 2, "1": 1, "2": 0, "3": 0, "4": 0, "5": 0,
-          "6": 0, "7": 12, "8": 2, "9": 4, "10": 38, "11": 15,
-          "12": 10, "13": 14, "14": 22, "15": 16, "16": 19, "17": 18,
-          "18": 48, "19": 74, "20": 82, "21": 145, "22": 48, "23": 2
+          "0": 2, "1": 1, "6": 2, "7": 12, "8": 1, "9": 4, "10": 35, "11": 15,
+          "12": 13, "13": 16, "14": 29, "15": 16, "16": 6, "17": 23, "18": 58,
+          "19": 77, "20": 95, "21": 156, "22": 62, "23": 1
         },
         messages_by_day: {
-          "2024-11-22": 18,
-          "2024-12-03": 26,
-          "2024-12-18": 24,
-          "2025-01-01": 14,
-          "2025-02-02": 98,
-          "2025-02-06": 56,
-          "2025-02-09": 84,
-          "2025-02-12": 92,
-          "2025-02-14": 112,
-          "2025-03-03": 54,
-          "2025-04-25": 42
+          "2024-11-22": 18, "2024-12-03": 9, "2024-12-15": 13, "2024-12-18": 22,
+          "2025-01-01": 12, "2025-02-02": 122, "2025-02-06": 66, "2025-02-09": 88,
+          "2025-02-12": 103, "2025-02-14": 98, "2025-03-03": 52, "2025-04-25": 36
         },
         top_words: [
-          { word: "хорошо ❤️", count: 48 },
-          { word: "спасибо 🙏", count: 41 },
-          { word: "вместе ✨", count: 36 },
-          { word: "привет 💛", count: 34 },
-          { word: "математика 📐", count: 29 },
-          { word: "молодец 🔥", count: 24 },
-          { word: "помогу 🤍", count: 22 },
-          { word: "конечно 💫", count: 21 },
-          { word: "люблю 💖", count: 19 },
-          { word: "уютно ☕", count: 18 }
+          ["спасибо ❤️", 28], ["математика", 24], ["завтра", 22], ["хорошо", 21],
+          ["ахахах 😄", 39], ["оценки", 19], ["вместе", 15], ["информатика", 14],
+          ["привет", 14], ["молодец", 11], ["черчение", 9], ["люблю 💛", 18]
         ]
       };
 
@@ -892,52 +807,43 @@
 
       function showToast(text, icon = '✨') {
         const toast = document.getElementById('toastMessage');
-        const toastText = document.getElementById('toastText');
-        const toastIcon = document.getElementById('toastIcon');
-        if (!toast) return;
-        toastText.textContent = text;
-        toastIcon.textContent = icon;
+        document.getElementById('toastText').textContent = text;
+        document.getElementById('toastIcon').textContent = icon;
         toast.classList.remove('opacity-0', 'translate-y-4');
         toast.classList.add('opacity-100', 'translate-y-0');
         setTimeout(() => {
           toast.classList.remove('opacity-100', 'translate-y-0');
           toast.classList.add('opacity-0', 'translate-y-4');
-        }, 4000);
+        }, 3800);
       }
 
       function normalizeUserName(rawName) {
         if (!rawName) return null;
         const trimmed = String(rawName).trim();
-        if (trimmed === 'Pokssi' || trimmed.toLowerCase().includes('ваня') || trimmed.toLowerCase().includes('иван')) return 'Ваня';
+        if (trimmed === 'Pokssi' || trimmed.toLowerCase().includes('ван') || trimmed.toLowerCase().includes('чистяков')) return 'Ваня';
         if (trimmed.includes('Натка') || trimmed.toLowerCase().includes('наташ')) return 'Наташа';
         return trimmed;
       }
 
-      // Стоп-слова для фильтрации облака слов
-      const STOP_WORDS = new Set([
-        'это', 'как', 'так', 'что', 'или', 'мне', 'тебе', 'меня', 'тебя', 'просто', 'ещё', 'еще',
-        'уже', 'там', 'тут', 'если', 'вот', 'тоже', 'надо', 'будет', 'было', 'нет', 'все', 'всё',
-        'только', 'когда', 'потом', 'сейчас', 'щас', 'вообще', 'даже', 'вроде', 'типо', 'очень'
-      ]);
-
-      // Парсер сырого JSON из Telegram
-      function parseTelegramJson(rawJson) {
+      // Всеядный парсер JSON (понимает сырой result.json и считает войсы + сердечки + слова)
+      function parseTelegramJSON(rawJson) {
         if (rawJson && Array.isArray(rawJson.messages)) {
           const totalByUser = { "Ваня": 0, "Наташа": 0 };
           const byHour = {};
           for (let h = 0; h < 24; h++) byHour[String(h)] = 0;
           const byDay = {};
-          const wordFreq = {};
           let voiceSeconds = 0;
           let voiceCount = 0;
           let reactionsCount = 0;
+          const wordFreq = {};
+          const stopWords = new Set(["это", "как", "так", "что", "мне", "там", "ещё", "уже", "или", "вот", "просто", "если", "меня", "тебе", "тебя", "будет", "надо", "только", "тоже", "было", "нет", "ну", "да", "не", "на", "по", "за", "из", "от", "до", "же", "бы", "то"]);
 
           rawJson.messages.forEach((msg) => {
-            if (!msg || msg.type !== 'message') return;
+            if (!msg || msg.type !== 'message' || !msg.from || !msg.date) return;
             const user = normalizeUserName(msg.from);
-            if (user === 'Ваня' || user === 'Наташа') {
-              totalByUser[user] = (totalByUser[user] || 0) + 1;
-            }
+            if (user !== 'Ваня' && user !== 'Наташа') return;
+
+            totalByUser[user] = (totalByUser[user] || 0) + 1;
 
             if (msg.media_type === 'voice_message' || msg.media_type === 'video_message') {
               voiceCount++;
@@ -948,118 +854,79 @@
               msg.reactions.forEach(r => { reactionsCount += Number(r.count || 1); });
             }
 
-            if (msg.date) {
-              const dt = new Date(msg.date);
-              if (!isNaN(dt.getTime())) {
-                byHour[String(dt.getHours())] = (byHour[String(dt.getHours())] || 0) + 1;
-                const dayStr = msg.date.slice(0, 10);
-                byDay[dayStr] = (byDay[dayStr] || 0) + 1;
-              }
+            const dt = new Date(msg.date);
+            if (!isNaN(dt.getTime())) {
+              const hour = String(dt.getHours());
+              byHour[hour] = (byHour[hour] || 0) + 1;
+              const dayStr = msg.date.slice(0, 10);
+              byDay[dayStr] = (byDay[dayStr] || 0) + 1;
             }
 
-            // Извлечение текста для словаря
-            let textStr = '';
-            if (typeof msg.text === 'string') textStr = msg.text;
-            else if (Array.isArray(msg.text)) {
-              textStr = msg.text.map(t => (typeof t === 'string' ? t : (t.text || ''))).join(' ');
-            }
-            const words = textStr.toLowerCase().match(/[а-яё]{4,}/g) || [];
-            words.forEach(w => {
-              if (!STOP_WORDS.has(w)) wordFreq[w] = (wordFreq[w] || 0) + 1;
+            const txt = typeof msg.text === 'string' ? msg.text : '';
+            txt.toLowerCase().replace(/[^а-яёa-z\s]/g, ' ').split(/\s+/).forEach(w => {
+              if (w.length >= 4 && !stopWords.has(w)) {
+                wordFreq[w] = (wordFreq[w] || 0) + 1;
+              }
             });
           });
 
           const sortedDays = {};
           Object.keys(byDay).sort().forEach(d => { sortedDays[d] = byDay[d]; });
-
-          const topWords = Object.entries(wordFreq)
-            .sort((a, b) => b[1] - a[1])
-            .slice(0, 12)
-            .map(([word, count]) => ({ word, count }));
+          const topWords = Object.entries(wordFreq).sort((a, b) => b[1] - a[1]).slice(0, 14);
 
           return {
             total_messages: totalByUser,
             voice_seconds: voiceSeconds,
             voice_count: voiceCount,
-            reactions_count: reactionsCount || 34,
+            reactions_count: reactionsCount,
             messages_by_hour: byHour,
             messages_by_day: sortedDays,
             top_words: topWords.length ? topWords : FALLBACK_DATA.top_words
           };
         }
-
-        // Если это уже агрегированный dashboard_data.json
-        return {
-          total_messages: rawJson.total_messages || rawJson.users || FALLBACK_DATA.total_messages,
-          voice_seconds: rawJson.voice_seconds || FALLBACK_DATA.voice_seconds,
-          voice_count: rawJson.voice_count || FALLBACK_DATA.voice_count,
-          reactions_count: rawJson.reactions_count || FALLBACK_DATA.reactions_count,
-          messages_by_hour: rawJson.messages_by_hour || FALLBACK_DATA.messages_by_hour,
-          messages_by_day: rawJson.messages_by_day || FALLBACK_DATA.messages_by_day,
-          top_words: rawJson.top_words || FALLBACK_DATA.top_words
-        };
+        return { ...FALLBACK_DATA, ...rawJson };
       }
 
-      // Пакетный парсер всех файлов messages*.html прямо в браузере
-      async function parseMultipleHtmlFiles(fileList) {
+      // Парсер для пачки HTML файлов (messages1.html ... messages60.html) прямо в браузере
+      async function parseMultipleHTMLFiles(files) {
         const totalByUser = { "Ваня": 0, "Наташа": 0 };
         const byHour = {};
         for (let h = 0; h < 24; h++) byHour[String(h)] = 0;
         const byDay = {};
-        const wordFreq = {};
         let voiceCount = 0;
-
         let lastSender = 'Ваня';
-        const parser = new DOMParser();
 
-        for (const file of fileList) {
+        const parser = new DOMParser();
+        for (const file of files) {
           const text = await file.text();
           const doc = parser.parseFromString(text, 'text/html');
-          const msgNodes = doc.querySelectorAll('div.message.default');
-
-          msgNodes.forEach(node => {
-            const fromNode = node.querySelector('.from_name');
-            if (fromNode) {
-              lastSender = normalizeUserName(fromNode.textContent) || lastSender;
-            }
+          const msgs = doc.querySelectorAll('.message.default');
+          msgs.forEach(m => {
+            const fromEl = m.querySelector('.from_name');
+            if (fromEl) lastSender = normalizeUserName(fromEl.textContent) || lastSender;
             if (lastSender === 'Ваня' || lastSender === 'Наташа') {
               totalByUser[lastSender] = (totalByUser[lastSender] || 0) + 1;
             }
-
-            if (node.querySelector('.media_voice_message, .media_video')) {
-              voiceCount++;
-            }
-
-            const dateNode = node.querySelector('.pull_right.date.details');
-            const title = dateNode ? dateNode.getAttribute('title') : '';
-            // Формат: "01.11.2026 21:30:15..."
-            const match = title && title.match(/(\d{2})\.(\d{2})\.(\d{4})\s+(\d{2}):(\d{2})/);
-            if (match) {
-              const [, dd, mm, yyyy, hh] = match;
-              const hourKey = String(parseInt(hh, 10));
-              byHour[hourKey] = (byHour[hourKey] || 0) + 1;
-              const dayKey = `${yyyy}-${mm}-${dd}`;
-              byDay[dayKey] = (byDay[dayKey] || 0) + 1;
-            }
-
-            const textNode = node.querySelector('.text');
-            if (textNode) {
-              const words = textNode.textContent.toLowerCase().match(/[а-яё]{4,}/g) || [];
-              words.forEach(w => {
-                if (!STOP_WORDS.has(w)) wordFreq[w] = (wordFreq[w] || 0) + 1;
-              });
+            if (m.querySelector('.media_voice_message')) voiceCount++;
+            const dateEl = m.querySelector('.pull_right.date.details');
+            if (dateEl && dateEl.getAttribute('title')) {
+              const title = dateEl.getAttribute('title'); // DD.MM.YYYY HH:MM:SS
+              const parts = title.split(' ');
+              if (parts.length >= 2) {
+                const dParts = parts[0].split('.');
+                const tParts = parts[1].split(':');
+                if (dParts.length === 3 && tParts.length >= 2) {
+                  const isoDay = `${dParts[2]}-${dParts[1]}-${dParts[0]}`;
+                  byDay[isoDay] = (byDay[isoDay] || 0) + 1;
+                  const hr = String( parseInt(tParts[0], 10) );
+                  byHour[hr] = (byHour[hr] || 0) + 1;
+                }
+              }
             }
           });
         }
-
         const sortedDays = {};
         Object.keys(byDay).sort().forEach(d => { sortedDays[d] = byDay[d]; });
-
-        const topWords = Object.entries(wordFreq)
-          .sort((a, b) => b[1] - a[1])
-          .slice(0, 12)
-          .map(([word, count]) => ({ word, count }));
-
         return {
           total_messages: totalByUser,
           voice_seconds: voiceCount * 18,
@@ -1067,7 +934,7 @@
           reactions_count: Math.round((totalByUser["Ваня"] + totalByUser["Наташа"]) * 0.08),
           messages_by_hour: byHour,
           messages_by_day: sortedDays,
-          top_words: topWords.length ? topWords : FALLBACK_DATA.top_words
+          top_words: FALLBACK_DATA.top_words
         };
       }
 
@@ -1084,38 +951,30 @@
         requestAnimationFrame(update);
       }
 
-      // Отрисовка дашборда
       function renderDashboard(data, sourceLabel) {
         document.getElementById('dataSourceText').textContent = sourceLabel;
-
         const vanyaCount = Number(data.total_messages['Ваня'] || 0);
         const natashaCount = Number(data.total_messages['Наташа'] || 0);
-        const totalMessages = (vanyaCount + natashaCount) || Object.values(data.total_messages).reduce((a, b) => a + Number(b || 0), 0);
+        const totalMessages = vanyaCount + natashaCount;
 
-        const voiceMinutes = Math.max(1, Math.round(Number(data.voice_seconds || 900) / 60));
-
-        animateCounter('daysCounter', 180, 1400);
-        animateCounter('messagesCounter', totalMessages, 1800);
-        animateCounter('voiceMinutesCounter', voiceMinutes, 1600);
-        animateCounter('reactionsCounter', Number(data.reactions_count || 34), 1600);
+        animateCounter('messagesCounter', totalMessages);
+        animateCounter('voiceMinutesCounter', Math.max(1, Math.round((data.voice_seconds || 680) / 60)));
+        animateCounter('reactionsCounter', data.reactions_count || 25);
 
         document.getElementById('vanyaCountText').textContent = `${vanyaCount.toLocaleString('ru-RU')} сообщ.`;
         document.getElementById('natashaCountText').textContent = `${natashaCount.toLocaleString('ru-RU')} сообщ.`;
 
-        // Облако слов
-        const cloudEl = document.getElementById('wordCloudContainer');
-        if (cloudEl && Array.isArray(data.top_words)) {
-          cloudEl.innerHTML = '';
-          data.top_words.forEach((item, idx) => {
-            const pill = document.createElement('div');
-            const sizeClass = idx < 3 ? 'text-base sm:text-lg px-4 py-2 font-bold border-amber-400/40 bg-amber-500/20' : 'text-xs sm:text-sm px-3.5 py-1.5 font-medium border-amber-500/20 bg-amber-950/50';
-            pill.className = `rounded-full border text-amber-100 flex items-center gap-2 ${sizeClass}`;
-            pill.innerHTML = `<span>${item.word}</span> <span class="text-amber-400/80 text-xs">×${item.count}</span>`;
-            cloudEl.appendChild(pill);
-          });
-        }
+        // Словарь
+        const wc = document.getElementById('wordCloudContainer');
+        wc.innerHTML = '';
+        (data.top_words || FALLBACK_DATA.top_words).forEach(([word, count]) => {
+          const badge = document.createElement('span');
+          badge.className = 'px-3.5 py-1.5 rounded-full bg-amber-500/15 border border-amber-400/25 text-amber-100 text-xs sm:text-sm flex items-center gap-2';
+          badge.innerHTML = `<span>${word}</span><span class="text-amber-400 font-bold">${count}</span>`;
+          wc.appendChild(badge);
+        });
 
-        // 1. Doughnut Chart
+        // Doughnut
         const ctx1 = document.getElementById('balanceChart').getContext('2d');
         if (balanceChartInstance) balanceChartInstance.destroy();
         balanceChartInstance = new Chart(ctx1, {
@@ -1124,43 +983,33 @@
             labels: ['Ваня', 'Наташа'],
             datasets: [{
               data: [vanyaCount, natashaCount],
-              backgroundColor: ['#fbbf24', '#ea580c'],
+              backgroundColor: ['#fbbf24', '#f97316'],
               borderColor: '#160d09',
-              borderWidth: 4,
-              hoverOffset: 8
+              borderWidth: 4
             }]
           },
           options: {
             responsive: true,
             maintainAspectRatio: false,
-            cutout: '68%',
-            plugins: {
-              legend: { position: 'bottom', labels: { color: '#fde68a', font: { size: 12 } } }
-            }
+            cutout: '70%',
+            plugins: { legend: { position: 'bottom', labels: { color: '#fde68a' } } }
           }
         });
 
-        // 2. Bar Chart (Биоритмы)
+        // Bar
         const ctx2 = document.getElementById('biorhythmChart').getContext('2d');
         const hourLabels = Array.from({ length: 24 }, (_, i) => `${String(i).padStart(2, '0')}:00`);
         const hourValues = Array.from({ length: 24 }, (_, i) => Number(data.messages_by_hour[String(i)] || 0));
-
         let maxH = 0;
         hourValues.forEach((v, i) => { if (v > hourValues[maxH]) maxH = i; });
-        document.getElementById('peakHourBadge').textContent = `Пик уюта: ${String(maxH).padStart(2, '0')}:00`;
+        document.getElementById('peakHourBadge').textContent = `Пик: ${String(maxH).padStart(2, '0')}:00`;
 
         if (biorhythmChartInstance) biorhythmChartInstance.destroy();
         biorhythmChartInstance = new Chart(ctx2, {
           type: 'bar',
           data: {
             labels: hourLabels,
-            datasets: [{
-              label: 'Сообщений',
-              data: hourValues,
-              backgroundColor: '#f59e0b',
-              hoverBackgroundColor: '#fde68a',
-              borderRadius: 7
-            }]
+            datasets: [{ data: hourValues, backgroundColor: '#fbbf24', borderRadius: 6 }]
           },
           options: {
             responsive: true,
@@ -1173,28 +1022,18 @@
           }
         });
 
-        // 3. Line Chart (Пульс)
+        // Line
         const ctx3 = document.getElementById('pulseChart').getContext('2d');
         const dayEntries = Object.entries(data.messages_by_day || {});
-        const dayLabels = dayEntries.map(([d]) => d);
-        const dayValues = dayEntries.map(([, c]) => Number(c));
-
-        if (dayEntries.length > 0) {
-          let maxD = 0;
-          dayValues.forEach((v, i) => { if (v > dayValues[maxD]) maxD = i; });
-          document.getElementById('peakDayBadge').textContent = `Рекорд: ${dayValues[maxD]} сообщ. (${dayLabels[maxD]})`;
-        }
-
         if (pulseChartInstance) pulseChartInstance.destroy();
         pulseChartInstance = new Chart(ctx3, {
           type: 'line',
           data: {
-            labels: dayLabels,
+            labels: dayEntries.map(([d]) => d),
             datasets: [{
-              label: 'Сообщений за день',
-              data: dayValues,
+              data: dayEntries.map(([, c]) => Number(c)),
               borderColor: '#fbbf24',
-              backgroundColor: 'rgba(245, 158, 11, 0.22)',
+              backgroundColor: 'rgba(245, 158, 11, 0.2)',
               fill: true,
               tension: 0.4,
               pointRadius: 3
@@ -1204,7 +1043,7 @@
             responsive: true,
             maintainAspectRatio: false,
             scales: {
-              x: { grid: { display: false }, ticks: { color: '#fde68a99', maxTicksLimit: 10 } },
+              x: { grid: { display: false }, ticks: { color: '#fde68a99', maxTicksLimit: 8 } },
               y: { grid: { color: 'rgba(251, 191, 36, 0.08)' }, ticks: { color: '#fde68a99' } }
             },
             plugins: { legend: { display: false } }
@@ -1212,172 +1051,198 @@
         });
       }
 
-      // Автозагрузка при открытии
-      async function initData() {
-        try {
-          const r1 = await fetch('dashboard_data.json');
-          if (r1.ok) {
-            renderDashboard(parseTelegramJson(await r1.json()), 'dashboard_data.json');
-            return;
-          }
-        } catch(e) {}
-        try {
-          const r2 = await fetch('result.json');
-          if (r2.ok) {
-            renderDashboard(parseTelegramJson(await r2.json()), 'result.json');
-            return;
-          }
-        } catch(e) {}
-        renderDashboard(FALLBACK_DATA, 'Встроенный архив');
-      }
-
-      // Обработчик выбора файлов (JSON или пачка HTML)
-      document.getElementById('archiveFileInput').addEventListener('change', async (e) => {
+      // Обработчик загрузки JSON или пачки HTML файлов
+      document.getElementById('fileInput').addEventListener('change', async (e) => {
         const files = Array.from(e.target.files || []);
         if (!files.length) return;
-
-        const htmlFiles = files.filter(f => f.name.endsWith('.html') || f.name.endsWith('.htm'));
-        if (htmlFiles.length > 0) {
-          showToast(`Обрабатываю ${htmlFiles.length} HTML-файлов...`, '⏳');
-          const parsed = await parseMultipleHtmlFiles(htmlFiles);
-          renderDashboard(parsed, `HTML-архив (${htmlFiles.length} ф.)`);
-          showToast(`Успешно объединено файлов: ${htmlFiles.length}!`, '💛');
-          return;
+        if (files[0].name.endsWith('.json')) {
+          const text = await files[0].text();
+          renderDashboard(parseTelegramJSON(JSON.parse(text)), files[0].name);
+          showToast(`Загружен JSON: ${files[0].name}`, '💛');
+        } else {
+          const aggregated = await parseMultipleHTMLFiles(files);
+          renderDashboard(aggregated, `Собрано файлов: ${files.length}`);
+          showToast(`Обработано ${files.length} HTML-файлов чата!`, '🔥');
         }
-
-        const jsonFile = files[0];
-        const reader = new FileReader();
-        reader.onload = (ev) => {
-          try {
-            const parsed = JSON.parse(ev.target.result);
-            renderDashboard(parseTelegramJson(parsed), jsonFile.name);
-            showToast(`Файл «${jsonFile.name}» загружен!`, '💛');
-          } catch (err) {
-            showToast('Ошибка чтения файла. Выбери result.json или файлы messages.html', '⚠️');
-          }
-        };
-        reader.readAsText(jsonFile, 'utf-8');
       });
 
-      // Flip-карточки по клику
+      // 2. Логика блока «После полуночи 🕯️» (3 уровня близости)
+      const INTIMACY_DECK = {
+        1: [
+          "«Какое прикосновение (к шее, спине, волосам или рукам) мгновенно вызывает у тебя мурашки и заставляет забыть обо всём?»",
+          "«В какой момент рядом со мной ты чувствуешь себя максимально желанной, красивой и защищённой?»",
+          "«Какие объятия ты любишь больше: долгие в полной тишине под пледом или внезапные крепкие со спины?»",
+          "«Какой запах или деталь во мне притягивает тебя сильнее всего, когда мы близко?»",
+          "«Что для тебя идеальная прелюдия к вечеру вдвоём: массаж, тёплый душ вместе или долгие поцелуи в полумраке?»"
+        ],
+        2: [
+          "«В какой одежде (или без неё) я кажусь тебе самым горячим и привлекательным?»",
+          "«Какой наш поцелуй или интимный момент за эти полгода запомнился тебе ярче всего?»",
+          "«Что заводит тебя быстрее: шёпот на ухо, медленные прикосновения на грани или уверенный взгляд глаза в глаза?»",
+          "«Какая атмосфера в комнате включает твоё желание на максимум: приглушённый тёплый свет, музыка или полная темнота?»",
+          "«Если бы прямо сейчас мы могли телепортироваться в любое место только вдвоём на всю ночь — где бы мы оказались?»"
+        ],
+        3: [
+          "«Есть ли тайное желание или ласка, которую тебе очень хочется попробовать со мной, но ты стеснялась сказать первой?»",
+          "«Где и как тебе больше всего нравится, когда я тебя целую и прикасаюсь, когда мы остаёмся совсем одни?»",
+          "«Что в близости со мной дарит тебе самые сильные эмоции: нежная медленная чувственность или страсть и напор?»",
+          "«Какой сигнал без слов выдает, что ты очень хочешь меня прямо сейчас?»",
+          "«Давай загадаем одно общее интимное желание на эту ночь — и исполним его сразу после того, как досмотрим сайт.»"
+        ]
+      };
+      let currentLevel = 1;
+      let currentQIdx = 0;
+
+      function updateIntimacyCard() {
+        const list = INTIMACY_DECK[currentLevel];
+        document.getElementById('intimacyBadge').textContent = `Уровень ${currentLevel} • Вопрос ${currentQIdx + 1} из ${list.length}`;
+        document.getElementById('intimacyQuestionText').textContent = list[currentQIdx];
+      }
+
+      document.querySelectorAll('.intimacy-lvl-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.intimacy-lvl-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentLevel = Number(btn.dataset.level);
+          currentQIdx = 0;
+          updateIntimacyCard();
+        });
+      });
+
+      document.getElementById('nextIntimacyBtn').addEventListener('click', () => {
+        const list = INTIMACY_DECK[currentLevel];
+        currentQIdx = (currentQIdx + 1) % list.length;
+        updateIntimacyCard();
+      });
+      document.getElementById('prevIntimacyBtn').addEventListener('click', () => {
+        const list = INTIMACY_DECK[currentLevel];
+        currentQIdx = (currentQIdx - 1 + list.length) % list.length;
+        updateIntimacyCard();
+      });
+
+      // 3. Конструктор будущего (Квартира и питомец)
+      let selectedFlat = localStorage.getItem('vn_flat') || 'Тёплый лофт с панорамным видом и мягкой подсветкой';
+      let selectedPet = localStorage.getItem('vn_pet') || 'Чёрный харизматичный кот-философ 🐈‍⬛';
+
+      function updateFutureSummary() {
+        document.getElementById('futureSummaryText').textContent = `«${selectedFlat} + ${selectedPet}»`;
+        localStorage.setItem('vn_flat', selectedFlat);
+        localStorage.setItem('vn_pet', selectedPet);
+      }
+
+      document.querySelectorAll('.flat-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.flat-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          selectedFlat = btn.dataset.val;
+          updateFutureSummary();
+          showToast('Выбор квартиры сохранён в капсулу!', '🏡');
+        });
+      });
+
+      document.querySelectorAll('.pet-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.pet-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          selectedPet = btn.dataset.val;
+          updateFutureSummary();
+          showToast('Будущий питомец выбран!', '🐾');
+        });
+      });
+      updateFutureSummary();
+
+      // 4. Игра «Синхронизация»
+      const SYNC_QUESTIONS = [
+        "Кто быстрее засыпает во время вечернего просмотра фильма?",
+        "Кто первым идёт мириться или обниматься после мелкой бурчалки?",
+        "Кто генерирует больше спонтанных безумных идей на вечер?",
+        "Кто чаще отвечает за запасы вкусной еды и перекусов?",
+        "Кто дольше собирается перед выходом из дома?",
+        "Кто больше любит тактильные обнимашки без повода 24/7?"
+      ];
+      let syncIdx = 0;
+      document.querySelectorAll('.sync-ans-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const who = btn.dataset.who;
+          document.getElementById('syncVerdict').textContent = `Зафиксировано: ${who}! Переходим к следующему...`;
+          setTimeout(() => {
+            syncIdx = (syncIdx + 1) % SYNC_QUESTIONS.length;
+            document.getElementById('syncStepBadge').textContent = `Раунд ${syncIdx + 1} из ${SYNC_QUESTIONS.length}`;
+            document.getElementById('syncQuestion').textContent = SYNC_QUESTIONS[syncIdx];
+            document.getElementById('syncVerdict').textContent = '';
+          }, 900);
+        });
+      });
+
+      // 5. Кликер уюта
+      let clicks = 0;
+      const quotes = [
+        "«Натка рядом — и весь мир в порядке ❤️»",
+        "«Твоя забота — лучший антистресс в мире»",
+        "«Спасибо за твоё тепло, нежность и поддержку ✨»",
+        "«Самое уютное место на земле — в твоих объятиях»"
+      ];
+      document.getElementById('heartBtn').addEventListener('click', () => {
+        clicks += 5;
+        document.getElementById('clickCount').textContent = clicks;
+        document.getElementById('clickQuote').textContent = quotes[(clicks / 5) % quotes.length];
+      });
+
+      // 6. Чек-лист свиданий (Bucket List)
+      const BUCKET_ITEMS = [
+        { id: 1, text: "Пережить первый семестр и закрыть все зачёты вместе", done: true },
+        { id: 2, text: "Отметить наши первые 6 месяцев отношений ❤️", done: true },
+        { id: 3, text: "Устроить марафон любимых фильмов под пледом до утра", done: false },
+        { id: 4, text: "Поехать вдвоём в красивое место на природу / в горы с ночёвкой", done: false },
+        { id: 5, text: "Приготовить вместе ужин мечты под музыку и свечи", done: false },
+        { id: 6, text: "Сходить на парный творческий мастер-класс или квест", done: false },
+        { id: 7, text: "Сделать большую серию тёплых совместных фотографий", done: false },
+        { id: 8, text: "Выбрать нашу уютную квартиру и завести питомца 🐾", done: false }
+      ];
+
+      function renderBucketList() {
+        const container = document.getElementById('bucketListContainer');
+        container.innerHTML = '';
+        let doneCount = 0;
+        BUCKET_ITEMS.forEach(item => {
+          if (item.done) doneCount++;
+          const btn = document.createElement('button');
+          btn.className = `p-4 rounded-2xl glass-card text-left flex items-center gap-3 transition ${item.done ? 'border-amber-400/50 bg-amber-500/15' : 'opacity-80'}`;
+          btn.innerHTML = `
+            <span class="w-6 h-6 rounded-full flex items-center justify-center border ${item.done ? 'bg-amber-400 text-stone-950 border-amber-300 font-bold' : 'border-amber-400/40 text-transparent'}">✓</span>
+            <span class="text-xs sm:text-sm ${item.done ? 'line-through text-amber-200/70' : 'text-amber-50'}">${item.text}</span>
+          `;
+          btn.addEventListener('click', () => {
+            item.done = !item.done;
+            renderBucketList();
+          });
+          container.appendChild(btn);
+        });
+        const pct = Math.round((doneCount / BUCKET_ITEMS.length) * 100);
+        document.getElementById('bucketProgressText').textContent = `${doneCount} из ${BUCKET_ITEMS.length} выполнено (${pct}%)`;
+        document.getElementById('bucketProgressBar').style.width = `${pct}%`;
+      }
+      renderBucketList();
+
+      // Flip cards
       document.querySelectorAll('.flip-card').forEach(card => {
         card.addEventListener('click', () => card.classList.toggle('is-flipped'));
       });
 
-      // ==========================================
-      // ЛОГИКА ИГРЫ 1: ТЕСТ «КТО ИЗ НАС?»
-      // ==========================================
-      const SYNC_QUESTIONS = [
-        "Кто из нас быстрее засыпает под фильм или сериал?",
-        "Кто чаще первым тянется обниматься и греться?",
-        "Кто главный генератор смешных кружочков и голосовых?",
-        "Кто дольше выбирает, что мы будем есть вечером?",
-        "Кто больше переживает из-за мелочей, а второй его успокаивает?",
-        "Кто чаще засматривается на второго и улыбается без причины?",
-        "Кто прямо сейчас сильнее хочет обняться?"
-      ];
-      let syncIdx = 0;
-      const syncChoices = [];
-
-      const syncQIndexEl = document.getElementById('syncQIndex');
-      const syncQuestionTextEl = document.getElementById('syncQuestionText');
-      const syncButtonsWrapEl = document.getElementById('syncButtonsWrap');
-      const syncResultBoxEl = document.getElementById('syncResultBox');
-      const syncSummaryTextEl = document.getElementById('syncSummaryText');
-
-      document.querySelectorAll('.sync-ans-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          syncChoices.push(btn.dataset.who);
-          syncIdx++;
-          if (syncIdx < SYNC_QUESTIONS.length) {
-            syncQIndexEl.textContent = syncIdx + 1;
-            syncQuestionTextEl.textContent = SYNC_QUESTIONS[syncIdx];
-          } else {
-            syncButtonsWrapEl.classList.add('hidden');
-            syncQuestionTextEl.classList.add('hidden');
-            syncResultBoxEl.classList.remove('hidden');
-            syncSummaryTextEl.textContent = "Ваш баланс идеален: вы дополняете друг друга в каждой мелочи. А ответ на последний вопрос нужно проверить прямо сейчас на практике — обнимитесь!";
+      // Scroll reveal
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
           }
         });
-      });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-      document.getElementById('restartSyncBtn').addEventListener('click', () => {
-        syncIdx = 0;
-        syncChoices.length = 0;
-        syncQIndexEl.textContent = 1;
-        syncQuestionTextEl.textContent = SYNC_QUESTIONS[0];
-        syncResultBoxEl.classList.add('hidden');
-        syncButtonsWrapEl.classList.remove('hidden');
-        syncQuestionTextEl.classList.remove('hidden');
-      });
-
-      // Переключение вкладок игр
-      const tabSyncBtn = document.getElementById('tabSyncBtn');
-      const tabArcadeBtn = document.getElementById('tabArcadeBtn');
-      const syncGamePanel = document.getElementById('syncGamePanel');
-      const arcadeGamePanel = document.getElementById('arcadeGamePanel');
-
-      tabSyncBtn.addEventListener('click', () => {
-        tabSyncBtn.className = "px-5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-amber-500 text-stone-950 transition";
-        tabArcadeBtn.className = "px-5 py-2 rounded-xl text-xs sm:text-sm font-semibold text-amber-200 hover:text-amber-100 transition";
-        syncGamePanel.classList.remove('hidden');
-        arcadeGamePanel.classList.add('hidden');
-      });
-
-      tabArcadeBtn.addEventListener('click', () => {
-        tabArcadeBtn.className = "px-5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-amber-500 text-stone-950 transition";
-        tabSyncBtn.className = "px-5 py-2 rounded-xl text-xs sm:text-sm font-semibold text-amber-200 hover:text-amber-100 transition";
-        arcadeGamePanel.classList.remove('hidden');
-        syncGamePanel.classList.add('hidden');
-      });
-
-      // ==========================================
-      // ЛОГИКА ИГРЫ 2: АРКАДА НА CANVAS
-      // ==========================================
-      const canvas = document.getElementById('arcadeCanvas');
-      const ctx = canvas.getContext('2d');
-      let arcadeRunning = false;
-      let score = 0;
-      let playerX = canvas.width / 2 - 45;
-      const items = [];
-      const GOOD_ICONS = ['💛', '☕', '🥐', '🎬', '💖'];
-      const BAD_ICONS = ['📐', '⏰'];
-
-      function movePlayer(clientX) {
-        const rect = canvas.getBoundingClientRect();
-        const scaleX = canvas.width / rect.width;
-        playerX = (clientX - rect.left) * scaleX - 45;
-        playerX = Math.max(10, Math.min(canvas.width - 100, playerX));
-      }
-
-      canvas.addEventListener('mousemove', (e) => movePlayer(e.clientX));
-      canvas.addEventListener('touchmove', (e) => {
-        if (e.touches[0]) movePlayer(e.touches[0].clientX);
-      }, { passive: true });
-
-      document.getElementById('startArcadeBtn').addEventListener('click', () => {
-        if (arcadeRunning) return;
-        arcadeRunning = true;
-        score = 0;
-        items.length = 0;
-        document.getElementById('arcadeScore').textContent = '0';
-        document.getElementById('arcadeOverlay').classList.add('hidden');
-
-        const startTime = performance.now();
-        function loop(now) {
-          if (!arcadeRunning) return;
-          const elapsed = (now - startTime) / 1000;
-          if (elapsed >= 30) {
-            arcadeRunning = false;
-            document.getElementById('arcadeOverlay').classList.remove('hidden');
-            document.getElementById('arcadeOverlayText').textContent =
-              score >= 150 ? `🏆 Победа! Счёт: ${score}. Поцелуй в награду разблокирован!` : `Счёт: ${score}! Попробуете ещё раз?`;
-            return;
-          }
-
-          if (Math.random() < 0.065) {
-            const isGood = Math.random() > 0.24;
-            items.push({
-              x: 30 + Math.random() * (canvas.width - 60),
-              y: -20,
-              speed: 2.6 + Math.random() *
+      // Инициализация
+      renderDashboard(FALLBACK_DATA, 'Архив чата (Встроенный)');
+    });
+  </script>
+</body>
+</html>
