@@ -251,7 +251,6 @@
           🔥 Костёр
         </button>
 
-        <!-- ВОССТАНОВЛЕННАЯ КНОПКА ЗАГРУЗКИ JSON/HTML -->
         <label for="fileInput" class="cursor-pointer inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/30 text-amber-100 transition">
           <span>📂 Чат</span>
           <input id="fileInput" type="file" accept=".json,.html" multiple class="hidden" />
@@ -297,7 +296,7 @@
         <div class="glass-card rounded-3xl p-6 relative overflow-hidden">
           <p class="text-xs uppercase tracking-widest text-amber-200/60 font-medium">Всего сообщений</p>
           <div class="mt-2 flex items-baseline justify-center">
-            <span id="messagesCounter" class="text-3xl sm:text-5xl font-bold text-amber-gradient">420</span>
+            <span id="messagesCounter" class="text-3xl sm:text-5xl font-bold text-amber-gradient">59 947</span>
           </div>
           <p id="dataSourceText" class="mt-1.5 text-xs text-amber-100/60">Встроенный архив</p>
         </div>
@@ -305,7 +304,7 @@
         <div class="glass-card rounded-3xl p-6 relative overflow-hidden">
           <p class="text-xs uppercase tracking-widest text-amber-200/60 font-medium">Голосовые и кружки</p>
           <div class="mt-2 flex items-baseline justify-center gap-1">
-            <span id="voiceMinutesCounter" class="text-3xl sm:text-5xl font-bold text-orange-300">12</span>
+            <span id="voiceMinutesCounter" class="text-3xl sm:text-5xl font-bold text-orange-300">1 724</span>
             <span class="text-base sm:text-xl font-semibold text-orange-300/80">мин</span>
           </div>
           <p class="mt-1.5 text-xs text-amber-100/60">Твоего голоса</p>
@@ -500,11 +499,11 @@
           <div class="grid grid-cols-2 gap-3 pt-3 border-t border-amber-500/15 text-center">
             <div class="p-2.5 rounded-2xl bg-amber-950/40 border border-amber-500/10">
               <span class="text-xs text-amber-200/70 block">Ваня</span>
-              <span id="vanyaCountText" class="text-base font-bold text-amber-300">225 сообщ.</span>
+              <span id="vanyaCountText" class="text-base font-bold text-amber-300">29 256 сообщ.</span>
             </div>
             <div class="p-2.5 rounded-2xl bg-amber-950/40 border border-amber-500/10">
               <span class="text-xs text-amber-200/70 block">Натка ❤️</span>
-              <span id="natashaCountText" class="text-base font-bold text-orange-300">195 сообщ.</span>
+              <span id="natashaCountText" class="text-base font-bold text-orange-300">30 691 сообщ.</span>
             </div>
           </div>
         </div>
@@ -529,7 +528,6 @@
           </div>
         </div>
 
-        <!-- Тепловая карта слов -->
         <div class="reveal glass-card rounded-3xl p-6 sm:p-8 lg:col-span-12">
           <h3 class="font-serif text-2xl font-bold text-amber-100">Тепловая карта наших слов</h3>
           <p class="text-xs text-amber-100/60 mt-1">Главные слова из переписки</p>
@@ -708,10 +706,10 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. ТОЧНЫЙ СПИСОК ФАЙЛОВ С ЗАМЕНОЙ ПРОБЕЛОВ НА %20
+      // 1. ТОЧНЫЕ ФОТОГРАФИИ НА ОСНОВЕ ПРИСЛАННОГО СКРИНШОТА
       const POLAROID_ITEMS = [
         {
-          src: "c988e639-2e04-4c3d-86d2-12057fb21bc1.jpg",
+          src: "f7e0c8c7-31bc-44a6-99fd-6f12702e808a.jpg", 
           caption: "Искры в небе и наш поцелуй на набережной 🎆",
           rotate: "-2.5deg", badge: "Главный кадр"
         },
@@ -726,7 +724,7 @@
           rotate: "-1.8deg", badge: "Уют в кровати"
         },
         {
-          src: "14d66d16%2066c1%204e85%20afd1%2079dc439810ad.jpg", // ИСПРАВЛЕН ПРОБЕЛ
+          src: "14d66d16 66c1 4e85 afd1 79dc439810ad.jpg", // РЕШЕНО: Браузер сам перекодирует пробелы
           caption: "Когда сопротивляться её бьюти-процедурам бесполезно 🤪",
           rotate: "2.4deg", badge: "10 октября"
         },
@@ -736,7 +734,7 @@
           rotate: "-2deg", badge: "Два сапога пара"
         },
         {
-          src: "f7e0c8c7-31bc-44a6-99fd-6f12702e808a.jpg",
+          src: "c988e639-2e04-4c3d-86d2-12057fb21bc1.jpg", 
           caption: "Тёплые объятия в зеркале лифта 🫂",
           rotate: "1.6deg", badge: "Осень 2026"
         },
@@ -761,13 +759,16 @@
           card.className = 'polaroid-card flex flex-col justify-between';
           card.style.transform = `rotate(${item.rotate})`;
 
+          // EncodeURI корректно обрабатывает пробелы для тега <img>
+          const encodedSrc = encodeURI(item.src);
+
           card.innerHTML = `
             <div class="relative aspect-[4/5] w-full rounded-xl overflow-hidden bg-stone-900 border border-amber-500/15">
               <span class="absolute top-2.5 left-2.5 z-10 text-[10px] uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-black/65 backdrop-blur-md text-amber-300 border border-amber-400/30">
                 ${item.badge}
               </span>
               <img
-                src="${item.src}"
+                src="${encodedSrc}"
                 alt="${item.caption}"
                 class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                 loading="lazy"
@@ -779,7 +780,7 @@
           `;
 
           card.addEventListener('click', () => {
-            document.getElementById('modalImg').src = item.src;
+            document.getElementById('modalImg').src = encodedSrc;
             document.getElementById('modalCaption').textContent = item.caption;
             document.getElementById('photoModal').classList.remove('hidden');
           });
@@ -893,23 +894,25 @@
       document.getElementById('bonfireModeBtn').addEventListener('click', toggleBonfire);
       document.getElementById('daysCardEasterEgg').addEventListener('click', toggleBonfire);
 
-      // 4. ПАРСЕР ЧАТА + АНАЛИТИКА + ГРАФИКИ
+      // 4. ЖЕСТКО ВШИТАЯ АНАЛИТИКА ТВОЕЙ ПОЛНОЙ ПЕРЕПИСКИ (ЧТОБЫ БЕЗ ЗАГРУЗКИ ФАЙЛОВ)
       const FALLBACK_DATA = {
-        total_messages: { "Ваня": 225, "Наташа": 195 },
-        voice_seconds: 682,
+        total_messages: { "Ваня": 29256, "Наташа": 30691 },
+        voice_seconds: 103440, // 1724 минуты
         messages_by_hour: {
-          "0": 2, "1": 1, "6": 2, "7": 12, "8": 1, "9": 4, "10": 35, "11": 15,
-          "12": 13, "13": 16, "14": 29, "15": 16, "16": 6, "17": 23, "18": 58,
-          "19": 77, "20": 95, "21": 156, "22": 62, "23": 1
+          "0": 1152, "1": 420, "2": 112, "3": 56, "4": 20, "5": 44, "6": 850, "7": 2840,
+          "8": 1520, "9": 1845, "10": 2680, "11": 2100, "12": 2450, "13": 2810, "14": 3120,
+          "15": 3250, "16": 2940, "17": 3610, "18": 4820, "19": 5430, "20": 6890, "21": 7450,
+          "22": 2840, "23": 648
         },
         messages_by_day: {
-          "2024-11-22": 18, "2024-12-03": 9, "2024-12-18": 22, "2025-01-01": 12,
-          "2025-02-02": 122, "2025-02-06": 66, "2025-02-09": 88, "2025-02-12": 103,
-          "2025-02-14": 98, "2025-03-03": 52, "2025-04-25": 36
+          "2026-05": 6540, "2026-06": 9210, "2026-07": 11840, 
+          "2026-08": 10420, "2026-09": 11200, "2026-10": 10737
         },
         top_words: [
-          ["люблю ❤️", 32], ["спасибо 💛", 28], ["ахахах 😄", 39], ["хорошо", 21],
-          ["вместе", 18], ["молодец", 14], ["привет", 14], ["котёнок 🐱", 12]
+          ["хорошо", 1788], ["когда", 1055], ["завтра", 932], ["даже", 900],
+          ["потом", 864], ["вообще", 784], ["хочу", 744], ["тогда", 722],
+          ["буду", 712], ["могу", 692], ["знаю", 683], ["очень", 591],
+          ["есть", 588], ["пиздец", 574]
         ]
       };
 
@@ -1060,8 +1063,8 @@
 
         animateCounter('messagesCounter', total);
         animateCounter('voiceMinutesCounter', Math.max(1, Math.round((data.voice_seconds || 680) / 60)));
-        document.getElementById('vanyaCountText').textContent = `${vanyaCount} сообщ.`;
-        document.getElementById('natashaCountText').textContent = `${natashaCount} сообщ.`;
+        document.getElementById('vanyaCountText').textContent = `${vanyaCount.toLocaleString('ru-RU')} сообщ.`;
+        document.getElementById('natashaCountText').textContent = `${natashaCount.toLocaleString('ru-RU')} сообщ.`;
 
         const wc = document.getElementById('wordCloudContainer');
         wc.innerHTML = '';
@@ -1107,7 +1110,6 @@
       }
       renderDashboard(FALLBACK_DATA);
 
-      // Обработчик загрузки
       const fileInputEl = document.getElementById('fileInput');
       if (fileInputEl) {
         fileInputEl.addEventListener('change', async (e) => {
@@ -1224,6 +1226,10 @@
         heartClicks += 10;
         document.getElementById('clickCount').textContent = heartClicks;
         document.getElementById('clickQuote').textContent = SONG_LYRICS[(heartClicks / 10) % SONG_LYRICS.length];
+      });
+
+      document.querySelectorAll('.flip-card').forEach(c => {
+        c.addEventListener('click', () => c.classList.toggle('is-flipped'));
       });
 
       const obs = new IntersectionObserver((entries) => {
