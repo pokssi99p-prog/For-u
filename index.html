@@ -251,10 +251,7 @@
           🔥 Костёр
         </button>
 
-        <label for="fileInput" class="cursor-pointer inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/30 text-amber-100 transition">
-          <span>📂 Чат</span>
-          <input id="fileInput" type="file" accept=".json,.html" multiple class="hidden" />
-        </label>
+        <!-- СКРЫЛ КНОПКУ ЗАГРУЗКИ ФАЙЛОВ, ОСТАВИЛ РЕАЛЬНУЮ СТАТИСТИКУ -->
       </div>
     </div>
   </header>
@@ -280,7 +277,7 @@
       </h1>
 
       <p class="mt-4 sm:mt-6 text-base sm:text-xl text-amber-100/75 max-w-2xl mx-auto font-normal leading-relaxed">
-        Два сапога пара: от спасённых оценок и поцелуев под салютом до войны подарков «назло» и мечты о нашем котёнке.
+        Два сапога пара: от спасённых оценок и поцелуев под салютом до нашей тихой гавани и мечты о белом котёнке.
       </p>
 
       <div class="mt-10 sm:mt-14 grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto">
@@ -298,7 +295,7 @@
           <div class="mt-2 flex items-baseline justify-center">
             <span id="messagesCounter" class="text-3xl sm:text-5xl font-bold text-amber-gradient">59 947</span>
           </div>
-          <p id="dataSourceText" class="mt-1.5 text-xs text-amber-100/60">Встроенный архив</p>
+          <p id="dataSourceText" class="mt-1.5 text-xs text-amber-100/60">В нашей истории</p>
         </div>
 
         <div class="glass-card rounded-3xl p-6 relative overflow-hidden">
@@ -311,11 +308,11 @@
         </div>
 
         <div class="glass-card rounded-3xl p-6 relative overflow-hidden">
-          <p class="text-xs uppercase tracking-widest text-amber-200/60 font-medium">Война подарков 💳</p>
+          <p class="text-xs uppercase tracking-widest text-amber-200/60 font-medium">Уютная атмосфера</p>
           <div class="mt-2 flex items-baseline justify-center">
-            <span class="text-3xl sm:text-5xl font-bold text-amber-300">1 : 1</span>
+            <span class="text-3xl sm:text-5xl font-bold text-amber-300">100%</span>
           </div>
-          <p class="mt-1.5 text-xs text-amber-100/60">Покупаем друг другу назло ❤️</p>
+          <p class="mt-1.5 text-xs text-amber-100/60">Максимальный комфорт ❤️</p>
         </div>
       </div>
     </section>
@@ -352,13 +349,13 @@
           <div class="flip-card-inner">
             <div class="flip-card-front">
               <div class="w-14 h-14 rounded-2xl bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-3xl mb-3">💳</div>
-              <h3 class="font-serif text-2xl font-bold text-amber-100">Подарки «Назло»</h3>
+              <h3 class="font-serif text-2xl font-bold text-amber-100">Подарки от души</h3>
               <span class="mt-2 text-xs text-amber-300/60">Перевернуть ↻</span>
             </div>
             <div class="flip-card-back">
-              <span class="text-2xl mb-2">⚔️💝</span>
+              <span class="text-2xl mb-2">🎁💝</span>
               <p class="text-sm font-medium text-amber-50 leading-relaxed">
-                Наша бесконечная война: «Не трать на меня деньги!» — и в ответ оба покупаем друг другу ещё больше приятностей назло!
+                Забавная традиция: иногда оба можем купить друг другу приятности "назло", просто чтобы порадовать!
               </p>
             </div>
           </div>
@@ -649,9 +646,9 @@
         </div>
 
         <div class="my-6 p-6 rounded-2xl bg-amber-950/40 border border-amber-500/20 text-center">
-          <span id="syncStepBadge" class="text-xs text-amber-300/70">Вопрос 1 из 6</span>
+          <span id="syncStepBadge" class="text-xs text-amber-300/70">Вопрос 1 из 5</span>
           <p id="syncQuestion" class="font-serif text-2xl sm:text-3xl text-amber-50 mt-2">
-            Кто быстрее пытается приложить карточку на кассе и ругается: «Не трать на меня деньги!»?
+            Кто первым предлагает заказать вкусняшки вечером?
           </p>
           <p id="syncVerdict" class="text-xs text-amber-300/90 mt-3 min-h-[20px] italic"></p>
         </div>
@@ -659,7 +656,7 @@
         <div class="grid grid-cols-3 gap-3">
           <button data-who="Ваня" class="sync-ans-btn py-3 rounded-2xl glass-card font-semibold text-sm text-amber-200 hover:bg-amber-500/20">Ваня 😎</button>
           <button data-who="Наташа" class="sync-ans-btn py-3 rounded-2xl glass-card font-semibold text-sm text-orange-200 hover:bg-orange-500/20">Натка ❤️</button>
-          <button data-who="Оба воюем!" class="sync-ans-btn py-3 rounded-2xl glass-card font-semibold text-sm text-amber-100 hover:bg-amber-500/20">Оба назло 💳</button>
+          <button data-who="Оба сразу!" class="sync-ans-btn py-3 rounded-2xl glass-card font-semibold text-sm text-amber-100 hover:bg-amber-500/20">Оба сразу!</button>
         </div>
       </div>
 
@@ -706,44 +703,52 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. ТОЧНЫЕ ФОТОГРАФИИ НА ОСНОВЕ ПРИСЛАННОГО СКРИНШОТА
+      // 1. ИСПРАВЛЕННАЯ ГАЛЕРЕЯ С ЖЕСТКОЙ ПРИВЯЗКОЙ КАЖДОГО ХЭША К СВОЕЙ ФОТОГРАФИИ
       const POLAROID_ITEMS = [
         {
-          src: "f7e0c8c7-31bc-44a6-99fd-6f12702e808a.jpg", 
+          // Поцелуй на набережной (Главный кадр)
+          src: "f7e0c8c7-31bc-44a6-99fd-6f12702e808a.jpg",
           caption: "Искры в небе и наш поцелуй на набережной 🎆",
           rotate: "-2.5deg", badge: "Главный кадр"
         },
         {
+          // Слепок рук (Июль 2026)
           src: "0622a68e-afcc-4977-bc57-619328f08ee9.jpg",
           caption: "Слепок наших рук — теперь не расцепить 🤍",
           rotate: "2deg", badge: "Июль 2026"
         },
         {
+          // СПА в кровати поцелуй (Уют в кровати)
           src: "d308ab99-1af6-4f35-95a5-6f202f3bd7b0.jpg",
           caption: "Домашний СПА-режим: Ваня в масочке и поцелуй 😘",
           rotate: "-1.8deg", badge: "Уют в кровати"
         },
         {
-          src: "14d66d16 66c1 4e85 afd1 79dc439810ad.jpg", // РЕШЕНО: Браузер сам перекодирует пробелы
+          // СПА в кровати язык (10 октября) -> ИСПРАВЛЕН ПРОБЕЛ В ИМЕНИ
+          src: "14d66d16%2066c1%204e85%20afd1%2079dc439810ad.jpg",
           caption: "Когда сопротивляться её бьюти-процедурам бесполезно 🤪",
           rotate: "2.4deg", badge: "10 октября"
         },
         {
+          // Селфи в очках Ваня (Два сапога пара)
           src: "ee8cf97c-cf68-45f2-bf34-d194ff3a0c6c.jpg",
           caption: "Любимые карие глаза и наш вайб 👓❤️",
           rotate: "-2deg", badge: "Два сапога пара"
         },
         {
+          // Лифт (Осень 2026)
           src: "c988e639-2e04-4c3d-86d2-12057fb21bc1.jpg", 
           caption: "Тёплые объятия в зеркале лифта 🫂",
           rotate: "1.6deg", badge: "Осень 2026"
         },
         {
+          // Белый котёнок (Мечта)
           src: "920668c6-cb69-43df-a250-2efbbdff9d74.jpg",
           caption: "Спойлер: наш будущий котёнок, когда съедемся 🐱",
           rotate: "-2.2deg", badge: "Мечта"
         },
         {
+          // Корги (Будущий друг)
           src: "4241d149-ac1c-4254-a68b-28cae8d706f7.jpg",
           caption: "А может ещё и такого ушастого Корги в команду? 🐕",
           rotate: "2.1deg", badge: "Будущий друг"
@@ -759,16 +764,13 @@
           card.className = 'polaroid-card flex flex-col justify-between';
           card.style.transform = `rotate(${item.rotate})`;
 
-          // EncodeURI корректно обрабатывает пробелы для тега <img>
-          const encodedSrc = encodeURI(item.src);
-
           card.innerHTML = `
             <div class="relative aspect-[4/5] w-full rounded-xl overflow-hidden bg-stone-900 border border-amber-500/15">
               <span class="absolute top-2.5 left-2.5 z-10 text-[10px] uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-black/65 backdrop-blur-md text-amber-300 border border-amber-400/30">
                 ${item.badge}
               </span>
               <img
-                src="${encodedSrc}"
+                src="${item.src}"
                 alt="${item.caption}"
                 class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                 loading="lazy"
@@ -780,7 +782,7 @@
           `;
 
           card.addEventListener('click', () => {
-            document.getElementById('modalImg').src = encodedSrc;
+            document.getElementById('modalImg').src = item.src;
             document.getElementById('modalCaption').textContent = item.caption;
             document.getElementById('photoModal').classList.remove('hidden');
           });
@@ -894,10 +896,10 @@
       document.getElementById('bonfireModeBtn').addEventListener('click', toggleBonfire);
       document.getElementById('daysCardEasterEgg').addEventListener('click', toggleBonfire);
 
-      // 4. ЖЕСТКО ВШИТАЯ АНАЛИТИКА ТВОЕЙ ПОЛНОЙ ПЕРЕПИСКИ (ЧТОБЫ БЕЗ ЗАГРУЗКИ ФАЙЛОВ)
+      // 4. ЖЕСТКО ВШИТАЯ АНАЛИТИКА (БЕЗ НЕОБХОДИМОСТИ ЗАГРУЗАТЬ JSON)
       const FALLBACK_DATA = {
         total_messages: { "Ваня": 29256, "Наташа": 30691 },
-        voice_seconds: 103440, // 1724 минуты
+        voice_seconds: 103440,
         messages_by_hour: {
           "0": 1152, "1": 420, "2": 112, "3": 56, "4": 20, "5": 44, "6": 850, "7": 2840,
           "8": 1520, "9": 1845, "10": 2680, "11": 2100, "12": 2450, "13": 2810, "14": 3120,
@@ -923,149 +925,10 @@
       Chart.defaults.color = 'rgba(253, 230, 138, 0.72)';
       Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
 
-      function showToast(text, icon = '✨') {
-        const toast = document.getElementById('toastMessage');
-        document.getElementById('toastText').textContent = text;
-        document.getElementById('toastIcon').textContent = icon;
-        toast.classList.remove('opacity-0', 'translate-y-4');
-        toast.classList.add('opacity-100', 'translate-y-0');
-        setTimeout(() => {
-          toast.classList.remove('opacity-100', 'translate-y-0');
-          toast.classList.add('opacity-0', 'translate-y-4');
-        }, 3800);
-      }
-
-      function normalizeUserName(rawName) {
-        if (!rawName) return null;
-        const trimmed = String(rawName).trim();
-        if (trimmed === 'Pokssi' || trimmed.toLowerCase().includes('ван') || trimmed.toLowerCase().includes('чистяков')) return 'Ваня';
-        if (trimmed.includes('Натка') || trimmed.toLowerCase().includes('наташ')) return 'Наташа';
-        return trimmed;
-      }
-
-      function parseTelegramJSON(rawJson) {
-        if (rawJson && Array.isArray(rawJson.messages)) {
-          const totalByUser = { "Ваня": 0, "Наташа": 0 };
-          const byHour = {};
-          for (let h = 0; h < 24; h++) byHour[String(h)] = 0;
-          const byDay = {};
-          let voiceSeconds = 0;
-          const wordFreq = {};
-          const stopWords = new Set(["это", "как", "так", "что", "мне", "там", "ещё", "уже", "или", "вот", "просто", "если", "меня", "тебе", "тебя", "будет", "надо", "только", "тоже", "было", "нет", "ну", "да", "не", "на", "по", "за", "из", "от", "до", "же", "бы", "то"]);
-
-          rawJson.messages.forEach((msg) => {
-            if (!msg || msg.type !== 'message' || !msg.from || !msg.date) return;
-            const user = normalizeUserName(msg.from);
-            if (user !== 'Ваня' && user !== 'Наташа') return;
-
-            totalByUser[user] = (totalByUser[user] || 0) + 1;
-
-            if (msg.media_type === 'voice_message' || msg.media_type === 'video_message') {
-              voiceSeconds += Number(msg.duration_seconds || 0);
-            }
-
-            const dt = new Date(msg.date);
-            if (!isNaN(dt.getTime())) {
-              const hour = String(dt.getHours());
-              byHour[hour] = (byHour[hour] || 0) + 1;
-              const dayStr = msg.date.slice(0, 10);
-              byDay[dayStr] = (byDay[dayStr] || 0) + 1;
-            }
-
-            const txt = typeof msg.text === 'string' ? msg.text : '';
-            txt.toLowerCase().replace(/[^а-яёa-z\s]/g, ' ').split(/\s+/).forEach(w => {
-              if (w.length >= 4 && !stopWords.has(w)) {
-                wordFreq[w] = (wordFreq[w] || 0) + 1;
-              }
-            });
-          });
-
-          const sortedDays = {};
-          Object.keys(byDay).sort().forEach(d => { sortedDays[d] = byDay[d]; });
-          const topWords = Object.entries(wordFreq).sort((a, b) => b[1] - a[1]).slice(0, 14);
-
-          return {
-            total_messages: totalByUser,
-            voice_seconds: voiceSeconds,
-            messages_by_hour: byHour,
-            messages_by_day: sortedDays,
-            top_words: topWords.length ? topWords : FALLBACK_DATA.top_words
-          };
-        }
-        return { ...FALLBACK_DATA, ...rawJson };
-      }
-
-      async function parseMultipleHTMLFiles(files) {
-        const totalByUser = { "Ваня": 0, "Наташа": 0 };
-        const byHour = {};
-        for (let h = 0; h < 24; h++) byHour[String(h)] = 0;
-        const byDay = {};
-        let voiceCount = 0;
-        let lastSender = 'Ваня';
-
-        const parser = new DOMParser();
-        for (const file of files) {
-          const text = await file.text();
-          const doc = parser.parseFromString(text, 'text/html');
-          const msgs = doc.querySelectorAll('.message.default');
-          msgs.forEach(m => {
-            const fromEl = m.querySelector('.from_name');
-            if (fromEl) lastSender = normalizeUserName(fromEl.textContent) || lastSender;
-            if (lastSender === 'Ваня' || lastSender === 'Наташа') {
-              totalByUser[lastSender] = (totalByUser[lastSender] || 0) + 1;
-            }
-            if (m.querySelector('.media_voice_message')) voiceCount++;
-            const dateEl = m.querySelector('.pull_right.date.details');
-            if (dateEl && dateEl.getAttribute('title')) {
-              const title = dateEl.getAttribute('title'); 
-              const parts = title.split(' ');
-              if (parts.length >= 2) {
-                const dParts = parts[0].split('.');
-                const tParts = parts[1].split(':');
-                if (dParts.length === 3 && tParts.length >= 2) {
-                  const isoDay = `${dParts[2]}-${dParts[1]}-${dParts[0]}`;
-                  byDay[isoDay] = (byDay[isoDay] || 0) + 1;
-                  byHour[String(parseInt(tParts[0], 10))] = (byHour[String(parseInt(tParts[0], 10))] || 0) + 1;
-                }
-              }
-            }
-          });
-        }
-        const sortedDays = {};
-        Object.keys(byDay).sort().forEach(d => { sortedDays[d] = byDay[d]; });
-        return {
-          total_messages: totalByUser,
-          voice_seconds: voiceCount * 18,
-          messages_by_hour: byHour,
-          messages_by_day: sortedDays,
-          top_words: FALLBACK_DATA.top_words
-        };
-      }
-
-      function animateCounter(elementId, targetValue) {
-        const el = document.getElementById(elementId);
-        if (!el) return;
-        const startTime = performance.now();
-        function update(now) {
-          const progress = Math.min((now - startTime) / 1600, 1);
-          const eased = 1 - Math.pow(1 - progress, 4);
-          el.textContent = Math.round(targetValue * eased).toLocaleString('ru-RU');
-          if (progress < 1) requestAnimationFrame(update);
-        }
-        requestAnimationFrame(update);
-      }
-
-      function renderDashboard(data, sourceLabel) {
-        if(sourceLabel) document.getElementById('dataSourceText').textContent = sourceLabel;
+      function renderDashboard(data) {
         const vanyaCount = Number(data.total_messages['Ваня'] || 0);
         const natashaCount = Number(data.total_messages['Наташа'] || 0);
-        const total = vanyaCount + natashaCount;
-
-        animateCounter('messagesCounter', total);
-        animateCounter('voiceMinutesCounter', Math.max(1, Math.round((data.voice_seconds || 680) / 60)));
-        document.getElementById('vanyaCountText').textContent = `${vanyaCount.toLocaleString('ru-RU')} сообщ.`;
-        document.getElementById('natashaCountText').textContent = `${natashaCount.toLocaleString('ru-RU')} сообщ.`;
-
+        
         const wc = document.getElementById('wordCloudContainer');
         wc.innerHTML = '';
         (data.top_words || FALLBACK_DATA.top_words).forEach(([word, count]) => {
@@ -1109,23 +972,6 @@
         });
       }
       renderDashboard(FALLBACK_DATA);
-
-      const fileInputEl = document.getElementById('fileInput');
-      if (fileInputEl) {
-        fileInputEl.addEventListener('change', async (e) => {
-          const files = Array.from(e.target.files || []);
-          if (!files.length) return;
-          if (files[0].name.endsWith('.json')) {
-            const text = await files[0].text();
-            renderDashboard(parseTelegramJSON(JSON.parse(text)), files[0].name);
-            showToast(`Загружен JSON: ${files[0].name}`, '💛');
-          } else {
-            const aggregated = await parseMultipleHTMLFiles(files);
-            renderDashboard(aggregated, `Собрано файлов: ${files.length}`);
-            showToast(`Обработано ${files.length} HTML-файлов чата!`, '🔥');
-          }
-        });
-      }
 
       // 5. ИНТИМНЫЕ КАРТЫ
       const DECK = {
@@ -1199,10 +1045,10 @@
       });
       updateFutureSummary();
 
-      // 7. ИГРА И КЛИКЕР
+      // 7. ИГРА И КЛИКЕР (ОБНОВЛЕНО НА БЕЗОБИДНЫЕ ВОПРОСЫ)
       const QUESTIONS = [
-        "Кто быстрее пытается приложить карточку на кассе и кричит: «Не трать на меня деньги!»?",
-        "Кто покупает подарки и вкусняшки «назло», даже когда просили ничего не брать?",
+        "Кто первым предлагает заказать вкусняшки вечером?",
+        "Кто чаще покупает милые подарочки без повода, чтобы просто порадовать?",
         "Кто будет больше тискать нашего будущего белого котёнка, когда мы съедемся?",
         "Кто первым надевает тканевую масочку и устраивает СПА-салон в кровати?",
         "Кто быстрее засыпает под сериал в обнимку?",
