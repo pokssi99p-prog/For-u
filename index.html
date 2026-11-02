@@ -209,12 +209,10 @@
 
   <canvas id="embersCanvas"></canvas>
 
-  <!-- Аудиоплеер: точный файл из репозитория -->
   <audio id="bgMusic" loop preload="auto">
     <source src="Pizza_-_Romans_70460982.mp3" type="audio/mpeg" />
   </audio>
 
-  <!-- Виниловый плеер -->
   <div class="fixed bottom-5 left-5 z-50 glass-card rounded-full p-2 pr-4 flex items-center gap-3 border border-amber-400/40 shadow-2xl">
     <button id="playMusicBtn" class="w-11 h-11 rounded-full bg-gradient-to-tr from-amber-500 to-orange-600 flex items-center justify-center text-stone-950 font-bold shadow-md hover:scale-105 transition">
       <span id="vinylIcon" class="vinyl-spin text-xl">💿</span>
@@ -697,52 +695,52 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. ТОЧНЫЙ СПИСОК ФАЙЛОВ ИЗ ТВОЕГО РЕПОЗИТОРИЯ
+      // 1. ИДЕАЛЬНОЕ СВЕДЕНИЕ ХЭШЕЙ ФАЙЛОВ ИЗ РЕПОЗИТОРИЯ
       const POLAROID_ITEMS = [
         {
-          src: "f7e0c8c7-31bc-44a6-99fd-6f12702e808a.jpg",
+          src: "c988e639-2e04-4c3d-86d2-12057fb21bc1.jpg",
           caption: "Искры в небе и наш поцелуй на набережной 🎆",
           rotate: "-2.5deg",
           badge: "Главный кадр"
         },
         {
-          src: "0622a68e-afcc-4977-bc57-619328f08ee9.jpg",
+          src: "ee8cf97c-cf68-45f2-bf34-d194ff3a0c6c.jpg",
           caption: "Слепок наших рук — теперь не расцепить 🤍",
           rotate: "2deg",
           badge: "Июль 2026"
         },
         {
-          src: "d308ab99-1af6-4f35-95a5-6f202f3bd7b0.jpg",
+          src: "0622a68e-afcc-4977-bc57-619328f08ee9.jpg",
           caption: "Домашний СПА-режим: Ваня в масочке и поцелуй 😘",
           rotate: "-1.8deg",
           badge: "Уют в кровати"
         },
         {
-          src: "4241d149-ac1c-4254-a68b-28cae8d706f7.jpg",
+          src: "14d66d16%2066c1%204e85%20afd1%2079dc439810ad.jpg", // Пробелы заменены аппаратно!
           caption: "Когда сопротивляться её бьюти-процедурам бесполезно 🤪",
           rotate: "2.4deg",
           badge: "10 октября"
         },
         {
-          src: "ee8cf97c-cf68-45f2-bf34-d194ff3a0c6c.jpg",
+          src: "920668c6-cb69-43df-a250-2efbbdff9d74.jpg",
           caption: "Любимые карие глаза и наш вайб 👓❤️",
           rotate: "-2deg",
           badge: "Два сапога пара"
         },
         {
-          src: "14d66d16 66c1 4e85 afd1 79dc439810ad.jpg",
+          src: "f7e0c8c7-31bc-44a6-99fd-6f12702e808a.jpg",
           caption: "Тёплые объятия в зеркале лифта 🫂",
           rotate: "1.6deg",
           badge: "Осень 2026"
         },
         {
-          src: "920668c6-cb69-43df-a250-2efbbdff9d74.jpg",
+          src: "d308ab99-1af6-4f35-95a5-6f202f3bd7b0.jpg",
           caption: "Спойлер: наш будущий котёнок, когда съедемся 🐱",
           rotate: "-2.2deg",
           badge: "Мечта"
         },
         {
-          src: "c988e639-2e04-4c3d-86d2-12057fb21bc1.jpg",
+          src: "4241d149-ac1c-4254-a68b-28cae8d706f7.jpg",
           caption: "А может ещё и такого ушастого Корги в команду? 🐕",
           rotate: "2.1deg",
           badge: "Будущий друг"
@@ -758,15 +756,13 @@
           card.className = 'polaroid-card flex flex-col justify-between';
           card.style.transform = `rotate(${item.rotate})`;
 
-          const encodedUrl = encodeURI(item.src);
-
           card.innerHTML = `
             <div class="relative aspect-[4/5] w-full rounded-xl overflow-hidden bg-stone-900 border border-amber-500/15">
               <span class="absolute top-2.5 left-2.5 z-10 text-[10px] uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-black/65 backdrop-blur-md text-amber-300 border border-amber-400/30">
                 ${item.badge}
               </span>
               <img
-                src="${encodedUrl}"
+                src="${item.src}"
                 alt="${item.caption}"
                 class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                 loading="lazy"
@@ -778,7 +774,7 @@
           `;
 
           card.addEventListener('click', () => {
-            document.getElementById('modalImg').src = encodedUrl;
+            document.getElementById('modalImg').src = item.src;
             document.getElementById('modalCaption').textContent = item.caption;
             document.getElementById('photoModal').classList.remove('hidden');
           });
@@ -816,7 +812,6 @@
 
       playBtn.addEventListener('click', startAudio);
 
-      // Однократный автозапуск при любом первом клике/тапе
       document.body.addEventListener('click', function unlock() {
         if (bgMusic.paused) {
           bgMusic.play().then(() => {
@@ -826,7 +821,6 @@
         }
       }, { once: true });
 
-      // Бегущие строки песни
       const SONG_LYRICS = [
         "«Без тебя жизни нет, я не могу найти...»",
         "«Сдаётся мне, теперь это надолго...»",
@@ -974,7 +968,32 @@
         updateDeck();
       });
 
-      // 6. ИГРА И КЛИКЕР
+      // 6. БУДУЩИЙ ДОМ И КОТЁНОК
+      let selectedFlat = 'Тёплый лофт с панорамным видом и мягкой янтарной подсветкой';
+      let selectedPet = 'Маленький пушистый белый котёнок с голубыми глазами 🐱';
+
+      function updateFutureSummary() {
+        document.getElementById('futureSummaryText').textContent = `«${selectedFlat} + ${selectedPet}»`;
+      }
+      document.querySelectorAll('.flat-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.flat-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          selectedFlat = btn.dataset.val;
+          updateFutureSummary();
+        });
+      });
+      document.querySelectorAll('.pet-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.pet-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          selectedPet = btn.dataset.val;
+          updateFutureSummary();
+        });
+      });
+      updateFutureSummary();
+
+      // 7. ИГРА И КЛИКЕР
       const QUESTIONS = [
         "Кто быстрее пытается приложить карточку на кассе и кричит: «Не трать на меня деньги!»?",
         "Кто покупает подарки и вкусняшки «назло», даже когда просили ничего не брать?",
@@ -1003,12 +1022,10 @@
         document.getElementById('clickQuote').textContent = SONG_LYRICS[(heartClicks / 10) % SONG_LYRICS.length];
       });
 
-      // Flip карточки
       document.querySelectorAll('.flip-card').forEach(c => {
         c.addEventListener('click', () => c.classList.toggle('is-flipped'));
       });
 
-      // Скролл анимации
       const obs = new IntersectionObserver((entries) => {
         entries.forEach(e => {
           if (e.isIntersecting) {
