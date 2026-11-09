@@ -250,6 +250,11 @@
         <button id="bonfireModeBtn" class="text-xs font-medium px-3 py-1.5 rounded-full bg-orange-500/20 hover:bg-orange-500/35 border border-orange-400/40 text-amber-100 transition">
           🔥 Костёр
         </button>
+
+        <label for="fileInput" class="cursor-pointer inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/30 text-amber-100 transition">
+          <span>📂 Чат</span>
+          <input id="fileInput" type="file" accept=".json,.html" multiple class="hidden" />
+        </label>
       </div>
     </div>
   </header>
@@ -293,7 +298,7 @@
           <div class="mt-2 flex items-baseline justify-center">
             <span id="messagesCounter" class="text-3xl sm:text-5xl font-bold text-amber-gradient">59 947</span>
           </div>
-          <p class="mt-1.5 text-xs text-amber-100/60">В нашей истории</p>
+          <p id="dataSourceText" class="mt-1.5 text-xs text-amber-100/60">В нашей истории</p>
         </div>
 
         <div class="glass-card rounded-3xl p-6 relative overflow-hidden">
@@ -343,18 +348,17 @@
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <!-- ЕДИНСТВЕННАЯ КАРТОЧКА С "НАЗЛО" -->
         <div class="reveal flip-card" tabindex="0">
           <div class="flip-card-inner">
             <div class="flip-card-front">
               <div class="w-14 h-14 rounded-2xl bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-3xl mb-3">💳</div>
-              <h3 class="font-serif text-2xl font-bold text-amber-100">Подарки «Назло»</h3>
+              <h3 class="font-serif text-2xl font-bold text-amber-100">Подарки от души</h3>
               <span class="mt-2 text-xs text-amber-300/60">Перевернуть ↻</span>
             </div>
             <div class="flip-card-back">
-              <span class="text-2xl mb-2">⚔️💝</span>
+              <span class="text-2xl mb-2">🎁💝</span>
               <p class="text-sm font-medium text-amber-50 leading-relaxed">
-                Наша бесконечная война: «Не трать на меня деньги!» — и в ответ оба покупаем друг другу ещё больше приятностей назло!
+                Забавная традиция: иногда оба можем купить друг другу приятности "назло", просто чтобы порадовать!
               </p>
             </div>
           </div>
@@ -636,7 +640,7 @@
       </div>
     </section>
 
-    <!-- 7. ИГРЫ (Очищено от вопросов про Назло) -->
+    <!-- 7. ИГРЫ -->
     <section id="games" class="reveal grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
       <div class="glass-card rounded-3xl p-6 sm:p-8 lg:col-span-7 flex flex-col justify-between">
         <div>
@@ -705,37 +709,37 @@
       // 1. ИДЕАЛЬНОЕ СВЕДЕНИЕ ХЭШЕЙ ФАЙЛОВ НА ОСНОВЕ МАТЕМАТИЧЕСКОГО ВЫЧИСЛЕНИЯ ИЗ СКРИНШОТА
       const POLAROID_ITEMS = [
         {
-          src: "f7e0c8c7-31bc-44a6-99fd-6f12702e808a.jpg",
+          src: "c988e639-2e04-4c3d-86d2-12057fb21bc1.jpg", 
           caption: "Искры в небе и наш поцелуй на набережной 🎆",
           rotate: "-2.5deg", badge: "Главный кадр"
         },
         {
-          src: "920668c6-cb69-43df-a250-2efbbdff9d74.jpg",
+          src: "ee8cf97c-cf68-45f2-bf34-d194ff3a0c6c.jpg",
           caption: "Слепок наших рук — теперь не расцепить 🤍",
           rotate: "2deg", badge: "Июль 2026"
         },
         {
-          src: "ee8cf97c-cf68-45f2-bf34-d194ff3a0c6c.jpg",
+          src: "0622a68e-afcc-4977-bc57-619328f08ee9.jpg",
           caption: "Домашний СПА-режим: Ваня в масочке и поцелуй 😘",
           rotate: "-1.8deg", badge: "Уют в кровати"
         },
         {
-          src: "0622a68e-afcc-4977-bc57-619328f08ee9.jpg",
-          caption: "Когда сопротивляться бьюти-процедурам бесполезно 🤪",
+          src: "d308ab99-1af6-4f35-95a5-6f202f3bd7b0.jpg",
+          caption: "Когда сопротивляться её бьюти-процедурам бесполезно 🤪",
           rotate: "2.4deg", badge: "10 октября"
         },
         {
-          src: "d308ab99-1af6-4f35-95a5-6f202f3bd7b0.jpg",
+          src: "920668c6-cb69-43df-a250-2efbbdff9d74.jpg",
           caption: "Любимые карие глаза и наш вайб 👓❤️",
           rotate: "-2deg", badge: "Два сапога пара"
         },
         {
-          src: "c988e639-2e04-4c3d-86d2-12057fb21bc1.jpg", 
+          src: "f7e0c8c7-31bc-44a6-99fd-6f12702e808a.jpg",
           caption: "Тёплые объятия в зеркале лифта 🫂",
           rotate: "1.6deg", badge: "Осень 2026"
         },
         {
-          src: "14d66d16%2066c1%204e85%20afd1%2079dc439810ad.jpg",
+          src: "14d66d16-66c1-4e85-afd1-79dc439810ad.jpg", // ПРОБЕЛЫ ЗАМЕНЕНЫ НА ДЕФИСЫ (ФИКС КОТЁНКА)
           caption: "Спойлер: наш будущий котёнок, когда съедемся 🐱",
           rotate: "-2.2deg", badge: "Мечта"
         },
